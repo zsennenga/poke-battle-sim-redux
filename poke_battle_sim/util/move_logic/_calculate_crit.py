@@ -2,7 +2,7 @@ from __future__ import annotations
 from random import randrange
 
 
-def _calculate_crit(crit_chance: int = None) -> bool:
+def _calculate_crit(crit_chance: int | None = None) -> bool:
     if not crit_chance:
         return randrange(16) < 1
     elif crit_chance == 1:

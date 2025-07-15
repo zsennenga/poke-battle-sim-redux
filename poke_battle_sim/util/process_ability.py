@@ -9,10 +9,16 @@ import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 
-import poke_battle_sim.util.process_move as pm
-
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
+from poke_battle_sim.util.move_logic._calculate_type_ef import _calculate_type_ef
+from poke_battle_sim.util.move_logic.burn import burn
+from poke_battle_sim.util.move_logic.cure_nv_status import cure_nv_status
+from poke_battle_sim.util.move_logic.give_nv_status import give_nv_status
+from poke_battle_sim.util.move_logic.give_stat_change import give_stat_change
+from poke_battle_sim.util.move_logic.infatuate import infatuate
+from poke_battle_sim.util.move_logic.paralyze import paralyze
+from poke_battle_sim.util.move_logic.poison import poison
 
 
 def selection_abilities(
@@ -35,16 +41,16 @@ def selection_abilities(
         battlefield.weather_count = 999
         battle.add_text("A sandstorm brewed")
     elif poke.has_ability(Ability.WATER_VEIL) and poke.nv_status == gs.BURNED:
-        pm.cure_nv_status(gs.BURNED, poke, battle)
+        cure_nv_status(gs.BURNED, poke, battle)
     elif poke.has_ability(Ability.MAGMA_ARMOR) and poke.nv_status == gs.FROZEN:
-        pm.cure_nv_status(gs.FROZEN, poke, battle)
+        cure_nv_status(gs.FROZEN, poke, battle)
     elif poke.has_ability(Ability.LIMBER) and poke.nv_status == gs.PARALYZED:
-        pm.cure_nv_status(gs.PARALYZED, poke, battle)
+        cure_nv_status(gs.PARALYZED, poke, battle)
     elif poke.has_ability(Ability.INSOMNIA) and poke.nv_status == gs.ASLEEP:
-        pm.cure_nv_status(gs.ASLEEP, poke, battle)
+        cure_nv_status(gs.ASLEEP, poke, battle)
     elif poke.has_ability(Ability.IMMUNITY):
         if poke.nv_status == gs.POISONED or poke.nv_status == gs.BADLY_POISONED:
-            pm.cure_nv_status(gs.POISONED, poke, battle)
+            cure_nv_status(gs.POISONED, poke, battle)
     elif (
         poke.has_ability(Ability.CLOUD_NINE) or poke.has_ability(Ability.AIR_LOCK)
     ) and battlefield.weather != gs.CLEAR:
@@ -60,12 +66,7 @@ def selection_abilities(
         and not poke.enemy.current_poke.has_ability(Ability.TRACE)
     ):
         battle.add_text(
-            poke.nickname
-            + " copied "
-            + poke.enemy.current_poke.nickname
-            + "'s "
-            + str(poke.enemy.current_poke.ability)
-            + "!"
+            f"{poke.nickname} copied {poke.enemy.current_poke.nickname}'s {str(poke.enemy.current_poke.ability)}!"
         )
         poke.give_ability(poke.enemy.current_poke.ability)
     elif poke.has_ability(Ability.FORECAST):
@@ -80,14 +81,14 @@ def selection_abilities(
             poke.enemy.current_poke.stats_effective[gs.DEF]
             < poke.enemy.current_poke.stats_effective[gs.SP_DEF]
         ):
-            pm.give_stat_change(poke, battle, gs.ATK, 1)
+            give_stat_change(poke, battle, gs.ATK, 1)
         else:
-            pm.give_stat_change(poke, battle, gs.SP_ATK, 1)
+            give_stat_change(poke, battle, gs.SP_ATK, 1)
         poke.ability_activated = True
     elif poke.has_ability(Ability.ANTICIPATION) and poke.enemy.current_poke.is_alive:
         if any(
             [
-                pm._calculate_type_ef(poke, move) > 1 or move.id in [20, 55, 62]
+                _calculate_type_ef(poke, move) > 1 or move.id in [20, 55, 62]
                 for move in poke.enemy.current_poke.moves
             ]
         ):
@@ -122,7 +123,7 @@ def enemy_selection_abilities(
     if not poke.is_alive:
         return
     if poke.has_ability(Ability.INTIMIDATE):
-        pm.give_stat_change(enemy_poke, battle, gs.ATK, -1, forced=True)
+        give_stat_change(enemy_poke, battle, gs.ATK, -1, forced=True)
     elif poke.has_ability(Ability.TRACE) and enemy_poke.ability:
         battle.add_text(
             f"{poke.nickname} copied {enemy_poke.nickname}'s {str(enemy_poke.ability)}!"
@@ -131,14 +132,14 @@ def enemy_selection_abilities(
     elif poke.has_ability(Ability.DOWNLOAD) and not poke.ability_activated:
         enemy_poke.calculate_stats_effective()
         if enemy_poke.stats_effective[gs.DEF] < enemy_poke.stats_effective[gs.SP_DEF]:
-            pm.give_stat_change(poke, battle, gs.ATK, 1)
+            give_stat_change(poke, battle, gs.ATK, 1)
         else:
-            pm.give_stat_change(poke, battle, gs.SP_ATK, 1)
+            give_stat_change(poke, battle, gs.SP_ATK, 1)
         poke.ability_activated = True
     elif poke.has_ability(Ability.ANTICIPATION) and poke.enemy.current_poke.is_alive:
         if any(
             [
-                pm._calculate_type_ef(poke, move) > 1 or move.id in [20, 55, 62]
+                _calculate_type_ef(poke, move) > 1 or move.id in [20, 55, 62]
                 for move in poke.enemy.current_poke.moves
             ]
         ):
@@ -163,7 +164,7 @@ def enemy_selection_abilities(
 
 def end_turn_abilities(poke: pk.Pokemon, battle: bt.Battle):
     if poke.has_ability(Ability.SPEED_BOOST):
-        pm.give_stat_change(poke, battle, gs.SPD, 1)
+        give_stat_change(poke, battle, gs.SPD, 1)
     elif poke.has_ability(Ability.SLOW_START):
         poke.ability_count += 1
     elif (
@@ -204,7 +205,7 @@ def on_hit_abilities(
 ) -> bool:
     made_contact = move_data.name in gd.CONTACT_CHECK
     if defender.has_ability(Ability.STATIC) and made_contact and randrange(10) < 3:
-        pm.paralyze(attacker, battle)
+        paralyze(attacker, battle)
     elif defender.has_ability(Ability.ROUGH_SKIN) and made_contact:
         attacker.take_damage(max(1, attacker.max_hp // 16))
         battle.add_text(f"{attacker.nickname} was hurt!")
@@ -213,7 +214,7 @@ def on_hit_abilities(
         and made_contact
         and randrange(10) < 3
     ):
-        pm.give_nv_status(randrange(3, 6), attacker, battle)
+        give_nv_status(randrange(3, 6), attacker, battle)
     elif (
         defender.has_ability(Ability.COLOR_CHANGE)
         and move_data.type not in defender.types
@@ -228,14 +229,14 @@ def on_hit_abilities(
         )
     elif (
         defender.has_ability(Ability.WONDER_GUARD)
-        and pm._calculate_type_ef(defender, move_data) < 2
+        and _calculate_type_ef(defender, move_data) < 2
     ):
         battle.add_text(f"It doesn't affect {defender.nickname}")
         return True
     elif (
         defender.has_ability(Ability.FLAME_BODY) and made_contact and randrange(10) < 3
     ):
-        pm.burn(attacker, battle)
+         burn(attacker, battle)
     elif (
         defender.has_ability(Ability.POISON_POINT)
         and made_contact
@@ -243,13 +244,13 @@ def on_hit_abilities(
         and not "poison" in attacker.types
         and randrange(10) < 3
     ):
-        pm.poison(attacker, battle)
+        poison(attacker, battle)
     elif (
         defender.has_ability(Ability.CUTE_CHARM) and made_contact and randrange(10) < 3
     ):
-        pm.infatuate(defender, attacker, battle)
+        infatuate(defender, attacker, battle)
     elif defender.has_ability(Ability.MOTOR_DRIVE) and move_data.type == "electric":
-        pm.give_stat_change(defender, battle, gs.SPD, 1)
+        give_stat_change(defender, battle, gs.SPD, 1)
         return True
     return False
 
