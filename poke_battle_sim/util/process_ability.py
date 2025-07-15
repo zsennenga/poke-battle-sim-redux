@@ -3,6 +3,7 @@ from random import randrange
 
 from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
+from poke_battle_sim.const.ability_enum import Ability
 
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
@@ -17,60 +18,60 @@ import poke_battle_sim.conf.global_data as gd
 def selection_abilities(
     poke: pk.Pokemon, battlefield: bf.Battlefield, battle: bt.Battle
 ):
-    if poke.has_ability("drizzle") and battlefield.weather != gs.RAIN:
+    if poke.has_ability(Ability.DRIZZLE) and battlefield.weather != gs.RAIN:
         battlefield.change_weather(gs.RAIN)
         battlefield.weather_count = 999
         battle.add_text("It started to rain!")
-    elif poke.has_ability("drought") and battlefield.weather != gs.HARSH_SUNLIGHT:
+    elif poke.has_ability(Ability.DROUGHT) and battlefield.weather != gs.HARSH_SUNLIGHT:
         battlefield.change_weather(gs.HARSH_SUNLIGHT)
         battlefield.weather_count = 999
         battle.add_text("The sunlight turned harsh!")
-    elif poke.has_ability("snow-warning") and battlefield.weather != gs.HAIL:
+    elif poke.has_ability(Ability.SNOW_WARNING) and battlefield.weather != gs.HAIL:
         battlefield.change_weather(gs.HAIL)
         battlefield.weather_count = 999
         battle.add_text("It started to hail!")
-    elif poke.has_ability("sand-stream") and battlefield.weather != gs.SANDSTORM:
+    elif poke.has_ability(Ability.SAND_STREAM) and battlefield.weather != gs.SANDSTORM:
         battlefield.change_weather(gs.SANDSTORM)
         battlefield.weather_count = 999
         battle.add_text("A sandstorm brewed")
-    elif poke.has_ability("water-veil") and poke.nv_status == gs.BURNED:
+    elif poke.has_ability(Ability.WATER_VEIL) and poke.nv_status == gs.BURNED:
         pm.cure_nv_status(gs.BURNED, poke, battle)
-    elif poke.has_ability("magma-armor") and poke.nv_status == gs.FROZEN:
+    elif poke.has_ability(Ability.MAGMA_ARMOR) and poke.nv_status == gs.FROZEN:
         pm.cure_nv_status(gs.FROZEN, poke, battle)
-    elif poke.has_ability("limber") and poke.nv_status == gs.PARALYZED:
+    elif poke.has_ability(Ability.LIMBER) and poke.nv_status == gs.PARALYZED:
         pm.cure_nv_status(gs.PARALYZED, poke, battle)
-    elif poke.has_ability("insomnia") and poke.nv_status == gs.ASLEEP:
+    elif poke.has_ability(Ability.INSOMNIA) and poke.nv_status == gs.ASLEEP:
         pm.cure_nv_status(gs.ASLEEP, poke, battle)
-    elif poke.has_ability("immunity"):
+    elif poke.has_ability(Ability.IMMUNITY):
         if poke.nv_status == gs.POISONED or poke.nv_status == gs.BADLY_POISONED:
             pm.cure_nv_status(gs.POISONED, poke, battle)
     elif (
-        poke.has_ability("cloud-nine") or poke.has_ability("air-lock")
+        poke.has_ability(Ability.CLOUD_NINE) or poke.has_ability(Ability.AIR_LOCK)
     ) and battlefield.weather != gs.CLEAR:
         battle.add_text("The effects of weather disappeared.")
         battlefield.change_weather(gs.CLEAR)
-    elif poke.has_ability("own-tempo") and poke.v_status[gs.CONFUSED]:
+    elif poke.has_ability(Ability.OWN_TEMPO) and poke.v_status[gs.CONFUSED]:
         battle.add_text(poke.nickname + " snapped out of its confusion!")
         poke.v_status[gs.CONFUSED] = 0
     elif (
-        poke.has_ability("trace")
+        poke.has_ability(Ability.TRACE)
         and poke.enemy.current_poke.is_alive
         and poke.enemy.current_poke.ability
-        and not poke.enemy.current_poke.has_ability("trace")
+        and not poke.enemy.current_poke.has_ability(Ability.TRACE)
     ):
         battle.add_text(
             poke.nickname
             + " copied "
             + poke.enemy.current_poke.nickname
             + "'s "
-            + poke.enemy.current_poke.ability
+            + str(poke.enemy.current_poke.ability)
             + "!"
         )
         poke.give_ability(poke.enemy.current_poke.ability)
-    elif poke.has_ability("forecast"):
+    elif poke.has_ability(Ability.FORECAST):
         _forecast_check(poke, battle, battlefield)
     elif (
-        poke.has_ability("download")
+        poke.has_ability(Ability.DOWNLOAD)
         and not poke.ability_activated
         and poke.enemy.current_poke.is_alive
     ):
@@ -83,7 +84,7 @@ def selection_abilities(
         else:
             pm.give_stat_change(poke, battle, gs.SP_ATK, 1)
         poke.ability_activated = True
-    elif poke.has_ability("anticipation") and poke.enemy.current_poke.is_alive:
+    elif poke.has_ability(Ability.ANTICIPATION) and poke.enemy.current_poke.is_alive:
         if any(
             [
                 pm._calculate_type_ef(poke, move) > 1 or move.id in [20, 55, 62]
@@ -91,11 +92,11 @@ def selection_abilities(
             ]
         ):
             battle.add_text(poke.nickname + " shuddered!")
-    elif poke.has_ability("forewarn") and poke.enemy.current_poke.is_alive:
+    elif poke.has_ability(Ability.FOREWARN) and poke.enemy.current_poke.is_alive:
         alert = _rand_max_power(poke.enemy.current_poke)
         battle.add_text(poke.nickname + "'s Forewarn alerted it to " + alert.name)
     elif (
-        poke.has_ability("frisk")
+        poke.has_ability(Ability.FRISK)
         and poke.enemy.current_poke.ability
         and poke.enemy.current_poke.item
     ):
@@ -107,7 +108,7 @@ def selection_abilities(
             + poke.enemy.current_poke.item
             + "!"
         )
-    elif poke.has_ability("multitype") and poke.item in gd.PLATE_DATA:
+    elif poke.has_ability(Ability.MULTITYPE) and poke.item in gd.PLATE_DATA:
         poke.types = (gd.PLATE_DATA[poke.item], None)
         battle.add_text(
             poke.nickname + " transformed into the " + poke.types[0].upper() + " type!"
@@ -120,26 +121,26 @@ def enemy_selection_abilities(
     poke = enemy_poke.enemy.current_poke
     if not poke.is_alive:
         return
-    if poke.has_ability("intimidate"):
+    if poke.has_ability(Ability.INTIMIDATE):
         pm.give_stat_change(enemy_poke, battle, gs.ATK, -1, forced=True)
-    elif poke.has_ability("trace") and enemy_poke.ability:
+    elif poke.has_ability(Ability.TRACE) and enemy_poke.ability:
         battle.add_text(
             poke.nickname
             + " copied "
             + enemy_poke.nickname
             + "'s "
-            + enemy_poke.ability
+            + str(enemy_poke.ability)
             + "!"
         )
         poke.give_ability(enemy_poke.ability)
-    elif poke.has_ability("download") and not poke.ability_activated:
+    elif poke.has_ability(Ability.DOWNLOAD) and not poke.ability_activated:
         enemy_poke.calculate_stats_effective()
         if enemy_poke.stats_effective[gs.DEF] < enemy_poke.stats_effective[gs.SP_DEF]:
             pm.give_stat_change(poke, battle, gs.ATK, 1)
         else:
             pm.give_stat_change(poke, battle, gs.SP_ATK, 1)
         poke.ability_activated = True
-    elif poke.has_ability("anticipation") and poke.enemy.current_poke.is_alive:
+    elif poke.has_ability(Ability.ANTICIPATION) and poke.enemy.current_poke.is_alive:
         if any(
             [
                 pm._calculate_type_ef(poke, move) > 1 or move.id in [20, 55, 62]
@@ -147,11 +148,11 @@ def enemy_selection_abilities(
             ]
         ):
             battle.add_text(poke.nickname + " shuddered!")
-    elif poke.has_ability("forewarn"):
+    elif poke.has_ability(Ability.FOREWARN):
         alert = _rand_max_power(enemy_poke)
         battle.add_text(poke.nickname + "'s Forewarn alerted it to " + alert.name)
     elif (
-        poke.has_ability("frisk")
+        poke.has_ability(Ability.FRISK)
         and poke.enemy.current_poke.ability
         and poke.enemy.current_poke.item
     ):

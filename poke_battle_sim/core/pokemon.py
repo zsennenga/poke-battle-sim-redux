@@ -1,191 +1,49 @@
 from __future__ import annotations
-from random import randrange
+
 from queue import Queue
+from random import randrange
+from typing import List, Optional, Tuple
 
-from poke_battle_sim.poke_sim import PokeSim
-from poke_battle_sim.core.move import Move
+from pydantic import BaseModel
 
+import poke_battle_sim.conf.global_data as gd
+import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.core.battle as bt
-import poke_battle_sim.core.battlefield as bf
-
-import poke_battle_sim.util.process_move as pm
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
+import poke_battle_sim.util.process_move as pm
+from poke_battle_sim.core.move import Move
+from poke_battle_sim.const.ability_enum import Ability
+from poke_battle_sim.const.type_enum import PokemonType
 
-import poke_battle_sim.conf.global_settings as gs
-import poke_battle_sim.conf.global_data as gd
 
+class Pokemon(BaseModel):
+    id: int
+    name: str
+    types: Tuple[PokemonType, PokemonType]
+    base: List[int]
+    height: int
+    weight: int
+    base_exp: int
+    level: int
+    gender: str
+    stats_actual: Optional[List[int]] = None
+    ivs: Optional[List[int]] = None
+    evs: Optional[List[int]] = None
+    nature: Optional[str] = None
+    nature_effect: Optional[Tuple[int, int]] = None
+    max_hp: int
+    cur_hp: int
+    moves: List[Move]
+    o_moves: Optional[List[Move]] = None
+    ability: Optional[Ability] = None
+    item: Optional[str] = None
+    status: Optional[str] = None
+    nickname: Optional[str] = None
+    friendship: int = 0
 
-class Pokemon:
-    def __init__(
-        self,
-        name_or_id: str | int,
-        level: int,
-        moves: [str],
-        gender: str,
-        ability=None,
-        nature: str = None,
-        cur_hp: int = None,
-        stats_actual: [int] = None,
-        ivs: [int] = None,
-        evs: [int] = None,
-        item: str = None,
-        status: str = None,
-        nickname: str = None,
-        friendship: int = 0,
-    ):
-        """
-        Creating a Pokemon object involves five required and seven optional fields.
-
-        Required:
-
-        - name_or_id: this can either be a Pokemon's real name such as 'Pikachu' or its Pokedex id (25)
-        - stats: either the Pokemon's actual stats (stats_actual) or its ivs, evs, and nature
-        - level: this is the Pokemon's level as an interger between 1 and 100 inclusive by default
-        - moves: this is a list of names of the Pokemon's moves, max of 4 by defeault
-        - gender: this is the Pokemon's gender, either 'male', 'female', or 'typeless' by default
-
-        Optional:
-        - ability: Pokemon's ability; if not used, assumed that Pokemon has ability not relevant to battle
-        - nature: Pokemon's nature, not required if stats_actual provided; if not used, any effect that
-        takes nature into account will process the worst-case scenario for the Pokemon
-        - item: Pokemon's held item
-        - cur_hp: Pokemon's current hp, used if Pokemon's current hp is less than its max hp
-        - status: Pokemon's non-volatile status such as poisoned or paralyzed
-        - friendship: Pokemon's friendship value as an int between 0 and 255 by default
-        - nickname: Pokemon's unique nickname
-        """
-
-        self.stats_base = PokeSim.get_pokemon(name_or_id)
-        if not self.stats_base:
-            raise Exception("Attempted to create Pokemon with invalid name or id")
-
-        self.id = int(self.stats_base[gs.NDEX])
-        self.name = self.stats_base[gs.NAME]
-        self.types = (self.stats_base[gs.TYPE1], self.stats_base[gs.TYPE2])
-        self.base = [
-            int(self.stats_base[i])
-            for i in range(gs.STAT_START, gs.STAT_START + gs.STAT_NUM)
-        ]
-        self.height = int(self.stats_base[gs.HEIGHT])
-        self.weight = int(self.stats_base[gs.WEIGHT])
-        self.base_exp = int(self.stats_base[gs.BASE_EXP])
-        self.gen = int(self.stats_base[gs.GEN])
-
-        if not isinstance(level, int) or level < gs.LEVEL_MIN or level > gs.LEVEL_MAX:
-            raise Exception("Attempted to create Pokemon with invalid level")
-        self.level = level
-
-        if (
-            not gender
-            or not isinstance(gender, str)
-            or gender.lower() not in gs.POSSIBLE_GENDERS
-        ):
-            raise Exception("Attempted to create Pokemon with invalid gender")
-        self.gender = gender
-
-        if not stats_actual and not ivs and not evs:
-            raise Exception("Attempted to create Pokemon without providing stats information")
-
-        if stats_actual and (ivs or evs):
-            raise Exception("Attempted to create Pokemon with conflicting stats information")
-
-        if stats_actual:
-            if not isinstance(stats_actual, list) or len(stats_actual) != gs.STAT_NUM:
-                raise Exception("Attempted to create Pokemon with invalid stats")
-            if not all(
-                [
-                    isinstance(s, int) and gs.STAT_ACTUAL_MIN < s < gs.STAT_ACTUAL_MAX
-                    for s in stats_actual
-                ]
-            ):
-                raise Exception("Attempted to create Pokemon with invalid stats")
-            self.stats_actual = stats_actual
-            self.ivs = None
-            self.evs = None
-            self.nature = None
-            self.nature_effect = None
-        else:
-            if (
-                not isinstance(ivs, list)
-                or not isinstance(evs, list)
-                or len(ivs) != gs.STAT_NUM
-                or len(evs) != gs.STAT_NUM
-            ):
-                raise Exception("Attempted to create Pokemon with invalid evs or ivs")
-            if not all(
-                [isinstance(iv, int) and gs.IV_MIN <= iv <= gs.IV_MAX for iv in ivs]
-            ):
-                raise Exception("Attempted to create Pokemon with invalid ivs")
-            self.ivs = ivs
-            if (
-                not all(
-                    [isinstance(ev, int) and gs.EV_MIN <= ev <= gs.EV_MAX for ev in evs]
-                )
-                or sum(evs) > gs.EV_TOTAL_MAX
-            ):
-                raise Exception("Attempted to create Pokemon with invalid evs")
-            self.evs = evs
-            self.nature_effect = PokeSim.nature_conversion(nature.lower())
-            if not self.nature_effect:
-                raise Exception("Attempted to create Pokemon without providing its nature")
-            self.nature = nature.lower()
-            self.calculate_stats_actual()
-
-        self.max_hp = self.stats_actual[gs.HP]
-        if cur_hp and (not isinstance(cur_hp, int) or cur_hp < 0 or cur_hp > self.max_hp):
-            raise Exception("Attempted to create Pokemon with invalid hp value")
-        if not cur_hp:
-            cur_hp = self.stats_actual[gs.HP]
-        self.cur_hp = cur_hp
-
-        moves_data = PokeSim.get_move_data(moves)
-        if not moves_data:
-            raise Exception("Attempted to create Pokemon with invalid moveset")
-        self.moves = [Move(move_d) for move_d in moves_data]
-        for i in range(len(self.moves)):
-            self.moves[i].pos = i
-        self.o_moves = self.moves
-
-        if ability and (
-            not isinstance(ability, str) or not PokeSim.check_ability(ability.lower())
-        ):
-            raise Exception("Attempted to create Pokemon with invalid ability")
-        self.o_ability = ability.lower() if ability else None
-        self.ability = self.o_ability
-
-        if item and (not isinstance(item, str) or not PokeSim.check_item(item.lower())):
-            raise Exception("Attempted to create Pokemon with invalid held item")
-        self.o_item = item.lower() if item else None
-
-        if nickname and not isinstance(nickname, str):
-            raise Exception("Attempted to create Pokemon with invalid nickname")
-        self.nickname = nickname if nickname else self.name
-        self.nickname = self.nickname.upper()
-
-        self.original = None
-        self.trainer = None
-        if status:
-            if status not in gs.NV_STATUSES:
-                raise Exception("Attempted to create Pokemon afflicted with invalid status")
-            self.nv_status = gs.NV_STATUSES[status]
-        else:
-            self.nv_status = 0
-        if self.nv_status == gs.NV_STATUSES["asleep"]:
-            self.nv_counter = randrange(2, 6)
-        if self.nv_status == gs.NV_STATUSES["badly poisoned"]:
-            self.nv_counter = 1
-        else:
-            self.nv_counter = 0
-
-        if not isinstance(friendship, int) or friendship < 0 or friendship > 255:
-            raise Exception("Attempted to create Pokemon with invalid friendship value")
-        self.friendship = friendship
-
-        self.is_alive = self.cur_hp != 0
-        self.in_battle = False
-        self.transformed = False
-        self.invulnerable = False
+    class Config:
+        arbitrary_types_allowed = True
 
     def calculate_stats_actual(self):
         stats_actual = []
@@ -199,9 +57,9 @@ class Pokemon:
         for s in range(1, gs.STAT_NUM):
             stats_actual.append(
                 (
-                    ((2 * self.base[s] + self.ivs[s] + self.evs[s] // 4) * self.level)
-                    // 100
-                    + 5
+                        ((2 * self.base[s] + self.ivs[s] + self.evs[s] // 4) * self.level)
+                        // 100
+                        + 5
                 )
                 * nature_stat_changes[s]
             )
@@ -222,7 +80,7 @@ class Pokemon:
             self.stats_effective = [s for s in self.stats_actual]
         pa.stat_calc_abilities(self)
         pi.stat_calc_items(self)
-        if self.nv_status == gs.PARALYZED and not self.has_ability("quick-feet"):
+        if self.nv_status == gs.PARALYZED and not self.has_ability(Ability.QUICK_FEET):
             self.stats_effective[gs.SPD] //= 4
 
     def reset_stats(self):
@@ -335,15 +193,15 @@ class Pokemon:
         if enemy_move:
             self.last_move_hit_by = enemy_move
             if (
-                pa.on_hit_abilities(
-                    self.enemy.current_poke, self, self.cur_battle, enemy_move
-                )
-                or not self.cur_battle
+                    pa.on_hit_abilities(
+                        self.enemy.current_poke, self, self.cur_battle, enemy_move
+                    )
+                    or not self.cur_battle
             ):
                 return 0
             pi.on_hit_items(self.enemy.current_poke, self, self.cur_battle, enemy_move)
             if not self.cur_battle:
-                return
+                return 0
         if self.bide_count:
             self.bide_dmg += damage
         if self.cur_hp - damage <= 0:
@@ -353,10 +211,10 @@ class Pokemon:
                 return self.last_damage_taken - 1
             self._db_check()
             if (
-                self.last_move
-                and self.last_move.name == "grudge"
-                and enemy_move
-                and self.enemy.current_poke.is_alive
+                    self.last_move
+                    and self.last_move.name == "grudge"
+                    and enemy_move
+                    and self.enemy.current_poke.is_alive
             ):
                 self.cur_battle.add_text(
                     self.enemy.current_poke.name
@@ -366,7 +224,7 @@ class Pokemon:
                 )
                 enemy_move.cur_pp = 0
             if not self.cur_battle:
-                return
+                return 0
             self.cur_hp = 0
             self.is_alive = False
             self.reset_stats()
@@ -384,11 +242,12 @@ class Pokemon:
 
     def faint(self):
         if not self.is_alive:
-            return
+            return 0
         self.cur_hp = 0
         self.is_alive = False
         self.reset_stats()
         self.cur_battle._faint_check()
+        return 0
 
     def heal(self, heal_amount: int, text_skip: bool = False) -> int:
         if not self.cur_battle or heal_amount <= 0:
@@ -404,12 +263,13 @@ class Pokemon:
             self.cur_battle.add_text(self.nickname + " regained health!")
         return r_amt
 
-    def get_move_data(self, move_name: str) -> Move:
+    def get_move_data(self, move_name: str) -> Optional[Move]:
         if self.copied and move_name == self.copied.name:
             return self.copied
         for move in self.moves:
             if move.name == move_name:
                 return move
+        return None
 
     def is_move(self, move_name: str) -> bool:
         if self.copied and self.copied.cur_pp:
@@ -440,13 +300,13 @@ class Pokemon:
         if self.hb_count and av_moves:
             av_moves = [move for move in av_moves if move not in gd.HEAL_BLOCK_CHECK]
         if (
-            self.trainer.imprisoned_poke
-            and self.trainer.imprisoned_poke is self.enemy.current_poke
-            and av_moves
+                self.trainer.imprisoned_poke
+                and self.trainer.imprisoned_poke is self.enemy.current_poke
+                and av_moves
         ):
             i_moves = [move.name for move in self.trainer.imprisoned_poke.moves]
             av_moves = [move for move in av_moves if move.name not in i_moves]
-        if self.has_ability("truant") and self.last_move and av_moves:
+        if self.has_ability(Ability.TRUANT) and self.last_move and av_moves:
             av_moves = [move for move in av_moves if move.name != self.last_move.name]
         if self.locked_move:
             av_moves = [move for move in av_moves if move.name == self.locked_move]
@@ -511,7 +371,7 @@ class Pokemon:
         self.original = None
         self.transformed = False
 
-    def give_ability(self, ability: str):
+    def give_ability(self, ability: Ability):
         self.ability = ability
         self.ability_activated = False
         self.ability_suppressed = False
@@ -530,8 +390,8 @@ class Pokemon:
         if self.transformed:
             self.reset_transform()
         self.reset_stats()
-        if self.has_ability("natural-cure") and self.nv_status:
-            pm._cure_nv_status(self.nv_status, self, self.cur_battle)
+        if self.has_ability(Ability.NATURAL_CURE) and self.nv_status:
+            pm.cure_nv_status(self.nv_status, self, self.cur_battle)
 
     def update_last_moves(self):
         if self.last_move_next:
@@ -556,28 +416,28 @@ class Pokemon:
         if self.item == "shed-shell":
             return True
         if (
-            self.trapped
-            or self.perma_trapped
-            or self.recharging
-            or not self.next_moves.empty()
+                self.trapped
+                or self.perma_trapped
+                or self.recharging
+                or not self.next_moves.empty()
         ):
             return False
         enemy_poke = self.enemy.current_poke
-        if enemy_poke.is_alive and enemy_poke.has_ability("shadow-tag"):
+        if enemy_poke.is_alive and enemy_poke.has_ability(Ability.SHADOW_TAG):
             return False
         if (
-            "steel" in self.types
-            and enemy_poke.is_alive
-            and enemy_poke.has_ability("magnet_pull")
+                "steel" in self.types
+                and enemy_poke.is_alive
+                and enemy_poke.has_ability(Ability.MAGNET_PULL)
         ):
             return False
         if (
-            (
-                self.grounded
-                or (not "flying" in self.types and not self.has_ability("levitate"))
-            )
-            and enemy_poke.is_alive
-            and enemy_poke.has_ability("arena-trap")
+                (
+                        self.grounded
+                        or (not "flying" in self.types and not self.has_ability(Ability.LEVITATE))
+                )
+                and enemy_poke.is_alive
+                and enemy_poke.has_ability(Ability.ARENA_TRAP)
         ):
             return False
         return True
@@ -585,8 +445,8 @@ class Pokemon:
     def can_use_item(self) -> bool:
         return not self.embargo_count
 
-    def has_ability(self, ability_name: str) -> bool:
-        return not self.ability_suppressed and self.ability == ability_name
+    def has_ability(self, ability: Ability) -> bool:
+        return not self.ability_suppressed and self.ability == ability
 
     def reset_stages(self):
         self.accuracy_stage = 0
@@ -609,9 +469,9 @@ class Pokemon:
 
     def _fsash_check(self) -> bool:
         if (
-            self.item == "focus-sash"
-            and self.cur_hp == self.max_hp
-            and not self.item_activated
+                self.item == "focus-sash"
+                and self.cur_hp == self.max_hp
+                and not self.item_activated
         ):
             self.cur_battle.add_text(self.nickname + " hung on using its Focus Sash!")
             self.item_activated = True
@@ -630,10 +490,10 @@ class Pokemon:
 
     def _aftermath_check(self, enemy_move: Move):
         if (
-            self.has_ability("aftermath")
-            and enemy_move in gd.CONTACT_CHECK
-            and self.enemy.current_poke.is_alive
-            and not self.enemy.current_poke.has_ability("damp")
+                self.has_ability("aftermath")
+                and enemy_move in gd.CONTACT_CHECK
+                and self.enemy.current_poke.is_alive
+                and not self.enemy.current_poke.has_ability("damp")
         ):
             self.enemy.current_poke.take_damage(
                 max(1, self.enemy.current_poke.max_hp // 4)
@@ -657,11 +517,11 @@ class Pokemon:
             return
         hp_type = 0
         for i in range(6):
-            hp_type += 2**i * (self.ivs[i] & 1)
+            hp_type += 2 ** i * (self.ivs[i] & 1)
         hp_type = (hp_type * 15) // 63
         hp_power = 0
         for i in range(6):
-            hp_power += 2**i * ((self.ivs[i] >> 1) & 1)
+            hp_power += 2 ** i * ((self.ivs[i] >> 1) & 1)
         hp_power = (hp_type * 40) // 63 + 30
         return (gd.HP_TYPES[hp_type], hp_power)
 

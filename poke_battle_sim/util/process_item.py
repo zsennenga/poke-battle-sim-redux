@@ -1,8 +1,8 @@
 from __future__ import annotations
 from random import randrange
 
-from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
+from poke_battle_sim.const.ability_enum import Ability
 
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.trainer as tr
@@ -38,8 +38,9 @@ def use_item(
         raise Exception("Trainer attempted to use invalid item on Pokemon")
 
     poke = trainer.current_poke
-    if move_target_pos:
-        move = poke.moves[move_target_pos]
+    move = None
+    if move_target_pos is not None:
+        move = poke.moves[int(move_target_pos)]
 
     if not text_skip:
         battle.add_text(
@@ -142,20 +143,20 @@ def can_use_item(
         return False
     if (
         not isinstance(item_target_pos, str)
-        or any([not num.is_digit() for num in item_target_pos])
-        or item_target_pos >= len(trainer.poke_list)
+        or any([not num.isdigit() for num in item_target_pos])
+        or int(item_target_pos) >= len(trainer.poke_list)
     ):
         return False
     poke = trainer.poke_list[int(item_target_pos)]
     if poke.embargo_count:
         return False
     if move_target_pos and (
-        any([not num.is_digit() for num in move_target_pos])
-        or move_target_pos >= len(poke.moves)
+        any([not num.isdigit() for num in move_target_pos])
+        or int(move_target_pos) >= len(poke.moves)
     ):
         return False
     if move_target_pos:
-        move = poke.moves[move_target_pos]
+        move = poke.moves[int(move_target_pos)]
 
     if item in gd.HEALING_ITEM_CHECK:
         return poke.cur_hp < poke.max_hp
@@ -190,7 +191,7 @@ def can_use_item(
     elif item == "guard-spec.":
         return not trainer.mist
     elif item == "ether" or item == "max-ether" or item == "leppa-berry":
-        return move and move.cur_pp < move.max_pp
+        return move is not None and move.cur_pp < move.max_pp
     elif item == "elixir" or item == "max-elixir":
         return any([move.cur_pp < move.max_pp for move in poke.moves])
     return True
@@ -201,7 +202,7 @@ def damage_calc_items(
 ):
     if (
         not attacker.item in gd.DMG_ITEM_CHECK
-        or attacker.has_ability("klutz")
+        or attacker.has_ability(Ability.KLUTZ)
         or attacker.embargo_count
     ):
         return
@@ -314,7 +315,7 @@ def damage_mult_items(
 
     if (
         attacker.item not in gd.DMG_MULT_ITEM_CHECK
-        or attacker.has_ability("klutz")
+        or attacker.has_ability(Ability.KLUTZ)
         or attacker.embargo_count
     ):
         return i_mult
@@ -342,7 +343,7 @@ def pre_hit_berries(
     if (
         not defender.is_alive
         or not defender.item in gd.PRE_HIT_BERRIES
-        or defender.has_ability("klutz")
+        or defender.has_ability(Ability.KLUTZ)
         or defender.embargo_count
     ):
         return p_mult
@@ -358,12 +359,12 @@ def on_damage_items(poke: pk.Pokemon, battle: bt.Battle, move_data: Move):
     if (
         not poke.is_alive
         or not poke.item in gd.ON_DAMAGE_ITEM_CHECK
-        or poke.has_ability("klutz")
+        or poke.has_ability(Ability.KLUTZ)
         or poke.embargo_count
     ):
         return
     thr = gs.DAMAGE_THRESHOLD
-    if poke.has_ability("gluttony"):
+    if poke.has_ability(Ability.GLUTTONY):
         thr *= 2
     if poke.cur_hp >= thr:
         return
@@ -400,7 +401,7 @@ def on_damage_items(poke: pk.Pokemon, battle: bt.Battle, move_data: Move):
 def pre_move_items(poke: pk.Pokemon):
     if (
         not poke.item in gd.PRE_MOVE_ITEM_CHECK
-        or poke.has_ability("klutz")
+        or poke.has_ability(Ability.KLUTZ)
         or poke.embargo_count
     ):
         return
@@ -416,7 +417,7 @@ def stat_calc_items(poke: pk.Pokemon):
     if (
         not poke.is_alive
         or not poke.item in gd.STAT_CALC_ITEM_CHECK
-        or poke.has_ability("klutz")
+        or poke.has_ability(Ability.KLUTZ)
         or poke.embargo_count
     ):
         return
@@ -463,7 +464,7 @@ def status_items(poke: pk.Pokemon, battle: bt.Battle):
     if (
         not poke.is_alive
         or not poke.item in gd.STATUS_ITEM_CHECK
-        or poke.has_ability("klutz")
+        or poke.has_ability(Ability.KLUTZ)
         or poke.embargo_count
     ):
         return
@@ -518,7 +519,7 @@ def on_hit_items(
     if (
         not move_data
         or not defender.item in gd.ON_HIT_ITEM_CHECK
-        or defender.has_ability("klutz")
+        or defender.has_ability(Ability.KLUTZ)
         or defender.embargo_count
     ):
         return
@@ -558,11 +559,11 @@ def homc_items(
 
     if (
         not defender.item in gd.HOMC_ITEM_CHECK
-        or defender.has_ability("klutz")
+        or defender.has_ability(Ability.KLUTZ)
         or defender.embargo_count
     ) and (
         not attacker.item in gd.HOMC_ITEM_CHECK
-        or attacker.has_ability("klutz")
+        or attacker.has_ability(Ability.KLUTZ)
         or attacker.embargo_count
     ):
         return i_mult
@@ -582,7 +583,7 @@ def end_turn_items(poke: pk.Pokemon, battle: bt.Battle):
     if (
         not poke.is_alive
         or not poke.item in gd.END_TURN_ITEM_CHECK
-        or poke.has_ability("klutz")
+        or poke.has_ability(Ability.KLUTZ)
         or poke.embargo_count
     ):
         return
@@ -644,7 +645,7 @@ def end_turn_items(poke: pk.Pokemon, battle: bt.Battle):
                 poke.nickname + " restored a little HP using its Black Sludge!"
             )
             poke.heal(max(1, poke.max_hp // 16), text_skip=True)
-        elif not poke.has_ability("magic-guard"):
+        elif not poke.has_ability(Ability.MAGIC_GUARD):
             battle.add_text(poke.nickname + " was hurt by its Black Sludge!")
             poke.take_damage(max(1, poke.max_hp // 8))
     elif item == "toxic-orb":
@@ -661,7 +662,7 @@ def end_turn_items(poke: pk.Pokemon, battle: bt.Battle):
 def post_damage_items(attacker: pk.Pokemon, battle: bt.Battle, dmg: int):
     if (
         attacker.item not in gd.POST_DAMAGE_ITEM_CHECK
-        or attacker.has_ability("klutz")
+        or attacker.has_ability(Ability.KLUTZ)
         or attacker.embargo_count
     ):
         return
@@ -684,4 +685,4 @@ def _consume_item(poke: pk.Pokemon, battle: bt.Battle):
 
 def _eat_item(poke: pk.Pokemon, battle: bt.Battle):
     battle.add_text(poke.nickname + " ate its " + pm.cap_name(poke.item) + "!")
-    poke.give_item(None)
+    poke.give_item("")

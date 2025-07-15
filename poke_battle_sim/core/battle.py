@@ -138,11 +138,11 @@ class Battle:
         if not t1_move_data and t1_move[gs.ACTION_TYPE] == gd.MOVE:
             t1_move_data = self.t1.current_poke.get_move_data(t1_move[gs.ACTION_VALUE])
             if not t1_move_data:
-                t1_move_data = Move(PokeSim.get_single_move(t1_move[gs.ACTION_VALUE]))
+                t1_move_data = Move.from_move_data(PokeSim.get_single_move(t1_move[gs.ACTION_VALUE]))
         if not t2_move_data and t2_move[gs.ACTION_TYPE] == gd.MOVE:
             t2_move_data = self.t2.current_poke.get_move_data(t2_move[gs.ACTION_VALUE])
             if not t2_move_data:
-                t2_move_data = Move(PokeSim.get_single_move(t2_move[gs.ACTION_VALUE]))
+                t2_move_data = Move.from_move_data(PokeSim.get_single_move(t2_move[gs.ACTION_VALUE]))
 
         t1_prio = gs.ACTION_PRIORITY[t1_move[gs.ACTION_TYPE]]
         t2_prio = gs.ACTION_PRIORITY[t2_move[gs.ACTION_TYPE]]
@@ -253,11 +253,11 @@ class Battle:
             if len(a_move) >= 4:
                 pi.use_item(
                     a_move[gs.ACTION_VALUE],
-                    a_move[gs.ITEM_POKE_TARGET],
-                    a_move[gs.ITEM_MOVE_TARGET],
+                    a_move[2],  # ITEM_POKE_TARGET index
+                    a_move[3],  # ITEM_MOVE_TARGET index
                 )
             elif len(a_move) == 3:
-                pi.use_item(a_move[gs.ACTION_VALUE], a_move[gs.ITEM_POKE_TARGET])
+                pi.use_item(a_move[gs.ACTION_VALUE], a_move[2])
             else:
                 raise Exception("Trainer attempted to use item with invalid data format")
         elif self._process_pp(attacker.current_poke, a_move_data):

@@ -297,7 +297,10 @@ def _process_effect(
     inv_bypass = False
     cc_ib = [crit_chance, inv_bypass]
 
-    if _MOVE_EFFECTS[ef_id](
+    if ef_id is None:
+        return
+
+    if _MOVE_EFFECTS[ef_id.value](
         attacker, defender, battlefield, battle, move_data, is_first, cc_ib
     ):
         _calculate_damage(
@@ -1519,10 +1522,9 @@ def _ef_031(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    if defender.is_alive and _calculate_type_ef(defender, move_data) != 0:
-        defender.take_damage(move_data.ef_amount, move_data)
-    else:
-        _missed(attacker, battle)
+    dmg = _calculate_damage(attacker, defender, battlefield, battle, move_data)
+    if defender.is_alive and dmg and randrange(1, 101) < move_data.ef_chance:
+        give_nv_status(move_data.ef_stat, defender, battle, True)
     return True
 
 
@@ -2952,6 +2954,10 @@ def _ef_104(
         t.spikes = 0
         t.toxic_spikes = 0
         t.steal_rock = 0
+        t.safeguard = 0
+        t.light_screen = 0
+        t.reflect = 0
+        t.mist = 0
     return True
 
 
@@ -3532,11 +3538,9 @@ def _ef_134(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    if not attacker.v_status[gs.INGRAIN]:
-        battle.add_text(attacker.nickname + " planted its roots!")
-        attacker.v_status[gs.INGRAIN] = 1
-        attacker.trapped = True
-        attacker.grounded = True
+    if not attacker.v_status[gs.AQUA_RING]:
+        battle.add_text(attacker.nickname + " surrounded itself with a veil of water!")
+        attacker.v_status[gs.AQUA_RING] = 1
     else:
         _failed(battle)
 
@@ -3708,7 +3712,7 @@ def _ef_143(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    move_data.power = max(1, (150 * attacker.cur_hp) // attacker.max_hp)
+    move_data.power = max(1, 60 + 20 * attacker.cur_hp / attacker.max_hp)
 
 
 def _ef_144(
@@ -3764,15 +3768,21 @@ def _ef_146(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    if (
-        attacker.nv_status == gs.BURNED
-        or attacker.nv_status == gs.PARALYZED
-        or attacker.nv_status == gs.POISONED
-    ):
+    if attacker.nv_status == gs.BURNED:
         attacker.nv_status = 0
-        battle.add_text(attacker.nickname + "'s status return Trueed to normal!")
+        battle.add_text(attacker.nickname + "'s burn was healed!")
+    elif attacker.nv_status == gs.FROZEN:
+        battle.add_text(attacker.nickname + " thawed out!")
+        attacker.nv_status = 0
+    elif attacker.nv_status == gs.PARALYZED:
+        battle.add_text(attacker.nickname + " was cured of paralysis!")
+        attacker.nv_status = 0
+    elif attacker.nv_status == gs.ASLEEP:
+        battle.add_text(attacker.nickname + " woke up!")
+        attacker.nv_status = 0
     else:
-        _failed(battle)
+        battle.add_text(attacker.nickname + " was cured of poison!")
+        attacker.nv_status = 0
 
 
 def _ef_147(
@@ -4022,9 +4032,7 @@ def _ef_162(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    dmg = _calculate_damage(
-        attacker, defender, battlefield, battle, move_data, crit_chance=1
-    )
+    dmg = _calculate_damage(attacker, defender, battlefield, battle, move_data)
     if dmg and randrange(10) < 1:
         poison(defender, battle)
     return True
@@ -4332,13 +4340,9 @@ def _ef_178(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    if not attacker.trainer.tailwind_count:
-        battle.add_text(
-            "The tailwind blew from being " + attacker.trainer.name + "'s team!"
-        )
-        attacker.trainer.tailwind_count = 3
-        for poke in attacker.trainer.poke_list:
-            poke.stats_actual[gs.SPD] *= 2
+    if attacker.item == "smooth-rock":
+        attacker.next_moves.put(move_data)
+        battle.add_text(attacker.nickname + " made the sandstorm last longer!")
     else:
         _failed(battle)
 
@@ -4417,8 +4421,10 @@ def _ef_183(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    if not is_first:
-        move_data.power *= 2
+    if is_first:
+        attacker.sp_check = True
+    else:
+        _failed(battle)
 
 
 def _ef_184(
@@ -4698,9 +4704,7 @@ def _ef_198(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    move_data.power = max(
-        200, 60 + 20 * sum([stat for stat in attacker.stat_stages if stat > 0])
-    )
+    move_data.power = max(200, 60 + 20 * sum([stat for stat in attacker.stat_stages if stat > 0]))
 
 
 def _ef_199(
@@ -4735,7 +4739,7 @@ def _ef_200(
     if (
         defender.is_alive
         and not defender.has_ability("multitype")
-        and not defender.has_ability("truant")
+        and not defender.ability_suppressed
     ):
         battle.add_text(defender.nickname + " acquired insomnia!")
         defender.give_ability("insomnia")
@@ -4921,10 +4925,9 @@ def _ef_211(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    if defender.is_alive:
-        battle.add_text(_stat_text(defender, gs.EVA, -1))
-        if defender.evasion_stage > -6:
-            defender.evasion_stage -= 1
+    battle.add_text(_stat_text(defender, gs.EVA, -1))
+    if defender.evasion_stage > -6:
+        defender.evasion_stage -= 1
     defender.trainer.spikes = 0
     defender.trainer.toxic_spikes = 0
     defender.stealth_rock = 0
@@ -5000,7 +5003,7 @@ def _ef_215(
     cc_ib: list,
 ) -> bool:
     dmg = _calculate_damage(attacker, defender, battlefield, battle, move_data)
-    if defender.is_alive and dmg and randrange(100) < 1:
+    if dmg and randrange(100) < move_data.ef_amount:
         confuse(defender, battle)
     return True
 
@@ -5072,3 +5075,4 @@ def _ef_219(
 
 
 _MOVE_EFFECTS = [_ef_000, _ef_001, _ef_002, _ef_003, _ef_004, _ef_005, _ef_006, _ef_007, _ef_008, _ef_009, _ef_010, _ef_011, None, _ef_013, _ef_014, None, _ef_016, _ef_017, _ef_018, _ef_019, _ef_020, _ef_021, _ef_022, _ef_023, _ef_024, _ef_025, _ef_026, _ef_027, _ef_028, _ef_029, _ef_030, _ef_031, _ef_032, _ef_033, _ef_034, _ef_035, _ef_036, _ef_037, _ef_038, _ef_039, _ef_040, _ef_041, _ef_042, _ef_043, _ef_044, None, _ef_046, _ef_047, _ef_048, _ef_049, _ef_050, _ef_051, _ef_052, _ef_053, _ef_054, _ef_055, _ef_056, _ef_057, _ef_058, _ef_059, _ef_060, _ef_061, _ef_062, _ef_063, _ef_064, _ef_065, _ef_066, _ef_067, _ef_068, _ef_069, _ef_070, _ef_071, _ef_072, _ef_073, _ef_074, _ef_075, _ef_076, _ef_077, _ef_078, _ef_079, _ef_080, _ef_081, _ef_082, _ef_083, _ef_084, _ef_085, _ef_086, _ef_087, _ef_088, _ef_089, _ef_090, _ef_091, _ef_092, _ef_093, _ef_094, _ef_095, _ef_096, _ef_097, _ef_098, _ef_099, _ef_100, _ef_101, _ef_102, _ef_103, _ef_104, _ef_105, _ef_106, _ef_107, _ef_108, _ef_109, _ef_110, _ef_111, _ef_112, _ef_113, _ef_114, _ef_115, _ef_116, _ef_117, _ef_118, _ef_119, _ef_120, _ef_121, _ef_122, _ef_123, _ef_124, _ef_125, _ef_126, _ef_127, _ef_128, _ef_129, _ef_130, _ef_131, _ef_132, _ef_133, _ef_134, _ef_135, _ef_136, _ef_137, _ef_138, _ef_139, _ef_140, _ef_141, _ef_142, _ef_143, _ef_144, _ef_145, _ef_146, _ef_147, _ef_148, _ef_149, _ef_150, _ef_151, _ef_152, _ef_153, _ef_154, None, _ef_156, _ef_157, _ef_158, _ef_159, _ef_160, _ef_161, _ef_162, _ef_163, _ef_164, _ef_165, _ef_166, _ef_167, _ef_168, _ef_169, _ef_170, _ef_171, _ef_172, _ef_173, _ef_174, _ef_175, _ef_176, _ef_177, _ef_178, _ef_179, _ef_180, _ef_181, _ef_182, _ef_183, _ef_184, _ef_185, _ef_186, _ef_187, _ef_188, _ef_189, _ef_190, _ef_191, _ef_192, _ef_193, _ef_194, _ef_195, _ef_196, _ef_197, _ef_198, _ef_199, _ef_200, _ef_201, _ef_202, _ef_203, _ef_204, _ef_205, _ef_206, _ef_207, _ef_208, _ef_209, _ef_210, _ef_211, _ef_212, _ef_213, _ef_214, _ef_215, _ef_216, _ef_217, _ef_218, _ef_219]
+

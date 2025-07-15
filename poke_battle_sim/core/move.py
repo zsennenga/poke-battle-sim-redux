@@ -1,51 +1,62 @@
 from __future__ import annotations
 
 import poke_battle_sim.conf.global_settings as gs
+from pydantic import BaseModel
+from typing import Optional, List
+
+from poke_battle_sim.const.move_effects import MoveEffect
+from poke_battle_sim.const.stat import Stat
+from poke_battle_sim.const.type_enum import PokemonType
 
 
-class Move:
-    def __init__(self, move_data: list):
-        self.md = move_data
-        self.id = move_data[gs.MOVE_ID]
-        self.name = move_data[gs.MOVE_NAME]
-        self.type = move_data[gs.MOVE_TYPE]
-        self.o_power = move_data[gs.MOVE_POWER]
-        self.power = move_data[gs.MOVE_POWER]
-        self.max_pp = move_data[gs.MOVE_PP]
-        self.acc = move_data[gs.MOVE_ACC]
-        self.prio = move_data[gs.MOVE_PRIORITY]
-        self.target = move_data[gs.MOVE_TARGET]
-        self.category = move_data[gs.MOVE_CATEGORY]
-        self.ef_id = move_data[gs.MOVE_EFFECT_ID]
-        self.ef_chance = move_data[gs.MOVE_EFFECT_CHANCE]
-        self.ef_amount = move_data[gs.MOVE_EFFECT_AMT]
-        self.ef_stat = move_data[gs.MOVE_EFFECT_STAT]
-        self.cur_pp = self.max_pp
-        self.pos = None
-        self.disabled = 0
-        self.encore_blocked = False
+class Move(BaseModel):
+    name: str
+    type: PokemonType
+    o_power: int
+    power: int
+    max_pp: int
+    acc: int
+    prio: int
+    target: str
+    category: str
+    ef_id: Optional[MoveEffect] = None
+    ef_chance: Optional[int] = None
+    ef_amount: Optional[int] = None
+    ef_stat: Optional[Stat] = None
+    cur_pp: int
+    pos: Optional[int] = None
+    disabled: int = 0
+    encore_blocked: bool = False
+
+    @classmethod
+    def from_move_data(cls, move_data: list) -> 'Move':
+        effect_id = move_data[gs.MOVE_EFFECT_ID]
+        return cls(
+            name=move_data[gs.MOVE_NAME],
+            type=PokemonType(move_data[gs.MOVE_TYPE]),
+            o_power=move_data[gs.MOVE_POWER],
+            power=move_data[gs.MOVE_POWER],
+            max_pp=move_data[gs.MOVE_PP],
+            acc=move_data[gs.MOVE_ACC],
+            prio=move_data[gs.MOVE_PRIORITY],
+            target=move_data[gs.MOVE_TARGET],
+            category=move_data[gs.MOVE_CATEGORY],
+            ef_id=MoveEffect(effect_id) if effect_id is not None else None,
+            ef_chance=move_data[gs.MOVE_EFFECT_CHANCE],
+            ef_amount=move_data[gs.MOVE_EFFECT_AMT],
+            ef_stat=Stat(move_data[gs.MOVE_EFFECT_STAT]) if move_data[gs.MOVE_EFFECT_STAT] is not None else None,
+            cur_pp=move_data[gs.MOVE_PP],
+        )
 
     def reset(self):
         self.cur_pp = self.max_pp
         self.pos = None
         self.disabled = 0
         self.encore_blocked = False
-        self.power = self.md[gs.MOVE_POWER]
-        self.max_pp = self.md[gs.MOVE_PP]
-        self.acc = self.md[gs.MOVE_ACC]
-        self.prio = self.md[gs.MOVE_PRIORITY]
-        self.category = self.md[gs.MOVE_CATEGORY]
-        self.ef_id = self.md[gs.MOVE_EFFECT_ID]
-        self.ef_chance = self.md[gs.MOVE_EFFECT_CHANCE]
-        self.ef_amount = self.md[gs.MOVE_EFFECT_AMT]
-        self.ef_stat = self.md[gs.MOVE_EFFECT_STAT]
+        self.power = self.o_power
+        self.max_pp = self.max_pp
+        self.acc = self.acc
 
-    def get_tcopy(self) -> Move:
-        copy = Move(self.md)
-        copy.ef_id = self.ef_id
-        copy.ef_amount = self.ef_amount
-        copy.ef_stat = self.ef_stat
-        copy.cur_pp = self.cur_pp
-        copy.pos = self.pos
-        copy.disabled = self.disabled
+    def get_tcopy(self) -> 'Move':
+        copy = self.model_copy(deep=True)
         return copy
