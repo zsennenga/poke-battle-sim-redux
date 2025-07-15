@@ -167,12 +167,12 @@ def enemy_selection_abilities(
 
 
 def end_turn_abilities(poke: pk.Pokemon, battle: bt.Battle):
-    if poke.has_ability("speed-boost"):
+    if poke.has_ability(Ability.SPEED_BOOST):
         pm.give_stat_change(poke, battle, gs.SPD, 1)
-    elif poke.has_ability("slow-start"):
+    elif poke.has_ability(Ability.SLOW_START):
         poke.ability_count += 1
     elif (
-        poke.has_ability("bad-dreams")
+        poke.has_ability(Ability.BAD_DREAMS)
         and poke.enemy.current_poke.is_alive
         and poke.enemy.current_poke.nv_status == gs.ASLEEP
     ):
@@ -183,21 +183,21 @@ def end_turn_abilities(poke: pk.Pokemon, battle: bt.Battle):
 def type_protection_abilities(
     defender: pk.Pokemon, move_data: Move, battle: bt.Battle
 ) -> bool:
-    if defender.has_ability("volt-absorb") and move_data.type == "electric":
+    if defender.has_ability(Ability.VOLT_ABSORB) and move_data.type == "electric":
         battle.add_text(
             defender.nickname + " absorbed " + move_data.name + " with Volt Absorb!"
         )
         if not defender.cur_hp == defender.max_hp:
             defender.heal(defender.max_hp // 4)
         return True
-    elif defender.has_ability("water-absorb") and move_data.type == "water":
+    elif defender.has_ability(Ability.WATER_ABSORB) and move_data.type == "water":
         battle.add_text(
             defender.nickname + " absorbed " + move_data.name + " with Water Absorb!"
         )
         if not defender.cur_hp == defender.max_hp:
             defender.heal(defender.max_hp // 4)
         return True
-    elif defender.has_ability("flash-fire") and move_data.type == "fire":
+    elif defender.has_ability(Ability.FLASH_FIRE) and move_data.type == "fire":
         battle.add_text("It doesn't affect " + defender.nickname)
         defender.ability_activated = True
         return True
@@ -208,15 +208,15 @@ def on_hit_abilities(
     attacker: pk.Pokemon, defender: pk.Pokemon, battle: bt.Battle, move_data: Move
 ) -> bool:
     made_contact = move_data.name in gd.CONTACT_CHECK
-    if defender.has_ability("static") and made_contact and randrange(10) < 3:
+    if defender.has_ability(Ability.STATIC) and made_contact and randrange(10) < 3:
         pm.paralyze(attacker, battle)
-    elif defender.has_ability("rough-skin") and made_contact:
+    elif defender.has_ability(Ability.ROUGH_SKIN) and made_contact:
         attacker.take_damage(max(1, attacker.max_hp // 16))
         battle.add_text(attacker.nickname + " was hurt!")
-    elif defender.has_ability("effect-spore") and made_contact and randrange(10) < 3:
+    elif defender.has_ability(Ability.EFFECT_SPORE) and made_contact and randrange(10) < 3:
         pm.give_nv_status(randrange(3, 6), attacker, battle)
     elif (
-        defender.has_ability("color-change")
+        defender.has_ability(Ability.COLOR_CHANGE)
         and move_data.type not in defender.types
         and PokeSim.is_valid_type(move_data.type)
     ):
@@ -228,24 +228,24 @@ def on_hit_abilities(
             + " type!"
         )
     elif (
-        defender.has_ability("wonder-guard")
+        defender.has_ability(Ability.WONDER_GUARD)
         and pm._calculate_type_ef(defender, move_data) < 2
     ):
         battle.add_text("It doesn't affect " + defender.nickname)
         return True
-    elif defender.has_ability("flame-body") and made_contact and randrange(10) < 3:
+    elif defender.has_ability(Ability.FLAME_BODY) and made_contact and randrange(10) < 3:
         pm.burn(attacker, battle)
     elif (
-        defender.has_ability("poison-point")
+        defender.has_ability(Ability.POISON_POINT)
         and made_contact
         and not "steel" in attacker.types
         and not "poison" in attacker.types
         and randrange(10) < 3
     ):
         pm.poison(attacker, battle)
-    elif defender.has_ability("cute-charm") and made_contact and randrange(10) < 3:
+    elif defender.has_ability(Ability.CUTE_CHARM) and made_contact and randrange(10) < 3:
         pm.infatuate(defender, attacker, battle)
-    elif defender.has_ability("motor-drive") and move_data.type == "electric":
+    elif defender.has_ability(Ability.MOTOR_DRIVE) and move_data.type == "electric":
         pm.give_stat_change(defender, battle, gs.SPD, 1)
         return True
     return False
@@ -253,38 +253,38 @@ def on_hit_abilities(
 
 def stat_calc_abilities(poke: pk.Pokemon):
     if (
-        poke.has_ability("swift-swim")
+        poke.has_ability(Ability.SWIFT_SWIM)
         and poke.cur_battle.battlefield.weather == gs.RAIN
     ):
         poke.stats_effective[gs.SPD] *= 2
     elif (
-        poke.has_ability("chlorophyll")
+        poke.has_ability(Ability.CHLOROPHYLL)
         and poke.cur_battle.battlefield.weather == gs.HARSH_SUNLIGHT
     ):
         poke.stats_effective[gs.SPD] *= 2
-    elif poke.has_ability("huge-power") or poke.has_ability("pure-power"):
+    elif poke.has_ability(Ability.HUGE_POWER) or poke.has_ability(Ability.PURE_POWER):
         poke.stats_effective[gs.ATK] *= 2
-    elif poke.has_ability("hustle") or (poke.has_ability("guts") and poke.nv_status):
+    elif poke.has_ability(Ability.HUSTLE) or (poke.has_ability(Ability.GUTS) and poke.nv_status):
         poke.stats_effective[gs.ATK] = int(poke.stats_effective[gs.ATK] * 1.5)
-    elif poke.has_ability("marvel-scale") and poke.nv_status:
+    elif poke.has_ability(Ability.MARVEL_SCALE) and poke.nv_status:
         poke.stats_effective[gs.DEF] = int(poke.stats_effective[gs.DEF] * 1.5)
     elif (
-        poke.has_ability("solar-power")
+        poke.has_ability(Ability.SOLAR_POWER)
         and poke.cur_battle.battlefield.weather == gs.HARSH_SUNLIGHT
     ):
         poke.stats_effective[gs.SP_ATK] = int(poke.stats_effective[gs.SP_ATK] * 1.5)
-    elif poke.has_ability("quick-feet") and poke.nv_status:
+    elif poke.has_ability(Ability.QUICK_FEET) and poke.nv_status:
         poke.stats_effective[gs.SPD] = int(poke.stats_effective[gs.SPD] * 1.5)
-    elif poke.has_ability("slow-start") and poke.ability_count < 5:
+    elif poke.has_ability(Ability.SLOW_START) and poke.ability_count < 5:
         poke.stats_effective[gs.ATK] //= 2
         poke.stats_effective[gs.SPD] //= 2
     elif (
-        poke.has_ability("flower-gift")
+        poke.has_ability(Ability.FLOWER_GIFT)
         and poke.cur_battle.battlefield.weather == gs.HARSH_SUNLIGHT
     ):
         poke.stats_effective[gs.ATK] = int(poke.stats_effective[gs.ATK] * 1.5)
         poke.stats_effective[gs.SP_DEF] = int(poke.stats_effective[gs.SP_DEF] * 1.5)
-    elif poke.has_ability("unburden") and poke.unburden:
+    elif poke.has_ability(Ability.UNBURDEN) and poke.unburden:
         poke.stats_effective[gs.SPD] *= 2
 
 
@@ -296,36 +296,36 @@ def damage_calc_abilities(
     t_mult: int,
 ):
     if (
-        attacker.has_ability("flash-fire")
+        attacker.has_ability(Ability.FLASH_FIRE)
         and attacker.ability_activated
         and move_data.type == "fire"
     ):
         move_data.power = int(move_data.power * 1.5)
     elif (
-        attacker.has_ability("overgrow")
+        attacker.has_ability(Ability.OVERGROW)
         and move_data.type == "grass"
         and attacker.cur_hp <= attacker.max_hp // 3
     ):
         move_data.power = int(move_data.power * 1.5)
     elif (
-        attacker.has_ability("blaze")
+        attacker.has_ability(Ability.BLAZE)
         and move_data.type == "fire"
         and attacker.cur_hp <= attacker.max_hp // 3
     ):
         move_data.power = int(move_data.power * 1.5)
     elif (
-        attacker.has_ability("torrent")
+        attacker.has_ability(Ability.TORRENT)
         and move_data.type == "water"
         and attacker.cur_hp <= attacker.max_hp // 3
     ):
         move_data.power = int(move_data.power * 1.5)
     elif (
-        attacker.has_ability("swarm")
+        attacker.has_ability(Ability.SWARM)
         and move_data.type == "bug"
         and attacker.cur_hp <= attacker.max_hp // 3
     ):
         move_data.power = int(move_data.power * 1.5)
-    elif attacker.has_ability("rivalry"):
+    elif attacker.has_ability(Ability.RIVALRY):
         if attacker.gender == defender.gender and (
             attacker.gender == "male" or attacker.gender == "female"
         ):
@@ -334,21 +334,21 @@ def damage_calc_abilities(
             attacker.gender == "male" and defender.gender == "female"
         ):
             move_data.power = int(move_data.power * 0.75)
-    elif attacker.has_ability("iron-fist") and move_data.name in gd.PUNCH_CHECK:
+    elif attacker.has_ability(Ability.IRON_FIST) and move_data.name in gd.PUNCH_CHECK:
         move_data.power *= int(move_data.power * 1.2)
-    elif attacker.has_ability("normalize"):
+    elif attacker.has_ability(Ability.NORMALIZE):
         move_data.type = "normal"
-    elif attacker.has_ability("technician") and move_data.power <= 60:
+    elif attacker.has_ability(Ability.TECHNICIAN) and move_data.power <= 60:
         move_data.power = int(move_data.power * 1.5)
-    elif attacker.has_ability("tinted-lens") and t_mult < 1:
+    elif attacker.has_ability(Ability.TINTED_LENS) and t_mult < 1:
         move_data.power *= 2
-    elif attacker.has_ability("reckless") and move_data.name in gd.RECOIL_CHECK:
+    elif attacker.has_ability(Ability.RECKLESS) and move_data.name in gd.RECOIL_CHECK:
         move_data.power = int(move_data.power * 1.2)
 
-    if defender.has_ability("heatproof") and move_data.type == "fire":
+    if defender.has_ability(Ability.HEATPROOF) and move_data.type == "fire":
         move_data.power //= 2
     elif (
-        defender.has_ability("filter") or defender.has_ability("solid-rock")
+        defender.has_ability(Ability.FILTER) or defender.has_ability(Ability.SOLID_ROCK)
     ) and t_mult > 1:
         move_data.power *= 0.75
 
@@ -361,17 +361,17 @@ def homc_abilities(
     move_data: Move,
 ) -> float:
     ability_mult = 1
-    if defender.has_ability("sand-veil") and battlefield.weather == gs.SANDSTORM:
+    if defender.has_ability(Ability.SAND_VEIL) and battlefield.weather == gs.SANDSTORM:
         ability_mult *= 0.8
-    elif defender.has_ability("snow-cloak") and battlefield.weather == gs.HAIL:
+    elif defender.has_ability(Ability.SNOW_CLOAK) and battlefield.weather == gs.HAIL:
         ability_mult *= 0.8
-    elif defender.has_ability("compound-eyes"):
+    elif defender.has_ability(Ability.COMPOUND_EYES):
         ability_mult *= 1.3
-    elif defender.has_ability("hustle") and move_data.category == gs.PHYSICAL:
+    elif defender.has_ability(Ability.HUSTLE) and move_data.category == gs.PHYSICAL:
         ability_mult *= 0.8
-    elif defender.has_ability("tangled-feet") and defender.v_status[gs.CONFUSED]:
+    elif defender.has_ability(Ability.TANGLED_FEET) and defender.v_status[gs.CONFUSED]:
         ability_mult *= 0.5
-    elif defender.has_ability("thick-fat") and (
+    elif defender.has_ability(Ability.THICK_FAT) and (
         move_data.type == "fire" or move_data.type == "ice"
     ):
         ability_mult *= 0.5
@@ -381,7 +381,7 @@ def homc_abilities(
 def pre_move_abilities(
     attacker: pk.Pokemon, defender: pk.Pokemon, battle: bt.Battle, move_data: Move
 ):
-    if attacker.has_ability("serene-grace") and move_data.ef_chance:
+    if attacker.has_ability(Ability.SERENE_GRACE) and move_data.ef_chance:
         move_data.ef_chance *= 2
 
 
@@ -391,7 +391,7 @@ def weather_change_abilities(battle: bt.Battle, battlefield: bf.Battlefield):
 
 
 def _forecast_check(poke: pk.Pokemon, battle: bt.Battle, battlefield: bf.Battlefield):
-    if poke.is_alive and poke.has_ability("forecast") and poke.name == "castform":
+    if poke.is_alive and poke.has_ability(Ability.FORECAST):
         if battlefield.weather == gs.HARSH_SUNLIGHT:
             poke.types = ("fire", None)
         elif battlefield.weather == gs.RAIN:

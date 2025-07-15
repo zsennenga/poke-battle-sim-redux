@@ -3,6 +3,7 @@ from random import randrange
 
 from poke_battle_sim.core.move import Move
 from poke_battle_sim.poke_sim import PokeSim
+from poke_battle_sim.const.ability_enum import Ability
 
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.trainer as tr
@@ -318,7 +319,7 @@ class Battle:
             if poke.item == "big-root":
                 heal_amt = int(heal_amt * 1.3)
             poke.heal(heal_amt, text_skip=True)
-        if self.battlefield.weather == gs.RAIN and poke.has_ability("rain-dish"):
+        if self.battlefield.weather == gs.RAIN and poke.has_ability(Ability.RAIN_DISH):
             poke.heal(poke.max_hp // 16)
         if trainer.fs_count and poke.is_alive:
             trainer.fs_count -= 1
@@ -368,25 +369,25 @@ class Battle:
             return
 
         if poke.nv_status and (
-            (poke.has_ability("shed-skin") and randrange(10) < 3)
-            or (poke.has_ability("hydration") and self.battlefield.weather == gs.RAIN)
+            (poke.has_ability(Ability.SHED_SKIN) and randrange(10) < 3)
+            or (poke.has_ability(Ability.HYDRATION) and self.battlefield.weather == gs.RAIN)
         ):
             pm.cure_nv_status(poke.nv_status, poke, self)
         if poke.nv_status == gs.BURNED and poke.is_alive:
             self.add_text(poke.nickname + " was hurt by its burn!")
-            if not poke.has_ability("heatproof"):
+            if not poke.has_ability(Ability.HEATPROOF):
                 poke.take_damage(max(1, poke.max_hp // 8))
             else:
                 poke.take_damage(max(1, poke.max_hp // 16))
         if poke.nv_status == gs.POISONED and poke.is_alive:
-            if not poke.has_ability("poison-heal"):
+            if not poke.has_ability(Ability.POISON_HEAL):
                 self.add_text(poke.nickname + " was hurt by poison!")
                 poke.take_damage(max(1, poke.max_hp // 8))
             else:
                 self.add_text(poke.nickname + " was healed by its Poison Heal!")
                 poke.heal(max(1, poke.max_hp // 8))
         if poke.nv_status == gs.BADLY_POISONED and poke.is_alive:
-            if not poke.has_ability("poison-heal"):
+            if not poke.has_ability(Ability.POISON_HEAL):
                 self.add_text(poke.nickname + " was hurt by poison!")
                 poke.take_damage(max(1, poke.max_hp * poke.nv_counter // 16))
             else:
@@ -418,7 +419,7 @@ class Battle:
                 else self.t1.current_poke
             )
             if other.is_alive:
-                if not poke.has_ability("liquid-ooze"):
+                if not poke.has_ability(Ability.LIQUID_OOZE):
                     other.heal(heal_amt)
                 else:
                     other.take_damage(heal_amt)
@@ -429,7 +430,7 @@ class Battle:
         if poke.v_status[gs.CURSE] and poke.is_alive:
             self.add_text(poke.nickname + " is afflicted by the curse!")
             poke.take_damage(max(1, poke.max_hp // 4))
-        if poke.has_ability("solar-power"):
+        if poke.has_ability(Ability.SOLAR_POWER):
             self.add_text(poke.nickname + "was hurt by its Solar Power!")
             poke.take_damage(max(1, poke.max_hp // 8))
         if not poke.is_alive:
@@ -568,8 +569,8 @@ class Battle:
             or (
                 "flying" not in selector.current_poke.types
                 and not selector.current_poke.magnet_rise
-                and not selector.current_poke.has_ability("levitate")
-                and not selector.current_poke.has_ability("magic-guard")
+                and not selector.current_poke.has_ability(Ability.LEVITATE)
+                and not selector.current_poke.has_ability(Ability.MAGIC_GUARD)
             )
         ):
             if selector.spikes == 1:
@@ -596,11 +597,11 @@ class Battle:
                     not "flying" in selector.current_poke.types
                     and not "steel" in selector.current_poke.types
                     and not selector.current_poke.magnet_rise
-                    and not selector.current_poke.has_ability("immunity")
-                    and not selector.current_poke.has_ability("levitate")
-                    and not selector.current_poke.has_ability("magic-guard")
+                    and not selector.current_poke.has_ability(Ability.IMMUNITY)
+                    and not selector.current_poke.has_ability(Ability.LEVITATE)
+                    and not selector.current_poke.has_ability(Ability.MAGIC_GUARD)
                     and not (
-                        selector.current_poke.has_ability("leaf-guard")
+                        selector.current_poke.has_ability(Ability.LEAF_GUARD)
                         and self.battlefield.weather == gs.HARSH_SUNLIGHT
                     )
                 )
@@ -614,7 +615,7 @@ class Battle:
                 selector.current_poke.nv_counter = 1
                 self.add_text(selector.current_poke.nickname + " was badly poisoned!")
         if selector.stealth_rock and not selector.current_poke.has_ability(
-            "magic-guard"
+            Ability.MAGIC_GUARD
         ):
             t_mult = PokeSim.get_type_ef("rock", selector.current_poke.types[0])
             if selector.current_poke.types[1]:
@@ -726,13 +727,13 @@ class Battle:
 
     def _stall_check(self) -> bool:
         return self.t1.current_poke.has_ability(
-            "stall"
-        ) or self.t2.current_poke.has_ability("stall")
+            Ability.STALL
+        ) or self.t2.current_poke.has_ability(Ability.STALL)
 
     def _calculate_stall(self) -> bool:
         if self.t1.current_poke.has_ability(
-            "stall"
-        ) and self.t2.current_poke.has_ability("stall"):
+            Ability.STALL
+        ) and self.t2.current_poke.has_ability(Ability.STALL):
             if (
                 self.t1.current_poke.stats_effective[gs.SPD]
                 != self.t2.current_poke.stats_effective[gs.SPD]
@@ -743,7 +744,7 @@ class Battle:
                 )
             else:
                 return randrange(2) < 1
-        return self.t2.current_poke.has_ability("stall")
+        return self.t2.current_poke.has_ability(Ability.STALL)
 
     def _ltail_check(self) -> bool:
         return (
@@ -788,7 +789,7 @@ class Battle:
         if (
             move_data.cur_pp
             and attacker.enemy.current_poke.is_alive
-            and attacker.enemy.current_poke.has_ability("pressure")
+            and attacker.enemy.current_poke.has_ability(Ability.PRESSURE)
         ):
             move_data.cur_pp -= 1
 

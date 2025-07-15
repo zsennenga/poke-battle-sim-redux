@@ -35,7 +35,7 @@ class Pokemon(BaseModel):
     max_hp: int
     cur_hp: int
     moves: List[Move]
-    o_moves: Optional[List[Move]] = None
+    original_moves: Optional[List[Move]] = None
     ability: Optional[Ability] = None
     item: Optional[str] = None
     status: Optional[str] = None
@@ -156,7 +156,7 @@ class Pokemon(BaseModel):
         self.next_will_hit = False
         self.unburden = False
         self.turn_damage = False
-        self.moves = self.o_moves
+        self.moves = self.original_moves
         self.ability = self.o_ability
         if self.transformed:
             self.reset_transform()
@@ -490,10 +490,10 @@ class Pokemon(BaseModel):
 
     def _aftermath_check(self, enemy_move: Move):
         if (
-                self.has_ability("aftermath")
+                self.has_ability(Ability.AFTERMATH)
                 and enemy_move in gd.CONTACT_CHECK
                 and self.enemy.current_poke.is_alive
-                and not self.enemy.current_poke.has_ability("damp")
+                and not self.enemy.current_poke.has_ability(Ability.DAMP)
         ):
             self.enemy.current_poke.take_damage(
                 max(1, self.enemy.current_poke.max_hp // 4)

@@ -14,7 +14,7 @@ import poke_battle_sim.conf.global_data as gd
 def _effect_sketch(attacker: pk.Pokemon, defender: pk.Pokemon, battlefield:
     bf.Battlefield, battle: bt.Battle, move_data: Move, is_first: bool,
     cc_ib: list) ->bool:
-    if (attacker.transformed or not move_data in attacker.o_moves or not
+    if (attacker.transformed or not move_data in attacker.original_moves or not
         defender.is_alive or not defender.last_move or attacker.is_move(
         defender.last_move.name)):
         _failed(battle)

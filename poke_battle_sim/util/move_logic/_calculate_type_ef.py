@@ -7,6 +7,7 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
+from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
 
@@ -16,7 +17,7 @@ def _calculate_type_ef(defender: pk.Pokemon, move_data: Move) -> float:
     if (
         move_data.type == "ground"
         and not defender.grounded
-        and (defender.magnet_rise or defender.has_ability("levitate"))
+        and (defender.magnet_rise or defender.has_ability(Ability.LEVITATE))
     ):
         return 0
 
@@ -26,7 +27,7 @@ def _calculate_type_ef(defender: pk.Pokemon, move_data: Move) -> float:
     if (
         (
             defender.foresight_target
-            or defender.enemy.current_poke.has_ability("scrappy")
+            or defender.enemy.current_poke.has_ability(Ability.SCRAPPY)
         )
         and move_data.type in ("normal", "fighting")
         and "ghost" in defender.types

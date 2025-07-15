@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import poke_battle_sim.conf.global_settings as gs
 from pydantic import BaseModel
-from typing import Optional, List
+from typing import Optional, List, Any
 
 from poke_battle_sim.const.move_effects import MoveEffect
 from poke_battle_sim.const.stat import Stat
@@ -29,7 +29,7 @@ class Move(BaseModel):
     encore_blocked: bool = False
 
     @classmethod
-    def from_move_data(cls, move_data: list) -> 'Move':
+    def from_move_data(cls, move_data: list[Any]) -> 'Move':
         effect_id = move_data[gs.MOVE_EFFECT_ID]
         return cls(
             name=move_data[gs.MOVE_NAME],
@@ -48,7 +48,7 @@ class Move(BaseModel):
             cur_pp=move_data[gs.MOVE_PP],
         )
 
-    def reset(self):
+    def reset(self) -> None:
         self.cur_pp = self.max_pp
         self.pos = None
         self.disabled = 0

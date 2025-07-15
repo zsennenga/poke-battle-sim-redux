@@ -7,6 +7,7 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
+from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
 
@@ -14,9 +15,9 @@ def paralyze(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
     if (
         not recipient.is_alive
         or recipient.substitute
-        or recipient.has_ability("limber")
+        or recipient.has_ability(Ability.LIMBER)
         or (
-            recipient.has_ability("leaf-guard")
+            recipient.has_ability(Ability.LEAF_GUARD)
             and battle.battlefield.weather == gs.HARSH_SUNLIGHT
         )
     ):
@@ -25,7 +26,7 @@ def paralyze(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
         return
     if _safeguard_check(recipient, battle):
         return
-    if not forced and recipient.has_ability("shield-dust"):
+    if not forced and recipient.has_ability(Ability.SHIELD_DUST):
         return
     if forced and recipient.nv_status == gs.PARALYZED:
         battle.add_text(recipient.nickname + " is already paralyzed!")
@@ -33,6 +34,6 @@ def paralyze(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
         recipient.nv_status = gs.PARALYZED
         recipient.nv_counter = 0
         battle.add_text(recipient.nickname + " is paralyzed! It may be unable to move!")
-        if recipient.has_ability("synchronize"):
+        if recipient.has_ability(Ability.SYNCHRONIZE):
             paralyze(recipient.enemy.current_poke, battle)
         pi.status_items(recipient, battle)

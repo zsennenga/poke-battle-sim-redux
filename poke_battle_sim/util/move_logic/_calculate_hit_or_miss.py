@@ -1,5 +1,7 @@
 from __future__ import annotations
 from random import randrange
+
+from poke_battle_sim.const.ability_enum import Ability
 from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
@@ -9,6 +11,9 @@ import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
+from poke_battle_sim.util.move_logic._missed import _missed
+from poke_battle_sim.util.move_logic._special_move_acc import _special_move_acc
+
 
 def _calculate_hit_or_miss(
     attacker: pk.Pokemon,
@@ -23,9 +28,9 @@ def _calculate_hit_or_miss(
     if defender.foresight_target or defender.me_target:
         if defender.evasion_stage > 0:
             d_eva_stage = 0
-    if attacker.has_ability("unaware"):
+    if attacker.has_ability(Ability.UNAWARE):
         d_eva_stage = 0
-    if defender.has_ability("unaware"):
+    if defender.has_ability(Ability.UNAWARE):
         a_acc_stage = 0
     stage = a_acc_stage - d_eva_stage
     stage_mult = max(3, 3 + stage) / max(3, 3 - stage)
@@ -41,7 +46,7 @@ def _calculate_hit_or_miss(
         return True
     if defender.mr_count and defender.mr_target and attacker is defender.mr_target:
         return True
-    if attacker.has_ability("no-guard") or defender.has_ability("no-guard"):
+    if attacker.has_ability(Ability.NO_GUARD) or defender.has_ability(Ability.NO_GUARD):
         return True
     if attacker.next_will_hit:
         attacker.next_will_hit = False

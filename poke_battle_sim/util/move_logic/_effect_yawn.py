@@ -7,8 +7,10 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
+from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
+from poke_battle_sim.util.move_logic._failed import _failed
 
 
 def _effect_yawn(attacker: pk.Pokemon, defender: pk.Pokemon, battlefield:
@@ -17,10 +19,10 @@ def _effect_yawn(attacker: pk.Pokemon, defender: pk.Pokemon, battlefield:
     if (defender.is_alive and not defender.v_status[gs.DROWSY] and not
         defender.substitute and not defender.nv_status == gs.FROZEN and not
         defender.nv_status == gs.ASLEEP and not defender.has_ability(
-        'insomnia') and not defender.has_ability('vital-spirit') and not
+        Ability.INSOMNIA) and not defender.has_ability(Ability.VITAL_SPIRIT) and not
         defender.trainer.safeguard and not (defender.has_ability(
-        'leaf-guard') and battlefield.weather == gs.HARSH_SUNLIGHT) and not
-        (defender.uproar and not defender.has_ability('soundproof'))):
+        Ability.LEAF_GUARD) and battlefield.weather == gs.HARSH_SUNLIGHT) and not
+        (defender.uproar and not defender.has_ability(Ability.SOUNDPROOF))):
         defender.v_status[gs.DROWSY] = 2
         battle.add_text(attacker.nickname + ' made ' + defender.nickname +
             ' drowsy!')

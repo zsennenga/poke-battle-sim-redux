@@ -7,6 +7,7 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
+from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
 
@@ -14,9 +15,9 @@ def burn(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
     if (
         not recipient.is_alive
         or recipient.substitute
-        or recipient.has_ability("water-veil")
+        or recipient.has_ability(Ability.WATER_VEIL)
         or (
-            recipient.has_ability("leaf-guard")
+            recipient.has_ability(Ability.LEAF_GUARD)
             and battle.battlefield.weather == gs.HARSH_SUNLIGHT
         )
     ):
@@ -29,7 +30,7 @@ def burn(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
         if forced:
             _failed(battle)
         return
-    if not forced and recipient.has_ability("shield-dust"):
+    if not forced and recipient.has_ability(Ability.SHIELD_DUST):
         return
     if forced and recipient.nv_status == gs.BURNED:
         battle.add_text(recipient.nickname + " is already burned!")
@@ -37,6 +38,6 @@ def burn(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
         recipient.nv_status = gs.BURNED
         recipient.nv_counter = 0
         battle.add_text(recipient.nickname + " was burned!")
-        if recipient.has_ability("synchronize"):
+        if recipient.has_ability(Ability.SYNCHRONIZE):
             burn(recipient.enemy.current_poke, battle)
         pi.status_items(recipient, battle)

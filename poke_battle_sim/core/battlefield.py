@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.core.battle as bt
 
 import poke_battle_sim.util.process_ability as pa
@@ -59,7 +60,7 @@ class Battlefield:
             return
         if (
             self.weather == gs.SANDSTORM
-            and not poke.has_ability("sand-veil")
+            and not poke.has_ability(Ability.SAND_VEIL)
             and not poke.in_ground
             and not poke.in_water
             and not any(type in poke.types for type in ["ground", "steel", "rock"])
@@ -68,19 +69,19 @@ class Battlefield:
             poke.take_damage(max(1, poke.max_hp // 16))
         if (
             self.weather == gs.HAIL
-            and not poke.has_ability("ice-body")
+            and not poke.has_ability(Ability.ICE_BODY)
             and not poke.in_ground
             and not poke.in_water
             and not any(type in poke.types for type in ["ice"])
         ):
             self.cur_battle.add_text(poke.nickname + " is buffeted by the Hail!")
             poke.take_damage(max(1, poke.max_hp // 16))
-        if self.weather == gs.HAIL and poke.has_ability("ice-body"):
+        if self.weather == gs.HAIL and poke.has_ability(Ability.ICE_BODY):
             self.cur_battle.add_text(poke.nickname + " was healed by its Ice Body!")
             poke.heal(max(1, poke.max_hp // 16), text_skip=True)
-        if self.weather == gs.RAIN and poke.has_ability("dry-skin"):
+        if self.weather == gs.RAIN and poke.has_ability(Ability.DRY_SKIN):
             self.cur_battle.add_text(poke.nickname + " was healed by its Dry Skin!")
             poke.heal(max(1, poke.max_hp // 8), text_skip=True)
-        if self.weather == gs.HARSH_SUNLIGHT and poke.has_ability("dry-skin"):
+        if self.weather == gs.HARSH_SUNLIGHT and poke.has_ability(Ability.DRY_SKIN):
             self.cur_battle.add_text(poke.nickname + " was hurt by its Dry Skin!")
             poke.take_damage(max(1, poke.max_hp // 8))

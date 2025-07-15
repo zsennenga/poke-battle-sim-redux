@@ -7,8 +7,13 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
+from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
+from poke_battle_sim.util.move_logic._failed import _failed
+from poke_battle_sim.util.move_logic._fit_stat_bounds import _fit_stat_bounds
+from poke_battle_sim.util.move_logic._stat_text import _stat_text
+
 
 def give_stat_change(
     recipient: pk.Pokemon,
@@ -27,8 +32,8 @@ def give_stat_change(
         and not bypass
         and (
             recipient.substitute
-            or recipient.has_ability("clear-body")
-            or recipient.has_ability("white-smoke")
+            or recipient.has_ability(Ability.CLEAR_BODY)
+            or recipient.has_ability(Ability.WHITE_SMOKE)
         )
     ):
         if forced:
@@ -38,14 +43,14 @@ def give_stat_change(
         amount < 0
         and not forced
         and not bypass
-        and recipient.has_ability("shield-dust")
+        and recipient.has_ability(Ability.SHIELD_DUST)
     ):
         return
-    if recipient.has_ability("simple"):
+    if recipient.has_ability(Ability.SIMPLE):
         amount *= 2
     if stat == 6:
         r_stat = recipient.accuracy_stage
-        if amount < 0 and recipient.has_ability("keen-eye"):
+        if amount < 0 and recipient.has_ability(Ability.KEEN_EYE):
             if forced:
                 _failed(battle)
             return
@@ -55,7 +60,7 @@ def give_stat_change(
         recipient.evasion_stage = _fit_stat_bounds(recipient.evasion_stage + amount)
     else:
         r_stat = recipient.stat_stages[stat]
-        if stat == gs.ATK and amount < 0 and recipient.has_ability("hyper-cutter"):
+        if stat == gs.ATK and amount < 0 and recipient.has_ability(Ability.HYPER_CUTTER):
             if forced:
                 _failed(battle)
             return

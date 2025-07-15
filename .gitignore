@@ -2,3 +2,4 @@ __pycache__/
 venv/
 .DS_store
 .idea/
+/poke_battle_sim_redux.egg-info/

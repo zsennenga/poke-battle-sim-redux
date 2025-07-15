@@ -7,8 +7,13 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
+from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
+from poke_battle_sim.util.move_logic._calculate_damage import _calculate_damage
+from poke_battle_sim.util.move_logic._generate_2_to_5 import _generate_2_to_5
+from poke_battle_sim.util.move_logic._missed import _missed
+
 
 def _effect_multi_hit_2_5(
     attacker: pk.Pokemon,
@@ -21,7 +26,7 @@ def _effect_multi_hit_2_5(
 ) -> bool:
     if not defender.is_alive:
         _missed(attacker, battle)
-    if not attacker.has_ability("skill-link"):
+    if not attacker.has_ability(Ability.SKILL_LINK):
         num_hits = _generate_2_to_5()
     else:
         num_hits = 5

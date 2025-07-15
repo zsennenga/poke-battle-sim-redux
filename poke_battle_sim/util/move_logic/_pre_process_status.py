@@ -38,7 +38,7 @@ def _pre_process_status(
             attacker.nv_status = 0
         else:
             attacker.nv_counter -= 1
-        if attacker.nv_counter and attacker.has_ability("early-bird"):
+        if attacker.nv_counter and attacker.has_ability(Ability.EARLY_BIRD):
             attacker.nv_counter -= 1
         if attacker.nv_counter > 0:
             battle.add_text(attacker.nickname + " is fast asleep!")
@@ -48,7 +48,7 @@ def _pre_process_status(
     if attacker.v_status[gs.FLINCHED]:
         attacker.v_status[gs.FLINCHED] = 0
         battle.add_text(attacker.nickname + " flinched and couldn't move")
-        if attacker.has_ability("steadfast"):
+        if attacker.has_ability(Ability.STEADFAST):
             give_stat_change(attacker, battle, gs.ATK, 1)
         return True
     if attacker.nv_status == gs.PARALYZED:

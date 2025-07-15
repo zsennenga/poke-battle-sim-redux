@@ -7,8 +7,12 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
+from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
+from poke_battle_sim.util.move_logic._invulnerability_check import _invulnerability_check
+from poke_battle_sim.util.move_logic._missed import _missed
+
 
 def _calculate_damage(
     attacker: pk.Pokemon,
@@ -34,14 +38,14 @@ def _calculate_damage(
     if not move_data.power:
         return
     t_mult = _calculate_type_ef(defender, move_data)
-    if not skip_txt and not t_mult or (t_mult < 2 and defender.has_ability("wonder-guard")):
+    if not skip_txt and not t_mult or (t_mult < 2 and defender.has_ability(Ability.WONDER_GUARD)):
         battle.add_text("It doesn't affect " + defender.nickname)
         return
     if pa.type_protection_abilities(defender, move_data, battle):
         return
 
     cc = crit_chance + attacker.crit_stage if crit_chance else attacker.crit_stage
-    if attacker.has_ability("super-luck"):
+    if attacker.has_ability(Ability.SUPER_LUCK):
         cc += 1
     if attacker.item == "scope-lens" or attacker.item == "razor-claw":
         cc += 1
@@ -49,11 +53,11 @@ def _calculate_damage(
         cc += 2
     if (
         not defender.trainer.lucky_chant
-        and not defender.has_ability("battle-armor")
-        and not defender.has_ability("shell-armor")
+        and not defender.has_ability(Ability.BATTLE_ARMOR)
+        and not defender.has_ability(Ability.SHELL_ARMOR)
         and _calculate_crit(cc)
     ):
-        crit_mult = 2 if not attacker.has_ability("sniper") else 3
+        crit_mult = 2 if not attacker.has_ability(Ability.SNIPER) else 3
         battle.add_text("A critical hit!")
     else:
         crit_mult = 1
@@ -63,8 +67,8 @@ def _calculate_damage(
     elif not skip_txt and t_mult > 1:
         battle.add_text("It's super effective!")
 
-    attacker.calculate_stats_effective(ignore_stats=defender.has_ability("unaware"))
-    defender.calculate_stats_effective(ignore_stats=attacker.has_ability("unaware"))
+    attacker.calculate_stats_effective(ignore_stats=defender.has_ability(Ability.UNAWARE))
+    defender.calculate_stats_effective(ignore_stats=attacker.has_ability(Ability.UNAWARE))
 
     a_stat = gs.ATK if move_data.category == gs.PHYSICAL else gs.SP_ATK
     d_stat = gs.DEF if move_data.category == gs.PHYSICAL else gs.SP_DEF
@@ -77,7 +81,7 @@ def _calculate_damage(
         atk_ig = max(attacker.stats_actual[a_stat], attacker.stats_effective[a_stat])
     ad_ratio = atk_ig / def_ig
 
-    if attacker.nv_status == gs.BURNED and not attacker.has_ability("guts"):
+    if attacker.nv_status == gs.BURNED and not attacker.has_ability(Ability.GUTS):
         burn = 0.5
     else:
         burn = 1
@@ -111,7 +115,7 @@ def _calculate_damage(
             weather_mult = 1.5
 
     if move_data.type == attacker.types[0] or move_data.type == attacker.types[1]:
-        stab = 1.5 if not attacker.has_ability("adaptability") else 2
+        stab = 1.5 if not attacker.has_ability(Ability.ADAPTABILITY) else 2
     else:
         stab = 1
     random_mult = randrange(85, 101) / 100
@@ -132,7 +136,7 @@ def _calculate_damage(
     if (
         crit_mult > 1
         and defender.is_alive
-        and defender.has_ability("anger-point")
+        and defender.has_ability(Ability.ANGER_POINT)
         and defender.stat_stages[gs.ATK] < 6
     ):
         battle.add_text(defender.nickname + " maxed it's Attack!")

@@ -1,5 +1,7 @@
 from __future__ import annotations
 from random import randrange
+
+from poke_battle_sim.const.ability_enum import Ability
 from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
@@ -16,7 +18,7 @@ def _effect_natural_gift(attacker: pk.Pokemon, defender: pk.Pokemon,
     is_first: bool, cc_ib: list) ->bool:
     if (attacker.item and attacker.item in gd.BERRY_DATA and not 
         battlefield.weather in [gs.HARSH_SUNLIGHT, gs.RAIN] and not
-        attacker.has_ability('klutz') and not attacker.embargo_count):
+        attacker.has_ability(Ability.KLUTZ) and not attacker.embargo_count):
         move_data.type, move_data.power = gd.BERRY_DATA[attacker.item]
         attacker.give_item(None)
     else:
