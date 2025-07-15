@@ -5,6 +5,7 @@ import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
+from poke_battle_sim.util.move_logic._flinch import _flinch
 
 
 def _extra_flinch_check(

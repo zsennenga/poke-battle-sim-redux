@@ -5,6 +5,8 @@ import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.conf.global_settings as gs
+from poke_battle_sim.util.move_logic._calculate_damage import _calculate_damage
+from poke_battle_sim.util.move_logic.give_stat_change import give_stat_change
 
 
 def _effect_ancient_power(

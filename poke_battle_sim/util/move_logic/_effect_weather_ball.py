@@ -22,7 +22,7 @@ def _effect_weather_ball(
     elif battlefield.weather == gs.HAIL:
         move_data.type = "ice"
     elif battlefield.weather == gs.SANDSTORM:
-        move_data.type == "rock"
+        move_data.type = "rock"
     else:
         move_data.type = "normal"
     if battlefield.weather != gs.CLEAR:

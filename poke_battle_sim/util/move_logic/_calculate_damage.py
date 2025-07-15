@@ -8,6 +8,8 @@ import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
 from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
+from poke_battle_sim.util.move_logic._calculate_crit import _calculate_crit
+from poke_battle_sim.util.move_logic._calculate_type_ef import _calculate_type_ef
 from poke_battle_sim.util.move_logic._invulnerability_check import (
     _invulnerability_check,
 )

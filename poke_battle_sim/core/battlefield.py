@@ -6,6 +6,7 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.util.process_ability as pa
 
 import poke_battle_sim.conf.global_settings as gs
+from poke_battle_sim.core.pokemon import Pokemon
 
 
 class Battlefield:
@@ -55,7 +56,7 @@ class Battlefield:
             self.weather = weather
             pa.weather_change_abilities(self.cur_battle, self)
 
-    def process_weather_effects(self, poke: pk.Pokemon):
+    def process_weather_effects(self, poke: Pokemon):
         if not poke.is_alive or self.weather_count >= 999:
             return
         if (

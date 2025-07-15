@@ -3,6 +3,7 @@ from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
+from poke_battle_sim.util.move_logic._power_herb_check import _power_herb_check
 
 
 def _effect_dig(

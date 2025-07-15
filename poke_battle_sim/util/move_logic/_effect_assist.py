@@ -5,6 +5,8 @@ import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.conf.global_data as gd
+from poke_battle_sim.util.move_logic._failed import _failed
+from poke_battle_sim.util.move_logic._process_effect import _process_effect
 
 
 def _effect_assist(

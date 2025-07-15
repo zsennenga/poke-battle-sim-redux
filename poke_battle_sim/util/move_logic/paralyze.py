@@ -4,6 +4,8 @@ import poke_battle_sim.core.battle as bt
 import poke_battle_sim.util.process_item as pi
 from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
+from poke_battle_sim.util.move_logic._failed import _failed
+from poke_battle_sim.util.move_logic._safeguard_check import _safeguard_check
 
 
 def paralyze(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):

@@ -4,6 +4,8 @@ import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.conf.global_settings as gs
+from poke_battle_sim.util.move_logic._calculate_damage import _calculate_damage
+from poke_battle_sim.util.move_logic._generate_2_to_5 import _generate_2_to_5
 
 
 def _effect_bind(

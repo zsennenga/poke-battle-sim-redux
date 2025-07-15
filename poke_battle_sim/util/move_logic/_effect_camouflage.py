@@ -18,6 +18,6 @@ def _effect_camouflage(
     battle.add_text(
         attacker.nickname
         + " transformed into the "
-        + attacker.types[0].upper()
+        + attacker.types[0].value.upper()
         + " type!"
     )

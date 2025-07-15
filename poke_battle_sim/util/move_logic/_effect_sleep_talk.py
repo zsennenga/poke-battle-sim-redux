@@ -5,6 +5,9 @@ import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.conf.global_settings as gs
+from poke_battle_sim.util.move_logic._failed import _failed
+from poke_battle_sim.util.move_logic._process_effect import _process_effect
+from poke_battle_sim.util.move_logic.cap_name import cap_name
 
 
 def _effect_sleep_talk(

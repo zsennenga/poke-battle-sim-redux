@@ -111,7 +111,7 @@ def selection_abilities(
     elif poke.has_ability(Ability.MULTITYPE) and poke.item in gd.PLATE_DATA:
         poke.types = (gd.PLATE_DATA[poke.item], None)
         battle.add_text(
-            poke.nickname + " transformed into the " + poke.types[0].upper() + " type!"
+            poke.nickname + " transformed into the " + poke.types[0].value.upper() + " type!"
         )
 
 
@@ -228,7 +228,7 @@ def on_hit_abilities(
         battle.add_text(
             defender.nickname
             + " transformed into the "
-            + move_data.type.upper()
+            + move_data.type.value.upper()
             + " type!"
         )
     elif (
@@ -411,7 +411,7 @@ def _forecast_check(poke: pk.Pokemon, battle: bt.Battle, battlefield: bf.Battlef
         else:
             poke.types = ("normal", None)
         battle.add_text(
-            poke.nickname + " transformed into the " + poke.types[0].upper() + " type!"
+            poke.nickname + " transformed into the " + poke.types[0].value.upper() + " type!"
         )
 
 

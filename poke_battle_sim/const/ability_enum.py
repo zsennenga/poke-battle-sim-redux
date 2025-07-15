@@ -11,6 +11,7 @@ class Ability(Enum):
     LIMBER = "limber"
     SAND_VEIL = "sand-veil"
     STATIC = "static"
+    BAD_DREAMS = "bad-dreams"
     VOLT_ABSORB = "volt-absorb"
     WATER_ABSORB = "water-absorb"
     OBLIVIOUS = "oblivious"

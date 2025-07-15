@@ -3,6 +3,7 @@ from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
+from poke_battle_sim.util.move_logic._calculate_damage import _calculate_damage
 
 
 def _effect_multi_hit_2(
