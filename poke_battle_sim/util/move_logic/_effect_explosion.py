@@ -11,13 +11,13 @@ from poke_battle_sim.util.move_logic._failed import _failed
 
 
 def _effect_explosion(
-        attacker: pk.Pokemon,
-        defender: pk.Pokemon,
-        battlefield: bf.Battlefield,
-        battle: bt.Battle,
-        move_data: Move,
-        is_first: bool,
-        cc_ib: list,
+    attacker: pk.Pokemon,
+    defender: pk.Pokemon,
+    battlefield: bf.Battlefield,
+    battle: bt.Battle,
+    move_data: Move,
+    is_first: bool,
+    cc_ib: list,
 ) -> bool:
     if not defender.is_alive:
         _failed(battle)

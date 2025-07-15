@@ -6,7 +6,6 @@ import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.conf.global_settings as gs
 
 
-
 def _effect_facade(
     attacker: pk.Pokemon,
     defender: pk.Pokemon,

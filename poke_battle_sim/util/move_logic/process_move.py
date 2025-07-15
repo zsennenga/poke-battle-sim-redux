@@ -3,7 +3,9 @@ from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
-from poke_battle_sim.util.move_logic._calculate_hit_or_miss import _calculate_hit_or_miss
+from poke_battle_sim.util.move_logic._calculate_hit_or_miss import (
+    _calculate_hit_or_miss,
+)
 from poke_battle_sim.util.move_logic._meta_effect_check import _meta_effect_check
 from poke_battle_sim.util.move_logic._post_process_status import _post_process_status
 from poke_battle_sim.util.move_logic._pre_process_status import _pre_process_status
