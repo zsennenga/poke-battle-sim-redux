@@ -52,7 +52,10 @@ class Pokemon(BaseModel):
     class Config:
         arbitrary_types_allowed = True
 
-    def calculate_stats_actual(self):
+    def get_name(self) -> str:
+        return self.nickname or self.name
+
+    def calculate_stats_actual(self) -> None:
         stats_actual = []
         nature_stat_changes = [1.0 for _ in range(6)]
         nature_stat_changes[self.nature_effect[0]] = gs.NATURE_INC

@@ -1,12 +1,12 @@
 from __future__ import annotations
-from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
-import poke_battle_sim.core.pokemon as pk
 from poke_battle_sim.const.ability_enum import Ability
 from poke_battle_sim.const.type_enum import PokemonType
+from poke_battle_sim.core.pokemon import Pokemon
+from poke_battle_sim.poke_sim import PokeSim
 
 
-def _calculate_type_ef(defender: pk.Pokemon, move_data: Move) -> float:
+def _calculate_type_ef(defender: Pokemon, move_data: Move) -> float:
     if move_data.type == "typeless":
         return 1
     if (

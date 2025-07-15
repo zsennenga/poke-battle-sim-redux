@@ -11,7 +11,7 @@ from poke_battle_sim.util.move_logic._failed import _failed
 from poke_battle_sim.util.move_logic._safeguard_check import _safeguard_check
 
 
-def sleep(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
+def sleep(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False) -> None:
     if (
         not recipient.is_alive
         or recipient.substitute

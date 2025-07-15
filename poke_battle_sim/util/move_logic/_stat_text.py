@@ -11,8 +11,8 @@ def _stat_text(recipient: pk.Pokemon, stat: int, amount: int) -> str:
     else:
         cur_stage = recipient.stat_stages[stat]
     if not amount:
-        return
-    base = recipient.nickname + "'s " + gs.STAT_TO_NAME[stat]
+        return ""
+    base = recipient.get_name() + "'s " + gs.STAT_TO_NAME[stat]
     if amount > 0:
         dif = min(6 - cur_stage, amount)
         if dif <= 0:

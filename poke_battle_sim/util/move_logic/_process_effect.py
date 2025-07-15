@@ -32,5 +32,5 @@ def _process_effect(
             battle,
             move_data,
             crit_chance=cc_ib[0],
-            inv_bypass=cc_ib[0],
+            inv_bypass=cc_ib[1],
         )
