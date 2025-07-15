@@ -16,9 +16,7 @@ def _snatch_check(
     is_first: bool,
 ) -> bool:
     if defender.is_alive and defender.snatch and move_data.name in gd.SNATCH_CHECK:
-        battle.add_text(
-            f"{defender.nickname} snatched {attacker.nickname}'s move!"
-        )
+        battle.add_text(f"{defender.nickname} snatched {attacker.nickname}'s move!")
         _process_effect(defender, attacker, battlefield, battle, move_data, is_first)
         return True
     return False

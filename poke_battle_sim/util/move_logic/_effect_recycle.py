@@ -19,8 +19,6 @@ def _effect_recycle(
     if not attacker.item and not attacker.h_item and attacker.last_consumed_item:
         attacker.give_item(attacker.last_consumed_item)
         attacker.last_consumed_item = None
-        battle.add_text(
-            f"{attacker.nickname} found one {cap_name(attacker.item)}!"
-        )
+        battle.add_text(f"{attacker.nickname} found one {cap_name(attacker.item)}!")
     else:
         _failed(battle)

@@ -572,9 +572,7 @@ class Battle:
             return True
         if old_poke.is_alive:
             old_poke.switch_out()
-        self.add_text(
-            f"{selector.name} sent out {selector.current_poke.nickname}!"
-        )
+        self.add_text(f"{selector.name} sent out {selector.current_poke.nickname}!")
 
         if self.battlefield.gravity_count:
             selector.current_poke.grounded = True

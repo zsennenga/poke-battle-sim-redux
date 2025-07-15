@@ -181,9 +181,7 @@ class Pokemon(BaseModel):
         if not damage or damage < 0 or not self.cur_battle:
             return 0
         if self.substitute:
-            self.cur_battle.add_text(
-                f"The substitute took damage for {self.nickname}!"
-            )
+            self.cur_battle.add_text(f"The substitute took damage for {self.nickname}!")
             if self.substitute - damage <= 0:
                 self.substitute = 0
                 self.cur_battle.add_text(f"{self.nickname}'s substitute faded!")

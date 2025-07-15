@@ -51,9 +51,7 @@ def use_item(
         move = poke.moves[int(move_target_pos)]
 
     if not text_skip:
-        battle.add_text(
-            f"{trainer.name} used one {cap_name(item)} on {poke.nickname}!"
-        )
+        battle.add_text(f"{trainer.name} used one {cap_name(item)} on {poke.nickname}!")
 
     if poke.embargo_count:
         _failed(battle)

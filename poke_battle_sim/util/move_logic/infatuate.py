@@ -25,7 +25,5 @@ def infatuate(
         attacker.gender == "female" and defender.gender == "male"
     ):
         defender.infatuation = attacker
-        battle.add_text(
-            f"{defender.nickname} fell in love with {attacker.nickname}!"
-        )
+        battle.add_text(f"{defender.nickname} fell in love with {attacker.nickname}!")
         pi.status_items(defender, battle)

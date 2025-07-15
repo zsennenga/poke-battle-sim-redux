@@ -30,14 +30,10 @@ def _effect_bind(
         defender.binding_poke = attacker
         if move_data.ef_stat == gs.BIND:
             defender.binding_type = "Bind"
-            battle.add_text(
-                f"{defender.nickname} was squeezed by {attacker.nickname}!"
-            )
+            battle.add_text(f"{defender.nickname} was squeezed by {attacker.nickname}!")
         elif move_data.ef_stat == gs.WRAP:
             defender.binding_type = "Wrap"
-            battle.add_text(
-                f"{defender.nickname} was wrapped by {attacker.nickname}!"
-            )
+            battle.add_text(f"{defender.nickname} was wrapped by {attacker.nickname}!")
         elif move_data.ef_stat == gs.FIRE_SPIN:
             defender.binding_type = "Fire Spin"
             battle.add_text(f"{defender.nickname} was trapped in the vortex!")

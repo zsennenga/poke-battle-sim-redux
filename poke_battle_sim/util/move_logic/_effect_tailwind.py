@@ -17,9 +17,7 @@ def _effect_tailwind(
     cc_ib: list,
 ) -> bool:
     if not attacker.trainer.tailwind_count:
-        battle.add_text(
-            f"The tailwind blew from being {attacker.trainer.name}'s team!"
-        )
+        battle.add_text(f"The tailwind blew from being {attacker.trainer.name}'s team!")
         attacker.trainer.tailwind_count = 3
         for poke in attacker.trainer.poke_list:
             poke.stats_actual[gs.SPD] *= 2

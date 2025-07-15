@@ -20,9 +20,7 @@ def _effect_me_first(
     if attacker.mf_move:
         if attacker.mf_move.power:
             attacker.mf_move.power = int(1.5 * attacker.mf_move.power)
-        battle.add_text(
-            f"{attacker.nickname} used {cap_name(attacker.mf_move.name)}!"
-        )
+        battle.add_text(f"{attacker.nickname} used {cap_name(attacker.mf_move.name)}!")
         _process_effect(
             attacker, defender, battlefield, battle, attacker.mf_move, is_first
         )
