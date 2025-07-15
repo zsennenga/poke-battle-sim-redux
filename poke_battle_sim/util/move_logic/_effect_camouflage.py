@@ -16,6 +16,4 @@ def _effect_camouflage(
     cc_ib: list,
 ) -> bool:
     attacker.types = PokemonType.NORMAL, None
-    battle.add_text(
-        f"{attacker.nickname} transformed into the Normal type!"
-    )
+    battle.add_text(f"{attacker.nickname} transformed into the Normal type!")

@@ -180,21 +180,29 @@ def end_turn_abilities(poke: pk.Pokemon, battle: bt.Battle):
 def type_protection_abilities(
     defender: pk.Pokemon, move_data: Move, battle: bt.Battle
 ) -> bool:
-    if defender.has_ability(Ability.VOLT_ABSORB) and move_data.type == PokemonType.ELECTRIC:
+    if (
+        defender.has_ability(Ability.VOLT_ABSORB)
+        and move_data.type == PokemonType.ELECTRIC
+    ):
         battle.add_text(
             f"{defender.nickname} absorbed {move_data.name} with Volt Absorb!"
         )
         if not defender.cur_hp == defender.max_hp:
             defender.heal(defender.max_hp // 4)
         return True
-    elif defender.has_ability(Ability.WATER_ABSORB) and move_data.type == PokemonType.WATER:
+    elif (
+        defender.has_ability(Ability.WATER_ABSORB)
+        and move_data.type == PokemonType.WATER
+    ):
         battle.add_text(
             f"{defender.nickname} absorbed {move_data.name} with Water Absorb!"
         )
         if not defender.cur_hp == defender.max_hp:
             defender.heal(defender.max_hp // 4)
         return True
-    elif defender.has_ability(Ability.FLASH_FIRE) and move_data.type == PokemonType.FIRE:
+    elif (
+        defender.has_ability(Ability.FLASH_FIRE) and move_data.type == PokemonType.FIRE
+    ):
         battle.add_text(f"It doesn't affect {defender.nickname}")
         defender.ability_activated = True
         return True
@@ -237,7 +245,7 @@ def on_hit_abilities(
     elif (
         defender.has_ability(Ability.FLAME_BODY) and made_contact and randrange(10) < 3
     ):
-         burn(attacker, battle)
+        burn(attacker, battle)
     elif (
         defender.has_ability(Ability.POISON_POINT)
         and made_contact
@@ -250,7 +258,10 @@ def on_hit_abilities(
         defender.has_ability(Ability.CUTE_CHARM) and made_contact and randrange(10) < 3
     ):
         infatuate(defender, attacker, battle)
-    elif defender.has_ability(Ability.MOTOR_DRIVE) and move_data.type == PokemonType.ELECTRIC:
+    elif (
+        defender.has_ability(Ability.MOTOR_DRIVE)
+        and move_data.type == PokemonType.ELECTRIC
+    ):
         give_stat_change(defender, battle, gs.SPD, 1)
         return True
     return False

@@ -98,9 +98,13 @@ def _calculate_damage(
         burn = 1
     if attacker.charged and move_data.type == PokemonType.ELECTRIC:
         move_data.power *= 2
-    if move_data.type == PokemonType.ELECTRIC and (attacker.mud_sport or defender.mud_sport):
+    if move_data.type == PokemonType.ELECTRIC and (
+        attacker.mud_sport or defender.mud_sport
+    ):
         move_data.power //= 2
-    if move_data.type == PokemonType.FIRE and (attacker.water_sport or defender.water_sport):
+    if move_data.type == PokemonType.FIRE and (
+        attacker.water_sport or defender.water_sport
+    ):
         move_data.power //= 2
     pa.damage_calc_abilities(attacker, defender, battle, move_data, t_mult)
     pi.damage_calc_items(attacker, defender, battle, move_data)

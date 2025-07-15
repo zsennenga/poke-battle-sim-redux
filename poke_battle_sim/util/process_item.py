@@ -231,7 +231,8 @@ def damage_calc_items(
             move_data.power = int(move_data.power * 1.2)
     elif item == "soul-dew":
         if (attacker.name == "latios" or attacker.name == "latias") and (
-            move_data.type == PokemonType.DRAGON or move_data.type == PokemonType.PSYCHIC
+            move_data.type == PokemonType.DRAGON
+            or move_data.type == PokemonType.PSYCHIC
         ):
             move_data.power = int(move_data.power * 1.5)
     elif item == "metal-coat" or item == "iron-plate":

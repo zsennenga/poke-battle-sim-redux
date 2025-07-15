@@ -20,7 +20,7 @@ def process_move(
     battle: bt.Battle,
     move_data: Move,
     is_first: bool,
-):
+) -> None:
     if _pre_process_status(attacker, defender, battlefield, battle, move_data):
         return
     battle.add_text(f"{attacker.nickname} used {cap_name(move_data.name)}!")

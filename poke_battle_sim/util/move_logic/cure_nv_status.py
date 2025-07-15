@@ -1,10 +1,11 @@
 from __future__ import annotations
-import poke_battle_sim.core.pokemon as pk
-import poke_battle_sim.core.battle as bt
+
 import poke_battle_sim.conf.global_settings as gs
+import poke_battle_sim.core.battle as bt
+import poke_battle_sim.core.pokemon as pk
 
 
-def cure_nv_status(status: int, recipient: pk.Pokemon, battle: bt.Battle):
+def cure_nv_status(status: int, recipient: pk.Pokemon, battle: bt.Battle) -> None:
     if not recipient.is_alive or not status:
         return
     if recipient.nv_status != status and not (
@@ -23,4 +24,4 @@ def cure_nv_status(status: int, recipient: pk.Pokemon, battle: bt.Battle):
         text = " was cured of poison!"
 
     recipient.nv_status = 0
-    battle.add_text(recipient.nickname + text)
+    battle.add_text(recipient.nickname or recipient.name + text)

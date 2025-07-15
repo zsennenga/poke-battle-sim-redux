@@ -659,7 +659,7 @@ class Battle:
         if a_move[gs.ACTION_VALUE] == "biding":
             self.add_text(f"{attacker.current_poke.nickname} is storing energy!")
 
-    def _faint_check(self):
+    def _faint_check(self) -> None:
         if self.winner:
             return
         if not self.t1_fainted and not self.t1.current_poke.is_alive:

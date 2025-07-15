@@ -17,7 +17,11 @@ def _calculate_type_ef(defender: pk.Pokemon, move_data: Move) -> float:
         return 0
 
     vulnerable_types = []
-    if move_data.type == PokemonType.GROUND and PokemonType.FLYING in defender.types and defender.grounded:
+    if (
+        move_data.type == PokemonType.GROUND
+        and PokemonType.FLYING in defender.types
+        and defender.grounded
+    ):
         vulnerable_types.append(PokemonType.FLYING)
     if (
         (
@@ -28,7 +32,11 @@ def _calculate_type_ef(defender: pk.Pokemon, move_data: Move) -> float:
         and PokemonType.GHOST in defender.types
     ):
         vulnerable_types.append(PokemonType.GHOST)
-    if defender.me_target and move_data.type == PokemonType.PSYCHIC and PokemonType.DARK in defender.types:
+    if (
+        defender.me_target
+        and move_data.type == PokemonType.PSYCHIC
+        and PokemonType.DARK in defender.types
+    ):
         vulnerable_types.append(PokemonType.DARK)
 
     if defender.types[0] in vulnerable_types:

@@ -16,3 +16,4 @@ def _effect_attract(
     cc_ib: list,
 ) -> bool:
     infatuate(attacker, defender, battle, forced=True)
+    return True

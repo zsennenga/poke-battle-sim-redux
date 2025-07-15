@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from queue import Queue
 from random import randrange
-from typing import List, Optional, Tuple
+from typing import List, Optional, Tuple, TYPE_CHECKING
 
 from pydantic import BaseModel
 
@@ -11,15 +11,19 @@ import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
-import poke_battle_sim.util.process_move as pm
 from poke_battle_sim.core.move import Move
 from poke_battle_sim.const.ability_enum import Ability
 from poke_battle_sim.const.type_enum import PokemonType
+from poke_battle_sim.util.move_logic.cure_nv_status import cure_nv_status
+
+if TYPE_CHECKING:
+    from poke_battle_sim.core.trainer import Trainer  # noqa: F401
 
 
 class Pokemon(BaseModel):
     id: int
     name: str
+    trainer: Optional["Trainer"] = None
     types: Tuple[PokemonType, PokemonType]
     base: List[int]
     height: int
@@ -27,6 +31,9 @@ class Pokemon(BaseModel):
     base_exp: int
     level: int
     gender: str
+    nv_status: int = 0
+    nv_counter: int = 0
+    is_alive: bool = True
     stats_actual: Optional[List[int]] = None
     ivs: Optional[List[int]] = None
     evs: Optional[List[int]] = None
@@ -389,7 +396,7 @@ class Pokemon(BaseModel):
             self.reset_transform()
         self.reset_stats()
         if self.has_ability(Ability.NATURAL_CURE) and self.nv_status:
-            pm.cure_nv_status(self.nv_status, self, self.cur_battle)
+            cure_nv_status(self.nv_status, self, self.cur_battle)
 
     def update_last_moves(self):
         if self.last_move_next:

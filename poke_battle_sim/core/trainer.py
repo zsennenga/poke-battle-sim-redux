@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+from typing import Callable
+
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 
@@ -11,7 +13,7 @@ import poke_battle_sim.conf.global_data as gd
 
 class Trainer:
     def __init__(
-        self, name: str, poke_list: list[pk.Pokemon], selection: callable = None
+        self, name: str, poke_list: list[pk.Pokemon], selection: Callable = None
     ):
         """
         Creating a Trainer object requires a name, party, and optional selection function.

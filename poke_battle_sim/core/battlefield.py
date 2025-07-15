@@ -65,7 +65,10 @@ class Battlefield:
             and not poke.has_ability(Ability.SAND_VEIL)
             and not poke.in_ground
             and not poke.in_water
-            and not any(type in poke.types for type in [PokemonType.GROUND, PokemonType.STEEL, PokemonType.ROCK])
+            and not any(
+                type in poke.types
+                for type in [PokemonType.GROUND, PokemonType.STEEL, PokemonType.ROCK]
+            )
         ):
             self.cur_battle.add_text(f"{poke.nickname} is buffeted by the Sandstorm!")
             poke.take_damage(max(1, poke.max_hp // 16))
