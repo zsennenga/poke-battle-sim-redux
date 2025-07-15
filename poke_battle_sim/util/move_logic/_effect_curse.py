@@ -1,22 +1,26 @@
 from __future__ import annotations
-from random import randrange
-from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
-import poke_battle_sim.util.process_ability as pa
-import poke_battle_sim.util.process_item as pi
 import poke_battle_sim.conf.global_settings as gs
-import poke_battle_sim.conf.global_data as gd
 
 
-def _effect_curse(attacker: pk.Pokemon, defender: pk.Pokemon, battlefield:
-    bf.Battlefield, battle: bt.Battle, move_data: Move, is_first: bool,
-    cc_ib: list) ->bool:
-    if 'ghost' not in attacker.types:
-        if attacker.stat_stages[gs.ATK] == 6 and attacker.stat_stages[gs.DEF
-            ] == 6 and attacker.stat_stages[gs.SPD] == -6:
+def _effect_curse(
+    attacker: pk.Pokemon,
+    defender: pk.Pokemon,
+    battlefield: bf.Battlefield,
+    battle: bt.Battle,
+    move_data: Move,
+    is_first: bool,
+    cc_ib: list,
+) -> bool:
+    if "ghost" not in attacker.types:
+        if (
+            attacker.stat_stages[gs.ATK] == 6
+            and attacker.stat_stages[gs.DEF] == 6
+            and attacker.stat_stages[gs.SPD] == -6
+        ):
             _failed(battle)
             return True
         if attacker.stat_stages[gs.ATK] < 6:
@@ -26,11 +30,14 @@ def _effect_curse(attacker: pk.Pokemon, defender: pk.Pokemon, battlefield:
         if attacker.stat_stages[gs.SPD] > -6:
             give_stat_change(attacker, battle, gs.SPD, -1, bypass=True)
     else:
-        if not defender.is_alive or defender.v_status[gs.CURSE
-            ] or defender.substitute:
+        if not defender.is_alive or defender.v_status[gs.CURSE] or defender.substitute:
             _failed(battle)
             return True
         attacker.take_damage(attacker.max_hp // 2)
         defender.v_status[gs.CURSE] = 1
-        battle.add_text(attacker.nickname +
-            ' cut its own HP and laid a curse on ' + defender.nickname + '!')
+        battle.add_text(
+            attacker.nickname
+            + " cut its own HP and laid a curse on "
+            + defender.nickname
+            + "!"
+        )

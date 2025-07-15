@@ -9,7 +9,9 @@ import poke_battle_sim.conf.global_settings as gs
 def load_pokemon_stats():
     pokemon_stats = []
     name_to_id = {}
-    with open(importlib.resources.files(gs.DATA_DIR).joinpath(gs.POKEMON_STATS_CSV)) as csv_file:
+    with open(
+        importlib.resources.files(gs.DATA_DIR).joinpath(gs.POKEMON_STATS_CSV)
+    ) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
         next(csv_reader)
         for row in csv_reader:
@@ -23,7 +25,9 @@ def load_pokemon_stats():
 def load_natures():
     natures = {}
     nature_list = []
-    with open(importlib.resources.files(gs.DATA_DIR).joinpath(gs.NATURES_CSV)) as csv_file:
+    with open(
+        importlib.resources.files(gs.DATA_DIR).joinpath(gs.NATURES_CSV)
+    ) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
         next(csv_reader)
         for row in csv_reader:
@@ -35,7 +39,9 @@ def load_natures():
 def load_moves():
     move_list = []
     move_name_to_id = {}
-    with open(importlib.resources.files(gs.DATA_DIR).joinpath(gs.MOVES_CSV)) as csv_file:
+    with open(
+        importlib.resources.files(gs.DATA_DIR).joinpath(gs.MOVES_CSV)
+    ) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
         next(csv_reader)
         for row in csv_reader:
@@ -50,7 +56,9 @@ def load_moves():
 def load_types():
     type_to_id = {}
     type_effectives = []
-    with open(importlib.resources.files(gs.DATA_DIR).joinpath(gs.TYPE_EF_CSV)) as csv_file:
+    with open(
+        importlib.resources.files(gs.DATA_DIR).joinpath(gs.TYPE_EF_CSV)
+    ) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
         next(csv_reader)
         line_count = 0
@@ -65,7 +73,9 @@ def load_types():
 def load_abilities():
     abilities = {}
     ability_list = []
-    with open(importlib.resources.files(gs.DATA_DIR).joinpath(gs.ABILITIES_CSV)) as csv_file:
+    with open(
+        importlib.resources.files(gs.DATA_DIR).joinpath(gs.ABILITIES_CSV)
+    ) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
         next(csv_reader)
         for row in csv_reader:
@@ -77,7 +87,9 @@ def load_abilities():
 def load_items():
     items = {}
     item_list = []
-    with open(importlib.resources.files(gs.DATA_DIR).joinpath(gs.ITEMS_CSV)) as csv_file:
+    with open(
+        importlib.resources.files(gs.DATA_DIR).joinpath(gs.ITEMS_CSV)
+    ) as csv_file:
         csv_reader = csv.reader(csv_file, delimiter=",")
         next(csv_reader)
         for row in csv_reader:
@@ -190,7 +202,10 @@ class PokeSim:
         return random.randrange(1, len(self._pokemon_stats))
 
     def get_rand_stats(self) -> list[int]:
-        return [random.randrange(gs.STAT_ACTUAL_MIN, gs.STAT_ACTUAL_MAX + 1) for _ in range(6)]
+        return [
+            random.randrange(gs.STAT_ACTUAL_MIN, gs.STAT_ACTUAL_MAX + 1)
+            for _ in range(6)
+        ]
 
     def get_rand_gender(self) -> str:
         return gs.POSSIBLE_GENDERS[random.randrange(len(gs.POSSIBLE_GENDERS))]

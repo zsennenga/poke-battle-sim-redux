@@ -11,13 +11,13 @@ from poke_battle_sim.util.move_logic._safeguard_check import _safeguard_check
 
 def poison(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
     if (
-            not recipient.is_alive
-            or recipient.substitute
-            or recipient.has_ability(Ability.IMMUNITY)
-            or (
+        not recipient.is_alive
+        or recipient.substitute
+        or recipient.has_ability(Ability.IMMUNITY)
+        or (
             recipient.has_ability(Ability.LEAF_GUARD)
             and battle.battlefield.weather == gs.HARSH_SUNLIGHT
-    )
+        )
     ):
         if forced:
             _failed(battle)

@@ -1,5 +1,6 @@
 from enum import Enum
 
+
 class Item(Enum):
     NONE = "none"
     MASTER_BALL = "master-ball"

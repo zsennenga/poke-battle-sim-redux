@@ -1,14 +1,12 @@
 from __future__ import annotations
 from random import randrange
-from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
-import poke_battle_sim.util.process_ability as pa
-import poke_battle_sim.util.process_item as pi
 import poke_battle_sim.conf.global_settings as gs
 import poke_battle_sim.conf.global_data as gd
+
 
 def _pre_process_status(
     attacker: pk.Pokemon,
@@ -69,7 +67,22 @@ def _pre_process_status(
             if randrange(2) < 1:
                 battle.add_text("It hurt itself in its confusion!")
                 self_attack = Move(
-                    [0, "self-attack", 1, "typeless", 40, 1, 999, 0, 10, 2, 1, "", "", ""]
+                    [
+                        0,
+                        "self-attack",
+                        1,
+                        "typeless",
+                        40,
+                        1,
+                        999,
+                        0,
+                        10,
+                        2,
+                        1,
+                        "",
+                        "",
+                        "",
+                    ]
                 )
                 _calculate_damage(
                     attacker, attacker, battlefield, battle, self_attack, crit_chance=0

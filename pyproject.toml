@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "autoflake>=2.3.1",
     "black>=25.1.0",
     "mypy>=1.17.0",
     "pydantic>=2.11.7",
@@ -20,3 +21,11 @@ check_untyped_defs = true
 no_implicit_reexport = true
 warn_redundant_casts = true
 warn_unused_ignores = true
+[tool.black]
+line-length = 88
+target-version = ["py313"]
+[tool.autoflake]
+remove-all-unused-imports = true
+remove-unused-variables = true
+expand-star-imports = true
+in-place = true

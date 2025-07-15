@@ -1,11 +1,11 @@
 # CSV Paths
-DATA_DIR = 'poke_battle_sim.data'
-POKEMON_STATS_CSV = 'pokemon_stats.csv'
-NATURES_CSV = 'natures.csv'
-MOVES_CSV = 'move_list.csv'
-TYPE_EF_CSV = 'type_effectiveness.csv'
-ABILITIES_CSV = 'abilities.csv'
-ITEMS_CSV = 'items_gen4.csv'
+DATA_DIR = "poke_battle_sim.data"
+POKEMON_STATS_CSV = "pokemon_stats.csv"
+NATURES_CSV = "natures.csv"
+MOVES_CSV = "move_list.csv"
+TYPE_EF_CSV = "type_effectiveness.csv"
+ABILITIES_CSV = "abilities.csv"
+ITEMS_CSV = "items_gen4.csv"
 
 # Stat Ranges
 LEVEL_MIN, LEVEL_MAX = 1, 100
@@ -17,7 +17,7 @@ NATURE_DEC, NATURE_INC = 0.9, 1.1
 
 # Misc Settings
 POKE_NUM_MIN, POKE_NUM_MAX = 1, 6
-POSSIBLE_GENDERS = ['male', 'female', 'genderless']
+POSSIBLE_GENDERS = ["male", "female", "genderless"]
 COMPLETED_MOVES = 467
 
 # Non-volatile Statuses
@@ -30,12 +30,12 @@ BADLY_POISONED = 6
 
 # Non-volatile Status Conversion
 NV_STATUSES = {
-    'burned': 1,
-    'frozen': 2,
-    'paralyzed': 3,
-    'poisoned': 4,
-    'asleep': 5,
-    'badly poisoned': 6
+    "burned": 1,
+    "frozen": 2,
+    "paralyzed": 3,
+    "poisoned": 4,
+    "asleep": 5,
+    "badly poisoned": 6,
 }
 
 # Volatile Statuses
@@ -78,7 +78,16 @@ STAT_NUM = 6
 ACC = 6
 EVA = 7
 
-STAT_TO_NAME = ['Health', 'Attack', 'Defense', 'Sp. Atk', 'Sp. Def', 'Speed', 'accuracy', 'evasion']
+STAT_TO_NAME = [
+    "Health",
+    "Attack",
+    "Defense",
+    "Sp. Atk",
+    "Sp. Def",
+    "Speed",
+    "accuracy",
+    "evasion",
+]
 
 # Move Categories
 STATUS = 1
@@ -117,11 +126,7 @@ POKEMON_STATS_NUMS = [0, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 MOVES_NUM = [0, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13]
 
 # Player Turn Actions
-ACTION_PRIORITY = {
-    'other': 3,
-    'item': 2,
-    'move': 1
-}
+ACTION_PRIORITY = {"other": 3, "item": 2, "move": 1}
 
 # Turn Data
 ACTION_TYPE = 0

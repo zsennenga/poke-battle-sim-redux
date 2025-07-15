@@ -8,11 +8,16 @@ from poke_battle_sim.core.move import Move
 from poke_battle_sim.util.move_logic._failed import _failed
 
 
-def _effect_baton_pass(attacker: pk.Pokemon, defender: pk.Pokemon,
-                       battlefield: bf.Battlefield, battle: bt.Battle, move_data: Move,
-                       is_first: bool, cc_ib: list) -> bool:
+def _effect_baton_pass(
+    attacker: pk.Pokemon,
+    defender: pk.Pokemon,
+    battlefield: bf.Battlefield,
+    battle: bt.Battle,
+    move_data: Move,
+    is_first: bool,
+    cc_ib: list,
+) -> bool:
     t = attacker.trainer
-    old_poke = attacker
     if t.num_fainted >= len(t.poke_list) - 1 or battle._process_selection(t):
         _failed(battle)
     t.current_poke.v_status = attacker.v_status.copy()

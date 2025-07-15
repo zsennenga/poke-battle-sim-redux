@@ -213,7 +213,11 @@ def on_hit_abilities(
     elif defender.has_ability(Ability.ROUGH_SKIN) and made_contact:
         attacker.take_damage(max(1, attacker.max_hp // 16))
         battle.add_text(attacker.nickname + " was hurt!")
-    elif defender.has_ability(Ability.EFFECT_SPORE) and made_contact and randrange(10) < 3:
+    elif (
+        defender.has_ability(Ability.EFFECT_SPORE)
+        and made_contact
+        and randrange(10) < 3
+    ):
         pm.give_nv_status(randrange(3, 6), attacker, battle)
     elif (
         defender.has_ability(Ability.COLOR_CHANGE)
@@ -233,7 +237,9 @@ def on_hit_abilities(
     ):
         battle.add_text("It doesn't affect " + defender.nickname)
         return True
-    elif defender.has_ability(Ability.FLAME_BODY) and made_contact and randrange(10) < 3:
+    elif (
+        defender.has_ability(Ability.FLAME_BODY) and made_contact and randrange(10) < 3
+    ):
         pm.burn(attacker, battle)
     elif (
         defender.has_ability(Ability.POISON_POINT)
@@ -243,7 +249,9 @@ def on_hit_abilities(
         and randrange(10) < 3
     ):
         pm.poison(attacker, battle)
-    elif defender.has_ability(Ability.CUTE_CHARM) and made_contact and randrange(10) < 3:
+    elif (
+        defender.has_ability(Ability.CUTE_CHARM) and made_contact and randrange(10) < 3
+    ):
         pm.infatuate(defender, attacker, battle)
     elif defender.has_ability(Ability.MOTOR_DRIVE) and move_data.type == "electric":
         pm.give_stat_change(defender, battle, gs.SPD, 1)
@@ -264,7 +272,9 @@ def stat_calc_abilities(poke: pk.Pokemon):
         poke.stats_effective[gs.SPD] *= 2
     elif poke.has_ability(Ability.HUGE_POWER) or poke.has_ability(Ability.PURE_POWER):
         poke.stats_effective[gs.ATK] *= 2
-    elif poke.has_ability(Ability.HUSTLE) or (poke.has_ability(Ability.GUTS) and poke.nv_status):
+    elif poke.has_ability(Ability.HUSTLE) or (
+        poke.has_ability(Ability.GUTS) and poke.nv_status
+    ):
         poke.stats_effective[gs.ATK] = int(poke.stats_effective[gs.ATK] * 1.5)
     elif poke.has_ability(Ability.MARVEL_SCALE) and poke.nv_status:
         poke.stats_effective[gs.DEF] = int(poke.stats_effective[gs.DEF] * 1.5)

@@ -57,9 +57,9 @@ class Pokemon(BaseModel):
         for s in range(1, gs.STAT_NUM):
             stats_actual.append(
                 (
-                        ((2 * self.base[s] + self.ivs[s] + self.evs[s] // 4) * self.level)
-                        // 100
-                        + 5
+                    ((2 * self.base[s] + self.ivs[s] + self.evs[s] // 4) * self.level)
+                    // 100
+                    + 5
                 )
                 * nature_stat_changes[s]
             )
@@ -193,10 +193,10 @@ class Pokemon(BaseModel):
         if enemy_move:
             self.last_move_hit_by = enemy_move
             if (
-                    pa.on_hit_abilities(
-                        self.enemy.current_poke, self, self.cur_battle, enemy_move
-                    )
-                    or not self.cur_battle
+                pa.on_hit_abilities(
+                    self.enemy.current_poke, self, self.cur_battle, enemy_move
+                )
+                or not self.cur_battle
             ):
                 return 0
             pi.on_hit_items(self.enemy.current_poke, self, self.cur_battle, enemy_move)
@@ -211,10 +211,10 @@ class Pokemon(BaseModel):
                 return self.last_damage_taken - 1
             self._db_check()
             if (
-                    self.last_move
-                    and self.last_move.name == "grudge"
-                    and enemy_move
-                    and self.enemy.current_poke.is_alive
+                self.last_move
+                and self.last_move.name == "grudge"
+                and enemy_move
+                and self.enemy.current_poke.is_alive
             ):
                 self.cur_battle.add_text(
                     self.enemy.current_poke.name
@@ -300,9 +300,9 @@ class Pokemon(BaseModel):
         if self.hb_count and av_moves:
             av_moves = [move for move in av_moves if move not in gd.HEAL_BLOCK_CHECK]
         if (
-                self.trainer.imprisoned_poke
-                and self.trainer.imprisoned_poke is self.enemy.current_poke
-                and av_moves
+            self.trainer.imprisoned_poke
+            and self.trainer.imprisoned_poke is self.enemy.current_poke
+            and av_moves
         ):
             i_moves = [move.name for move in self.trainer.imprisoned_poke.moves]
             av_moves = [move for move in av_moves if move.name not in i_moves]
@@ -416,28 +416,31 @@ class Pokemon(BaseModel):
         if self.item == "shed-shell":
             return True
         if (
-                self.trapped
-                or self.perma_trapped
-                or self.recharging
-                or not self.next_moves.empty()
+            self.trapped
+            or self.perma_trapped
+            or self.recharging
+            or not self.next_moves.empty()
         ):
             return False
         enemy_poke = self.enemy.current_poke
         if enemy_poke.is_alive and enemy_poke.has_ability(Ability.SHADOW_TAG):
             return False
         if (
-                "steel" in self.types
-                and enemy_poke.is_alive
-                and enemy_poke.has_ability(Ability.MAGNET_PULL)
+            "steel" in self.types
+            and enemy_poke.is_alive
+            and enemy_poke.has_ability(Ability.MAGNET_PULL)
         ):
             return False
         if (
-                (
-                        self.grounded
-                        or (not "flying" in self.types and not self.has_ability(Ability.LEVITATE))
+            (
+                self.grounded
+                or (
+                    not "flying" in self.types
+                    and not self.has_ability(Ability.LEVITATE)
                 )
-                and enemy_poke.is_alive
-                and enemy_poke.has_ability(Ability.ARENA_TRAP)
+            )
+            and enemy_poke.is_alive
+            and enemy_poke.has_ability(Ability.ARENA_TRAP)
         ):
             return False
         return True
@@ -469,9 +472,9 @@ class Pokemon(BaseModel):
 
     def _fsash_check(self) -> bool:
         if (
-                self.item == "focus-sash"
-                and self.cur_hp == self.max_hp
-                and not self.item_activated
+            self.item == "focus-sash"
+            and self.cur_hp == self.max_hp
+            and not self.item_activated
         ):
             self.cur_battle.add_text(self.nickname + " hung on using its Focus Sash!")
             self.item_activated = True
@@ -490,10 +493,10 @@ class Pokemon(BaseModel):
 
     def _aftermath_check(self, enemy_move: Move):
         if (
-                self.has_ability(Ability.AFTERMATH)
-                and enemy_move in gd.CONTACT_CHECK
-                and self.enemy.current_poke.is_alive
-                and not self.enemy.current_poke.has_ability(Ability.DAMP)
+            self.has_ability(Ability.AFTERMATH)
+            and enemy_move in gd.CONTACT_CHECK
+            and self.enemy.current_poke.is_alive
+            and not self.enemy.current_poke.has_ability(Ability.DAMP)
         ):
             self.enemy.current_poke.take_damage(
                 max(1, self.enemy.current_poke.max_hp // 4)
@@ -517,11 +520,11 @@ class Pokemon(BaseModel):
             return
         hp_type = 0
         for i in range(6):
-            hp_type += 2 ** i * (self.ivs[i] & 1)
+            hp_type += 2**i * (self.ivs[i] & 1)
         hp_type = (hp_type * 15) // 63
         hp_power = 0
         for i in range(6):
-            hp_power += 2 ** i * ((self.ivs[i] >> 1) & 1)
+            hp_power += 2**i * ((self.ivs[i] >> 1) & 1)
         hp_power = (hp_type * 40) // 63 + 30
         return (gd.HP_TYPES[hp_type], hp_power)
 

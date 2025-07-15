@@ -32,13 +32,19 @@ class Battle:
         for t1_poke in t1.poke_list:
             for t2_poke in t2.poke_list:
                 if t1_poke is t2_poke:
-                    raise Exception("Attempted to create Battle with Pokemon that is in both Trainers' parties")
+                    raise Exception(
+                        "Attempted to create Battle with Pokemon that is in both Trainers' parties"
+                    )
         for t1_poke in t1.poke_list:
             if t1_poke.in_battle:
-                raise Exception("Attempted to create Battle with Pokemon already in battle")
+                raise Exception(
+                    "Attempted to create Battle with Pokemon already in battle"
+                )
         for t2_poke in t2.poke_list:
             if t2_poke.in_battle:
-                raise Exception("Attempted to create Battle with Pokemon already in battle")
+                raise Exception(
+                    "Attempted to create Battle with Pokemon already in battle"
+                )
 
         self.t1 = t1
         self.t2 = t2
@@ -90,7 +96,6 @@ class Battle:
         t1_mv_check_bypass = False
         t2_mv_check_bypass = False
         t1_first = None
-        faster_did_selection = False
 
         t1_move, t1_move_data, t1_mv_check_bypass = self._pre_process_move(
             self.t1, [t1_move, t1_move_data, t1_mv_check_bypass]
@@ -139,11 +144,15 @@ class Battle:
         if not t1_move_data and t1_move[gs.ACTION_TYPE] == gd.MOVE:
             t1_move_data = self.t1.current_poke.get_move_data(t1_move[gs.ACTION_VALUE])
             if not t1_move_data:
-                t1_move_data = Move.from_move_data(PokeSim.get_single_move(t1_move[gs.ACTION_VALUE]))
+                t1_move_data = Move.from_move_data(
+                    PokeSim.get_single_move(t1_move[gs.ACTION_VALUE])
+                )
         if not t2_move_data and t2_move[gs.ACTION_TYPE] == gd.MOVE:
             t2_move_data = self.t2.current_poke.get_move_data(t2_move[gs.ACTION_VALUE])
             if not t2_move_data:
-                t2_move_data = Move.from_move_data(PokeSim.get_single_move(t2_move[gs.ACTION_VALUE]))
+                t2_move_data = Move.from_move_data(
+                    PokeSim.get_single_move(t2_move[gs.ACTION_VALUE])
+                )
 
         t1_prio = gs.ACTION_PRIORITY[t1_move[gs.ACTION_TYPE]]
         t2_prio = gs.ACTION_PRIORITY[t2_move[gs.ACTION_TYPE]]
@@ -260,7 +269,9 @@ class Battle:
             elif len(a_move) == 3:
                 pi.use_item(a_move[gs.ACTION_VALUE], a_move[2])
             else:
-                raise Exception("Trainer attempted to use item with invalid data format")
+                raise Exception(
+                    "Trainer attempted to use item with invalid data format"
+                )
         elif self._process_pp(attacker.current_poke, a_move_data):
             pm.process_move(
                 attacker.current_poke,
@@ -370,7 +381,10 @@ class Battle:
 
         if poke.nv_status and (
             (poke.has_ability(Ability.SHED_SKIN) and randrange(10) < 3)
-            or (poke.has_ability(Ability.HYDRATION) and self.battlefield.weather == gs.RAIN)
+            or (
+                poke.has_ability(Ability.HYDRATION)
+                and self.battlefield.weather == gs.RAIN
+            )
         ):
             pm.cure_nv_status(poke.nv_status, poke, self)
         if poke.nv_status == gs.BURNED and poke.is_alive:
@@ -639,7 +653,9 @@ class Battle:
             if attacker.can_switch_out():
                 self._process_selection(attacker)
             else:
-                raise Exception("Trainer attempted to switch out Pokemon that's trapped")
+                raise Exception(
+                    "Trainer attempted to switch out Pokemon that's trapped"
+                )
         if a_move[gs.ACTION_VALUE] == "recharging":
             self.add_text(attacker.current_poke.nickname + " must recharge!")
             attacker.current_poke.recharging = False

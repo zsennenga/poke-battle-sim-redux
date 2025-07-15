@@ -30,7 +30,7 @@ def use_item(
     item_target_pos: str,
     move_target_pos: str = None,
     text_skip: bool = False,
-    can_skip: bool = False
+    can_skip: bool = False,
 ):
     """
     Item actions in turn must be formatted as: ['item', $item, $item_target_pos, $move_target_name?]
@@ -52,12 +52,7 @@ def use_item(
 
     if not text_skip:
         battle.add_text(
-            trainer.name
-            + " used one "
-            + cap_name(item)
-            + " on "
-            + poke.nickname
-            + "!"
+            trainer.name + " used one " + cap_name(item) + " on " + poke.nickname + "!"
         )
 
     if poke.embargo_count:
@@ -532,7 +527,7 @@ def on_hit_items(
     ):
         return
 
-    t_mult = _calculate_type_ef(defender, move_data)
+    _calculate_type_ef(defender, move_data)
     item = defender.item
 
     if item == "jaboca-berry":

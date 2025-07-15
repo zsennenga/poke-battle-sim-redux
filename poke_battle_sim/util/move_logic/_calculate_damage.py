@@ -1,6 +1,5 @@
 from __future__ import annotations
 from random import randrange
-from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
@@ -9,8 +8,9 @@ import poke_battle_sim.util.process_ability as pa
 import poke_battle_sim.util.process_item as pi
 from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
-import poke_battle_sim.conf.global_data as gd
-from poke_battle_sim.util.move_logic._invulnerability_check import _invulnerability_check
+from poke_battle_sim.util.move_logic._invulnerability_check import (
+    _invulnerability_check,
+)
 from poke_battle_sim.util.move_logic._missed import _missed
 
 
@@ -24,7 +24,7 @@ def _calculate_damage(
     inv_bypass: bool = False,
     skip_fc: bool = False,
     skip_dmg: bool = False,
-    skip_txt: bool = False
+    skip_txt: bool = False,
 ) -> int:
     if battle.winner or move_data.category == gs.STATUS:
         return
@@ -38,7 +38,11 @@ def _calculate_damage(
     if not move_data.power:
         return
     t_mult = _calculate_type_ef(defender, move_data)
-    if not skip_txt and not t_mult or (t_mult < 2 and defender.has_ability(Ability.WONDER_GUARD)):
+    if (
+        not skip_txt
+        and not t_mult
+        or (t_mult < 2 and defender.has_ability(Ability.WONDER_GUARD))
+    ):
         battle.add_text("It doesn't affect " + defender.nickname)
         return
     if pa.type_protection_abilities(defender, move_data, battle):
@@ -67,8 +71,12 @@ def _calculate_damage(
     elif not skip_txt and t_mult > 1:
         battle.add_text("It's super effective!")
 
-    attacker.calculate_stats_effective(ignore_stats=defender.has_ability(Ability.UNAWARE))
-    defender.calculate_stats_effective(ignore_stats=attacker.has_ability(Ability.UNAWARE))
+    attacker.calculate_stats_effective(
+        ignore_stats=defender.has_ability(Ability.UNAWARE)
+    )
+    defender.calculate_stats_effective(
+        ignore_stats=attacker.has_ability(Ability.UNAWARE)
+    )
 
     a_stat = gs.ATK if move_data.category == gs.PHYSICAL else gs.SP_ATK
     d_stat = gs.DEF if move_data.category == gs.PHYSICAL else gs.SP_DEF

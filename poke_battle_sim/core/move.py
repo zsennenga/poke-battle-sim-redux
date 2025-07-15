@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import poke_battle_sim.conf.global_settings as gs
 from pydantic import BaseModel
-from typing import Optional, List, Any
+from typing import Optional, Any
 
 from poke_battle_sim.const.move_effects import MoveEffect
 from poke_battle_sim.const.stat import Stat
@@ -29,7 +29,7 @@ class Move(BaseModel):
     encore_blocked: bool = False
 
     @classmethod
-    def from_move_data(cls, move_data: list[Any]) -> 'Move':
+    def from_move_data(cls, move_data: list[Any]) -> "Move":
         effect_id = move_data[gs.MOVE_EFFECT_ID]
         return cls(
             name=move_data[gs.MOVE_NAME],
@@ -44,7 +44,11 @@ class Move(BaseModel):
             ef_id=MoveEffect(effect_id) if effect_id is not None else None,
             ef_chance=move_data[gs.MOVE_EFFECT_CHANCE],
             ef_amount=move_data[gs.MOVE_EFFECT_AMT],
-            ef_stat=Stat(move_data[gs.MOVE_EFFECT_STAT]) if move_data[gs.MOVE_EFFECT_STAT] is not None else None,
+            ef_stat=(
+                Stat(move_data[gs.MOVE_EFFECT_STAT])
+                if move_data[gs.MOVE_EFFECT_STAT] is not None
+                else None
+            ),
             cur_pp=move_data[gs.MOVE_PP],
         )
 
@@ -57,6 +61,6 @@ class Move(BaseModel):
         self.max_pp = self.max_pp
         self.acc = self.acc
 
-    def get_tcopy(self) -> 'Move':
+    def get_tcopy(self) -> "Move":
         copy = self.model_copy(deep=True)
         return copy

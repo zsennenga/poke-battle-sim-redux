@@ -1,15 +1,9 @@
 from __future__ import annotations
-from random import randrange
-from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
-import poke_battle_sim.util.process_ability as pa
-import poke_battle_sim.util.process_item as pi
 from poke_battle_sim.const.ability_enum import Ability
-import poke_battle_sim.conf.global_settings as gs
-import poke_battle_sim.conf.global_data as gd
 from poke_battle_sim.util.move_logic._calculate_damage import _calculate_damage
 from poke_battle_sim.util.move_logic._generate_2_to_5 import _generate_2_to_5
 from poke_battle_sim.util.move_logic._missed import _missed
@@ -31,14 +25,22 @@ def _effect_multi_hit_2_5(
     else:
         num_hits = 5
     nh = num_hits
-    dmg = _calculate_damage(attacker, defender, battlefield, battle, move_data, skip_fc=True)
+    dmg = _calculate_damage(
+        attacker, defender, battlefield, battle, move_data, skip_fc=True
+    )
     if not dmg:
         nh = 0
     else:
         nh -= 1
     while nh and defender.is_alive:
         _calculate_damage(
-            attacker, defender, battlefield, battle, move_data, skip_fc=True, skip_txt=True
+            attacker,
+            defender,
+            battlefield,
+            battle,
+            move_data,
+            skip_fc=True,
+            skip_txt=True,
         )
         nh -= 1
     battle.add_text("Hit " + str(num_hits) + " time(s)!")

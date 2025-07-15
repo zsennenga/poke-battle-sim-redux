@@ -8,4 +8,3 @@ class NonVolatileStatus(Enum):
     POISON = 4
     SLEEP = 5
     BADLY_POISONED = 6
-

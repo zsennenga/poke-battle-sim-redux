@@ -10,4 +10,3 @@ class Stat(Enum):
     SPEED = 5
     ACCURACY = 6
     EVASION = 7
-
