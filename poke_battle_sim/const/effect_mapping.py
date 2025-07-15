@@ -1,435 +1,435 @@
 from poke_battle_sim.const.move_effects import MoveEffect
 # Import all effect functions
-from poke_battle_sim.util.move_logic._ef_000 import _ef_000
-from poke_battle_sim.util.move_logic._ef_001 import _ef_001
-from poke_battle_sim.util.move_logic._ef_002 import _ef_002
-from poke_battle_sim.util.move_logic._ef_003 import _ef_003
-from poke_battle_sim.util.move_logic._ef_004 import _ef_004
-from poke_battle_sim.util.move_logic._ef_005 import _ef_005
-from poke_battle_sim.util.move_logic._ef_006 import _ef_006
-from poke_battle_sim.util.move_logic._ef_007 import _ef_007
-from poke_battle_sim.util.move_logic._ef_008 import _ef_008
-from poke_battle_sim.util.move_logic._ef_009 import _ef_009
-from poke_battle_sim.util.move_logic._ef_010 import _ef_010
-from poke_battle_sim.util.move_logic._ef_011 import _ef_011
-from poke_battle_sim.util.move_logic._ef_013 import _ef_013
-from poke_battle_sim.util.move_logic._ef_014 import _ef_014
-from poke_battle_sim.util.move_logic._ef_016 import _ef_016
-from poke_battle_sim.util.move_logic._ef_017 import _ef_017
-from poke_battle_sim.util.move_logic._ef_018 import _ef_018
-from poke_battle_sim.util.move_logic._ef_019 import _ef_019
-from poke_battle_sim.util.move_logic._ef_020 import _ef_020
-from poke_battle_sim.util.move_logic._ef_021 import _ef_021
-from poke_battle_sim.util.move_logic._ef_022 import _ef_022
-from poke_battle_sim.util.move_logic._ef_023 import _ef_023
-from poke_battle_sim.util.move_logic._ef_024 import _ef_024
-from poke_battle_sim.util.move_logic._ef_025 import _ef_025
-from poke_battle_sim.util.move_logic._ef_026 import _ef_026
-from poke_battle_sim.util.move_logic._ef_027 import _ef_027
-from poke_battle_sim.util.move_logic._ef_028 import _ef_028
-from poke_battle_sim.util.move_logic._ef_029 import _ef_029
-from poke_battle_sim.util.move_logic._ef_030 import _ef_030
-from poke_battle_sim.util.move_logic._ef_031 import _ef_031
-from poke_battle_sim.util.move_logic._ef_032 import _ef_032
-from poke_battle_sim.util.move_logic._ef_033 import _ef_033
-from poke_battle_sim.util.move_logic._ef_034 import _ef_034
-from poke_battle_sim.util.move_logic._ef_035 import _ef_035
-from poke_battle_sim.util.move_logic._ef_036 import _ef_036
-from poke_battle_sim.util.move_logic._ef_037 import _ef_037
-from poke_battle_sim.util.move_logic._ef_038 import _ef_038
-from poke_battle_sim.util.move_logic._ef_039 import _ef_039
-from poke_battle_sim.util.move_logic._ef_040 import _ef_040
-from poke_battle_sim.util.move_logic._ef_041 import _ef_041
-from poke_battle_sim.util.move_logic._ef_043 import _ef_043
-from poke_battle_sim.util.move_logic._ef_044 import _ef_044
-from poke_battle_sim.util.move_logic._ef_046 import _ef_046
-from poke_battle_sim.util.move_logic._ef_047 import _ef_047
-from poke_battle_sim.util.move_logic._ef_048 import _ef_048
-from poke_battle_sim.util.move_logic._ef_049 import _ef_049
-from poke_battle_sim.util.move_logic._ef_050 import _ef_050
-from poke_battle_sim.util.move_logic._ef_051 import _ef_051
-from poke_battle_sim.util.move_logic._ef_052 import _ef_052
-from poke_battle_sim.util.move_logic._ef_053 import _ef_053
-from poke_battle_sim.util.move_logic._ef_054 import _ef_054
-from poke_battle_sim.util.move_logic._ef_055 import _ef_055
-from poke_battle_sim.util.move_logic._ef_056 import _ef_056
-from poke_battle_sim.util.move_logic._ef_057 import _ef_057
-from poke_battle_sim.util.move_logic._ef_058 import _ef_058
-from poke_battle_sim.util.move_logic._ef_059 import _ef_059
-from poke_battle_sim.util.move_logic._ef_060 import _ef_060
-from poke_battle_sim.util.move_logic._ef_061 import _ef_061
-from poke_battle_sim.util.move_logic._ef_062 import _ef_062
-from poke_battle_sim.util.move_logic._ef_063 import _ef_063
-from poke_battle_sim.util.move_logic._ef_064 import _ef_064
-from poke_battle_sim.util.move_logic._ef_065 import _ef_065
-from poke_battle_sim.util.move_logic._ef_066 import _ef_066
-from poke_battle_sim.util.move_logic._ef_067 import _ef_067
-from poke_battle_sim.util.move_logic._ef_068 import _ef_068
-from poke_battle_sim.util.move_logic._ef_069 import _ef_069
-from poke_battle_sim.util.move_logic._ef_070 import _ef_070
-from poke_battle_sim.util.move_logic._ef_071 import _ef_071
-from poke_battle_sim.util.move_logic._ef_072 import _ef_072
-from poke_battle_sim.util.move_logic._ef_073 import _ef_073
-from poke_battle_sim.util.move_logic._ef_074 import _ef_074
-from poke_battle_sim.util.move_logic._ef_075 import _ef_075
-from poke_battle_sim.util.move_logic._ef_076 import _ef_076
-from poke_battle_sim.util.move_logic._ef_077 import _ef_077
-from poke_battle_sim.util.move_logic._ef_078 import _ef_078
-from poke_battle_sim.util.move_logic._ef_079 import _ef_079
-from poke_battle_sim.util.move_logic._ef_080 import _ef_080
-from poke_battle_sim.util.move_logic._ef_081 import _ef_081
-from poke_battle_sim.util.move_logic._ef_082 import _ef_082
-from poke_battle_sim.util.move_logic._ef_083 import _ef_083
-from poke_battle_sim.util.move_logic._ef_084 import _ef_084
-from poke_battle_sim.util.move_logic._ef_085 import _ef_085
-from poke_battle_sim.util.move_logic._ef_086 import _ef_086
-from poke_battle_sim.util.move_logic._ef_087 import _ef_087
-from poke_battle_sim.util.move_logic._ef_088 import _ef_088
-from poke_battle_sim.util.move_logic._ef_089 import _ef_089
-from poke_battle_sim.util.move_logic._ef_090 import _ef_090
-from poke_battle_sim.util.move_logic._ef_091 import _ef_091
-from poke_battle_sim.util.move_logic._ef_092 import _ef_092
-from poke_battle_sim.util.move_logic._ef_093 import _ef_093
-from poke_battle_sim.util.move_logic._ef_094 import _ef_094
-from poke_battle_sim.util.move_logic._ef_095 import _ef_095
-from poke_battle_sim.util.move_logic._ef_096 import _ef_096
-from poke_battle_sim.util.move_logic._ef_097 import _ef_097
-from poke_battle_sim.util.move_logic._ef_098 import _ef_098
-from poke_battle_sim.util.move_logic._ef_099 import _ef_099
-from poke_battle_sim.util.move_logic._ef_100 import _ef_100
-from poke_battle_sim.util.move_logic._ef_101 import _ef_101
-from poke_battle_sim.util.move_logic._ef_102 import _ef_102
-from poke_battle_sim.util.move_logic._ef_103 import _ef_103
-from poke_battle_sim.util.move_logic._ef_104 import _ef_104
-from poke_battle_sim.util.move_logic._ef_105 import _ef_105
-from poke_battle_sim.util.move_logic._ef_106 import _ef_106
-from poke_battle_sim.util.move_logic._ef_107 import _ef_107
-from poke_battle_sim.util.move_logic._ef_108 import _ef_108
-from poke_battle_sim.util.move_logic._ef_109 import _ef_109
-from poke_battle_sim.util.move_logic._ef_110 import _ef_110
-from poke_battle_sim.util.move_logic._ef_111 import _ef_111
-from poke_battle_sim.util.move_logic._ef_112 import _ef_112
-from poke_battle_sim.util.move_logic._ef_113 import _ef_113
-from poke_battle_sim.util.move_logic._ef_114 import _ef_114
-from poke_battle_sim.util.move_logic._ef_115 import _ef_115
-from poke_battle_sim.util.move_logic._ef_116 import _ef_116
-from poke_battle_sim.util.move_logic._ef_117 import _ef_117
-from poke_battle_sim.util.move_logic._ef_118 import _ef_118
-from poke_battle_sim.util.move_logic._ef_119 import _ef_119
-from poke_battle_sim.util.move_logic._ef_120 import _ef_120
-from poke_battle_sim.util.move_logic._ef_121 import _ef_121
-from poke_battle_sim.util.move_logic._ef_122 import _ef_122
-from poke_battle_sim.util.move_logic._ef_123 import _ef_123
-from poke_battle_sim.util.move_logic._ef_124 import _ef_124
-from poke_battle_sim.util.move_logic._ef_125 import _ef_125
-from poke_battle_sim.util.move_logic._ef_126 import _ef_126
-from poke_battle_sim.util.move_logic._ef_127 import _ef_127
-from poke_battle_sim.util.move_logic._ef_128 import _ef_128
-from poke_battle_sim.util.move_logic._ef_129 import _ef_129
-from poke_battle_sim.util.move_logic._ef_130 import _ef_130
-from poke_battle_sim.util.move_logic._ef_131 import _ef_131
-from poke_battle_sim.util.move_logic._ef_132 import _ef_132
-from poke_battle_sim.util.move_logic._ef_133 import _ef_133
-from poke_battle_sim.util.move_logic._ef_134 import _ef_134
-from poke_battle_sim.util.move_logic._ef_135 import _ef_135
-from poke_battle_sim.util.move_logic._ef_136 import _ef_136
-from poke_battle_sim.util.move_logic._ef_137 import _ef_137
-from poke_battle_sim.util.move_logic._ef_138 import _ef_138
-from poke_battle_sim.util.move_logic._ef_139 import _ef_139
-from poke_battle_sim.util.move_logic._ef_140 import _ef_140
-from poke_battle_sim.util.move_logic._ef_141 import _ef_141
-from poke_battle_sim.util.move_logic._ef_142 import _ef_142
-from poke_battle_sim.util.move_logic._ef_143 import _ef_143
-from poke_battle_sim.util.move_logic._ef_144 import _ef_144
-from poke_battle_sim.util.move_logic._ef_145 import _ef_145
-from poke_battle_sim.util.move_logic._ef_146 import _ef_146
-from poke_battle_sim.util.move_logic._ef_147 import _ef_147
-from poke_battle_sim.util.move_logic._ef_148 import _ef_148
-from poke_battle_sim.util.move_logic._ef_149 import _ef_149
-from poke_battle_sim.util.move_logic._ef_150 import _ef_150
-from poke_battle_sim.util.move_logic._ef_151 import _ef_151
-from poke_battle_sim.util.move_logic._ef_152 import _ef_152
-from poke_battle_sim.util.move_logic._ef_153 import _ef_153
-from poke_battle_sim.util.move_logic._ef_154 import _ef_154
-from poke_battle_sim.util.move_logic._ef_156 import _ef_156
-from poke_battle_sim.util.move_logic._ef_157 import _ef_157
-from poke_battle_sim.util.move_logic._ef_158 import _ef_158
-from poke_battle_sim.util.move_logic._ef_159 import _ef_159
-from poke_battle_sim.util.move_logic._ef_160 import _ef_160
-from poke_battle_sim.util.move_logic._ef_161 import _ef_161
-from poke_battle_sim.util.move_logic._ef_162 import _ef_162
-from poke_battle_sim.util.move_logic._ef_163 import _ef_163
-from poke_battle_sim.util.move_logic._ef_164 import _ef_164
-from poke_battle_sim.util.move_logic._ef_165 import _ef_165
-from poke_battle_sim.util.move_logic._ef_166 import _ef_166
-from poke_battle_sim.util.move_logic._ef_167 import _ef_167
-from poke_battle_sim.util.move_logic._ef_168 import _ef_168
-from poke_battle_sim.util.move_logic._ef_169 import _ef_169
-from poke_battle_sim.util.move_logic._ef_170 import _ef_170
-from poke_battle_sim.util.move_logic._ef_171 import _ef_171
-from poke_battle_sim.util.move_logic._ef_172 import _ef_172
-from poke_battle_sim.util.move_logic._ef_173 import _ef_173
-from poke_battle_sim.util.move_logic._ef_174 import _ef_174
-from poke_battle_sim.util.move_logic._ef_175 import _ef_175
-from poke_battle_sim.util.move_logic._ef_176 import _ef_176
-from poke_battle_sim.util.move_logic._ef_177 import _ef_177
-from poke_battle_sim.util.move_logic._ef_178 import _ef_178
-from poke_battle_sim.util.move_logic._ef_179 import _ef_179
-from poke_battle_sim.util.move_logic._ef_180 import _ef_180
-from poke_battle_sim.util.move_logic._ef_181 import _ef_181
-from poke_battle_sim.util.move_logic._ef_182 import _ef_182
-from poke_battle_sim.util.move_logic._ef_183 import _ef_183
-from poke_battle_sim.util.move_logic._ef_184 import _ef_184
-from poke_battle_sim.util.move_logic._ef_185 import _ef_185
-from poke_battle_sim.util.move_logic._ef_186 import _ef_186
-from poke_battle_sim.util.move_logic._ef_187 import _ef_187
-from poke_battle_sim.util.move_logic._ef_188 import _ef_188
-from poke_battle_sim.util.move_logic._ef_189 import _ef_189
-from poke_battle_sim.util.move_logic._ef_190 import _ef_190
-from poke_battle_sim.util.move_logic._ef_191 import _ef_191
-from poke_battle_sim.util.move_logic._ef_192 import _ef_192
-from poke_battle_sim.util.move_logic._ef_193 import _ef_193
-from poke_battle_sim.util.move_logic._ef_194 import _ef_194
-from poke_battle_sim.util.move_logic._ef_195 import _ef_195
-from poke_battle_sim.util.move_logic._ef_196 import _ef_196
-from poke_battle_sim.util.move_logic._ef_197 import _ef_197
-from poke_battle_sim.util.move_logic._ef_198 import _ef_198
-from poke_battle_sim.util.move_logic._ef_199 import _ef_199
-from poke_battle_sim.util.move_logic._ef_200 import _ef_200
-from poke_battle_sim.util.move_logic._ef_201 import _ef_201
-from poke_battle_sim.util.move_logic._ef_202 import _ef_202
-from poke_battle_sim.util.move_logic._ef_203 import _ef_203
-from poke_battle_sim.util.move_logic._ef_204 import _ef_204
-from poke_battle_sim.util.move_logic._ef_205 import _ef_205
-from poke_battle_sim.util.move_logic._ef_206 import _ef_206
-from poke_battle_sim.util.move_logic._ef_207 import _ef_207
-from poke_battle_sim.util.move_logic._ef_208 import _ef_208
-from poke_battle_sim.util.move_logic._ef_209 import _ef_209
-from poke_battle_sim.util.move_logic._ef_210 import _ef_210
-from poke_battle_sim.util.move_logic._ef_211 import _ef_211
-from poke_battle_sim.util.move_logic._ef_212 import _ef_212
-from poke_battle_sim.util.move_logic._ef_213 import _ef_213
-from poke_battle_sim.util.move_logic._ef_214 import _ef_214
-from poke_battle_sim.util.move_logic._ef_215 import _ef_215
-from poke_battle_sim.util.move_logic._ef_216 import _ef_216
-from poke_battle_sim.util.move_logic._ef_217 import _ef_217
-from poke_battle_sim.util.move_logic._ef_218 import _ef_218
-from poke_battle_sim.util.move_logic._ef_219 import _ef_219
+from poke_battle_sim.util.move_logic._effect_no_effect import _effect_no_effect
+from poke_battle_sim.util.move_logic._effect_no_secondary_effect import _effect_no_secondary_effect
+from poke_battle_sim.util.move_logic._effect_attacker_stat_stage_change_chance import _effect_attacker_stat_stage_change_chance
+from poke_battle_sim.util.move_logic._effect_defender_stat_stage_change_chance import _effect_defender_stat_stage_change_chance
+from poke_battle_sim.util.move_logic._effect_attacker_non_volatile_status_chance import _effect_attacker_non_volatile_status_chance
+from poke_battle_sim.util.move_logic._effect_defender_non_volatile_status_chance import _effect_defender_non_volatile_status_chance
+from poke_battle_sim.util.move_logic._effect_defender_confuse_chance import _effect_defender_confuse_chance
+from poke_battle_sim.util.move_logic._effect_defender_flinch_chance import _effect_defender_flinch_chance
+from poke_battle_sim.util.move_logic._effect_high_crit_rate import _effect_high_crit_rate
+from poke_battle_sim.util.move_logic._effect_guaranteed_flinch import _effect_guaranteed_flinch
+from poke_battle_sim.util.move_logic._effect_multi_hit_2_5 import _effect_multi_hit_2_5
+from poke_battle_sim.util.move_logic._effect_multi_hit_2 import _effect_multi_hit_2
+from poke_battle_sim.util.move_logic._effect_defender_non_volatile_status import _effect_defender_non_volatile_status
+from poke_battle_sim.util.move_logic._effect_defender_confuse import _effect_defender_confuse
+from poke_battle_sim.util.move_logic._effect_attacker_stat_stage_change import _effect_attacker_stat_stage_change
+from poke_battle_sim.util.move_logic._effect_defender_stat_stage_change import _effect_defender_stat_stage_change
+from poke_battle_sim.util.move_logic._effect_surf import _effect_surf
+from poke_battle_sim.util.move_logic._effect_stomp import _effect_stomp
+from poke_battle_sim.util.move_logic._effect_ohko import _effect_ohko
+from poke_battle_sim.util.move_logic._effect_razor_wind import _effect_razor_wind
+from poke_battle_sim.util.move_logic._effect_gust import _effect_gust
+from poke_battle_sim.util.move_logic._effect_fly import _effect_fly
+from poke_battle_sim.util.move_logic._effect_bind import _effect_bind
+from poke_battle_sim.util.move_logic._effect_jump_kick import _effect_jump_kick
+from poke_battle_sim.util.move_logic._effect_earthquake import _effect_earthquake
+from poke_battle_sim.util.move_logic._effect_take_down import _effect_take_down
+from poke_battle_sim.util.move_logic._effect_thrash import _effect_thrash
+from poke_battle_sim.util.move_logic._effect_double_edge import _effect_double_edge
+from poke_battle_sim.util.move_logic._effect_twineedle import _effect_twineedle
+from poke_battle_sim.util.move_logic._effect_sonic_boom import _effect_sonic_boom
+from poke_battle_sim.util.move_logic._effect_disable import _effect_disable
+from poke_battle_sim.util.move_logic._effect_mist import _effect_mist
+from poke_battle_sim.util.move_logic._effect_hyper_beam import _effect_hyper_beam
+from poke_battle_sim.util.move_logic._effect_low_kick import _effect_low_kick
+from poke_battle_sim.util.move_logic._effect_counter import _effect_counter
+from poke_battle_sim.util.move_logic._effect_seismic_toss import _effect_seismic_toss
+from poke_battle_sim.util.move_logic._effect_absorb import _effect_absorb
+from poke_battle_sim.util.move_logic._effect_leech_seed import _effect_leech_seed
+from poke_battle_sim.util.move_logic._effect_solar_beam import _effect_solar_beam
+from poke_battle_sim.util.move_logic._effect_thunder import _effect_thunder
+from poke_battle_sim.util.move_logic._effect_rage import _effect_rage
+from poke_battle_sim.util.move_logic._effect_mimic import _effect_mimic
+from poke_battle_sim.util.move_logic._effect_recover import _effect_recover
+from poke_battle_sim.util.move_logic._effect_minimize import _effect_minimize
+from poke_battle_sim.util.move_logic._effect_defense_curl import _effect_defense_curl
+from poke_battle_sim.util.move_logic._effect_light_screen import _effect_light_screen
+from poke_battle_sim.util.move_logic._effect_haze import _effect_haze
+from poke_battle_sim.util.move_logic._effect_focus_energy import _effect_focus_energy
+from poke_battle_sim.util.move_logic._effect_bide import _effect_bide
+from poke_battle_sim.util.move_logic._effect_metronome import _effect_metronome
+from poke_battle_sim.util.move_logic._effect_mirror_move import _effect_mirror_move
+from poke_battle_sim.util.move_logic._effect_self_destruct import _effect_self_destruct
+from poke_battle_sim.util.move_logic._effect_skull_bash import _effect_skull_bash
+from poke_battle_sim.util.move_logic._effect_dream_eater import _effect_dream_eater
+from poke_battle_sim.util.move_logic._effect_sky_attack import _effect_sky_attack
+from poke_battle_sim.util.move_logic._effect_transform import _effect_transform
+from poke_battle_sim.util.move_logic._effect_psywave import _effect_psywave
+from poke_battle_sim.util.move_logic._effect_splash import _effect_splash
+from poke_battle_sim.util.move_logic._effect_explosion import _effect_explosion
+from poke_battle_sim.util.move_logic._effect_rest import _effect_rest
+from poke_battle_sim.util.move_logic._effect_conversion import _effect_conversion
+from poke_battle_sim.util.move_logic._effect_tri_attack import _effect_tri_attack
+from poke_battle_sim.util.move_logic._effect_super_fang import _effect_super_fang
+from poke_battle_sim.util.move_logic._effect_substitute import _effect_substitute
+from poke_battle_sim.util.move_logic._effect_struggle import _effect_struggle
+from poke_battle_sim.util.move_logic._effect_sketch import _effect_sketch
+from poke_battle_sim.util.move_logic._effect_triple_kick import _effect_triple_kick
+from poke_battle_sim.util.move_logic._effect_thief import _effect_thief
+from poke_battle_sim.util.move_logic._effect_spider_web import _effect_spider_web
+from poke_battle_sim.util.move_logic._effect_mind_reader import _effect_mind_reader
+from poke_battle_sim.util.move_logic._effect_nightmare import _effect_nightmare
+from poke_battle_sim.util.move_logic._effect_flame_wheel import _effect_flame_wheel
+from poke_battle_sim.util.move_logic._effect_snore import _effect_snore
+from poke_battle_sim.util.move_logic._effect_curse import _effect_curse
+from poke_battle_sim.util.move_logic._effect_flail import _effect_flail
+from poke_battle_sim.util.move_logic._effect_conversion_2 import _effect_conversion_2
+from poke_battle_sim.util.move_logic._effect_spite import _effect_spite
+from poke_battle_sim.util.move_logic._effect_protect import _effect_protect
+from poke_battle_sim.util.move_logic._effect_belly_drum import _effect_belly_drum
+from poke_battle_sim.util.move_logic._effect_spikes import _effect_spikes
+from poke_battle_sim.util.move_logic._effect_foresight import _effect_foresight
+from poke_battle_sim.util.move_logic._effect_destiny_bond import _effect_destiny_bond
+from poke_battle_sim.util.move_logic._effect_perish_song import _effect_perish_song
+from poke_battle_sim.util.move_logic._effect_sandstorm import _effect_sandstorm
+from poke_battle_sim.util.move_logic._effect_endure import _effect_endure
+from poke_battle_sim.util.move_logic._effect_rollout import _effect_rollout
+from poke_battle_sim.util.move_logic._effect_false_swipe import _effect_false_swipe
+from poke_battle_sim.util.move_logic._effect_swagger import _effect_swagger
+from poke_battle_sim.util.move_logic._effect_fury_cutter import _effect_fury_cutter
+from poke_battle_sim.util.move_logic._effect_attract import _effect_attract
+from poke_battle_sim.util.move_logic._effect_sleep_talk import _effect_sleep_talk
+from poke_battle_sim.util.move_logic._effect_heal_bell import _effect_heal_bell
+from poke_battle_sim.util.move_logic._effect_return import _effect_return
+from poke_battle_sim.util.move_logic._effect_present import _effect_present
+from poke_battle_sim.util.move_logic._effect_frustration import _effect_frustration
+from poke_battle_sim.util.move_logic._effect_safeguard import _effect_safeguard
+from poke_battle_sim.util.move_logic._effect_pain_split import _effect_pain_split
+from poke_battle_sim.util.move_logic._effect_magnitude import _effect_magnitude
+from poke_battle_sim.util.move_logic._effect_baton_pass import _effect_baton_pass
+from poke_battle_sim.util.move_logic._effect_encore import _effect_encore
+from poke_battle_sim.util.move_logic._effect_rapid_spin import _effect_rapid_spin
+from poke_battle_sim.util.move_logic._effect_morning_sun import _effect_morning_sun
+from poke_battle_sim.util.move_logic._effect_hidden_power import _effect_hidden_power
+from poke_battle_sim.util.move_logic._effect_twister import _effect_twister
+from poke_battle_sim.util.move_logic._effect_rain_dance import _effect_rain_dance
+from poke_battle_sim.util.move_logic._effect_sunny_day import _effect_sunny_day
+from poke_battle_sim.util.move_logic._effect_mirror_coat import _effect_mirror_coat
+from poke_battle_sim.util.move_logic._effect_psych_up import _effect_psych_up
+from poke_battle_sim.util.move_logic._effect_ancient_power import _effect_ancient_power
+from poke_battle_sim.util.move_logic._effect_future_sight import _effect_future_sight
+from poke_battle_sim.util.move_logic._effect_beat_up import _effect_beat_up
+from poke_battle_sim.util.move_logic._effect_uproar import _effect_uproar
+from poke_battle_sim.util.move_logic._effect_stockpile import _effect_stockpile
+from poke_battle_sim.util.move_logic._effect_spit_up import _effect_spit_up
+from poke_battle_sim.util.move_logic._effect_swallow import _effect_swallow
+from poke_battle_sim.util.move_logic._effect_hail import _effect_hail
+from poke_battle_sim.util.move_logic._effect_torment import _effect_torment
+from poke_battle_sim.util.move_logic._effect_flatter import _effect_flatter
+from poke_battle_sim.util.move_logic._effect_memento import _effect_memento
+from poke_battle_sim.util.move_logic._effect_facade import _effect_facade
+from poke_battle_sim.util.move_logic._effect_focus_punch import _effect_focus_punch
+from poke_battle_sim.util.move_logic._effect_smelling_salts import _effect_smelling_salts
+from poke_battle_sim.util.move_logic._effect_nature_power import _effect_nature_power
+from poke_battle_sim.util.move_logic._effect_charge import _effect_charge
+from poke_battle_sim.util.move_logic._effect_taunt import _effect_taunt
+from poke_battle_sim.util.move_logic._effect_helping_hand import _effect_helping_hand
+from poke_battle_sim.util.move_logic._effect_trick import _effect_trick
+from poke_battle_sim.util.move_logic._effect_role_play import _effect_role_play
+from poke_battle_sim.util.move_logic._effect_wish import _effect_wish
+from poke_battle_sim.util.move_logic._effect_assist import _effect_assist
+from poke_battle_sim.util.move_logic._effect_ingrain import _effect_ingrain
+from poke_battle_sim.util.move_logic._effect_superpower import _effect_superpower
+from poke_battle_sim.util.move_logic._effect_magic_coat import _effect_magic_coat
+from poke_battle_sim.util.move_logic._effect_recycle import _effect_recycle
+from poke_battle_sim.util.move_logic._effect_revenge import _effect_revenge
+from poke_battle_sim.util.move_logic._effect_brick_break import _effect_brick_break
+from poke_battle_sim.util.move_logic._effect_yawn import _effect_yawn
+from poke_battle_sim.util.move_logic._effect_knock_off import _effect_knock_off
+from poke_battle_sim.util.move_logic._effect_endeavor import _effect_endeavor
+from poke_battle_sim.util.move_logic._effect_eruption import _effect_eruption
+from poke_battle_sim.util.move_logic._effect_skill_swap import _effect_skill_swap
+from poke_battle_sim.util.move_logic._effect_imprison import _effect_imprison
+from poke_battle_sim.util.move_logic._effect_refresh import _effect_refresh
+from poke_battle_sim.util.move_logic._effect_grudge import _effect_grudge
+from poke_battle_sim.util.move_logic._effect_snatch import _effect_snatch
+from poke_battle_sim.util.move_logic._effect_secret_power import _effect_secret_power
+from poke_battle_sim.util.move_logic._effect_dive import _effect_dive
+from poke_battle_sim.util.move_logic._effect_camouflage import _effect_camouflage
+from poke_battle_sim.util.move_logic._effect_blaze_kick import _effect_blaze_kick
+from poke_battle_sim.util.move_logic._effect_mud_sport import _effect_mud_sport
+from poke_battle_sim.util.move_logic._effect_weather_ball import _effect_weather_ball
+from poke_battle_sim.util.move_logic._effect_grass_whistle import _effect_grass_whistle
+from poke_battle_sim.util.move_logic._effect_tickle import _effect_tickle
+from poke_battle_sim.util.move_logic._effect_cosmic_power import _effect_cosmic_power
+from poke_battle_sim.util.move_logic._effect_sky_uppercut import _effect_sky_uppercut
+from poke_battle_sim.util.move_logic._effect_bulk_up import _effect_bulk_up
+from poke_battle_sim.util.move_logic._effect_bounce import _effect_bounce
+from poke_battle_sim.util.move_logic._effect_poison_tail import _effect_poison_tail
+from poke_battle_sim.util.move_logic._effect_volt_tackle import _effect_volt_tackle
+from poke_battle_sim.util.move_logic._effect_water_sport import _effect_water_sport
+from poke_battle_sim.util.move_logic._effect_calm_mind import _effect_calm_mind
+from poke_battle_sim.util.move_logic._effect_dragon_dance import _effect_dragon_dance
+from poke_battle_sim.util.move_logic._effect_doom_desire import _effect_doom_desire
+from poke_battle_sim.util.move_logic._effect_roost import _effect_roost
+from poke_battle_sim.util.move_logic._effect_gravity import _effect_gravity
+from poke_battle_sim.util.move_logic._effect_miracle_eye import _effect_miracle_eye
+from poke_battle_sim.util.move_logic._effect_wake_up_slap import _effect_wake_up_slap
+from poke_battle_sim.util.move_logic._effect_gyro_ball import _effect_gyro_ball
+from poke_battle_sim.util.move_logic._effect_healing_wish import _effect_healing_wish
+from poke_battle_sim.util.move_logic._effect_brine import _effect_brine
+from poke_battle_sim.util.move_logic._effect_natural_gift import _effect_natural_gift
+from poke_battle_sim.util.move_logic._effect_feint import _effect_feint
+from poke_battle_sim.util.move_logic._effect_pluck import _effect_pluck
+from poke_battle_sim.util.move_logic._effect_tailwind import _effect_tailwind
+from poke_battle_sim.util.move_logic._effect_acupressure import _effect_acupressure
+from poke_battle_sim.util.move_logic._effect_metal_burst import _effect_metal_burst
+from poke_battle_sim.util.move_logic._effect_u_turn import _effect_u_turn
+from poke_battle_sim.util.move_logic._effect_close_combat import _effect_close_combat
+from poke_battle_sim.util.move_logic._effect_payback import _effect_payback
+from poke_battle_sim.util.move_logic._effect_assurance import _effect_assurance
+from poke_battle_sim.util.move_logic._effect_embargo import _effect_embargo
+from poke_battle_sim.util.move_logic._effect_fling import _effect_fling
+from poke_battle_sim.util.move_logic._effect_psycho_shift import _effect_psycho_shift
+from poke_battle_sim.util.move_logic._effect_trump_card import _effect_trump_card
+from poke_battle_sim.util.move_logic._effect_heal_block import _effect_heal_block
+from poke_battle_sim.util.move_logic._effect_wring_out import _effect_wring_out
+from poke_battle_sim.util.move_logic._effect_power_trick import _effect_power_trick
+from poke_battle_sim.util.move_logic._effect_gastro_acid import _effect_gastro_acid
+from poke_battle_sim.util.move_logic._effect_lucky_chant import _effect_lucky_chant
+from poke_battle_sim.util.move_logic._effect_me_first import _effect_me_first
+from poke_battle_sim.util.move_logic._effect_copycat import _effect_copycat
+from poke_battle_sim.util.move_logic._effect_power_swap import _effect_power_swap
+from poke_battle_sim.util.move_logic._effect_guard_swap import _effect_guard_swap
+from poke_battle_sim.util.move_logic._effect_punishment import _effect_punishment
+from poke_battle_sim.util.move_logic._effect_last_resort import _effect_last_resort
+from poke_battle_sim.util.move_logic._effect_worry_seed import _effect_worry_seed
+from poke_battle_sim.util.move_logic._effect_sucker_punch import _effect_sucker_punch
+from poke_battle_sim.util.move_logic._effect_toxic_spikes import _effect_toxic_spikes
+from poke_battle_sim.util.move_logic._effect_heart_swap import _effect_heart_swap
+from poke_battle_sim.util.move_logic._effect_aqua_ring import _effect_aqua_ring
+from poke_battle_sim.util.move_logic._effect_magnet_rise import _effect_magnet_rise
+from poke_battle_sim.util.move_logic._effect_flare_blitz import _effect_flare_blitz
+from poke_battle_sim.util.move_logic._effect_brave_bird import _effect_brave_bird
+from poke_battle_sim.util.move_logic._effect_thunder_fang import _effect_thunder_fang
+from poke_battle_sim.util.move_logic._effect_ice_fang import _effect_ice_fang
+from poke_battle_sim.util.move_logic._effect_fire_fang import _effect_fire_fang
+from poke_battle_sim.util.move_logic._effect_defog import _effect_defog
+from poke_battle_sim.util.move_logic._effect_trick_room import _effect_trick_room
+from poke_battle_sim.util.move_logic._effect_captivate import _effect_captivate
+from poke_battle_sim.util.move_logic._effect_stealth_rock import _effect_stealth_rock
+from poke_battle_sim.util.move_logic._effect_chatter import _effect_chatter
+from poke_battle_sim.util.move_logic._effect_judgment import _effect_judgment
+from poke_battle_sim.util.move_logic._effect_head_smash import _effect_head_smash
+from poke_battle_sim.util.move_logic._effect_lunar_dance import _effect_lunar_dance
+from poke_battle_sim.util.move_logic._effect_shadow_force import _effect_shadow_force
 
 effect_mapping = {
-    MoveEffect.NO_EFFECT: _ef_000,
-    MoveEffect.NO_SECONDARY_EFFECT: _ef_001,
-    MoveEffect.ATTACKER_STAT_STAGE_CHANGE_CHANCE: _ef_002,
-    MoveEffect.DEFENDER_STAT_STAGE_CHANGE_CHANCE: _ef_003,
-    MoveEffect.ATTACKER_NON_VOLATILE_STATUS_CHANCE: _ef_004,
-    MoveEffect.DEFENDER_NON_VOLATILE_STATUS_CHANCE: _ef_005,
-    MoveEffect.DEFENDER_CONFUSE_CHANCE: _ef_006,
-    MoveEffect.DEFENDER_FLINCH_CHANCE: _ef_007,
-    MoveEffect.HIGH_CRIT_RATE: _ef_008,
-    MoveEffect.GUARANTEED_FLINCH: _ef_009,
-    MoveEffect.MULTI_HIT_2_5: _ef_010,
-    MoveEffect.MULTI_HIT_2: _ef_011,
-    MoveEffect.DEFENDER_NON_VOLATILE_STATUS: _ef_013,
-    MoveEffect.DEFENDER_CONFUSE: _ef_014,
-    MoveEffect.ATTACKER_STAT_STAGE_CHANGE: _ef_016,
-    MoveEffect.DEFENDER_STAT_STAGE_CHANGE: _ef_017,
-    MoveEffect.SURF: _ef_018,
-    MoveEffect.STOMP: _ef_019,
-    MoveEffect.OHKO: _ef_020,
-    MoveEffect.RAZOR_WIND: _ef_021,
-    MoveEffect.GUST: _ef_022,
-    MoveEffect.FLY: _ef_023,
-    MoveEffect.BIND: _ef_024,
-    MoveEffect.JUMP_KICK: _ef_025,
-    MoveEffect.EARTHQUAKE: _ef_026,
-    MoveEffect.TAKE_DOWN: _ef_027,
-    MoveEffect.THRASH: _ef_028,
-    MoveEffect.DOUBLE_EDGE: _ef_029,
-    MoveEffect.TWINEEDLE: _ef_030,
-    MoveEffect.SONIC_BOOM: _ef_031,
-    MoveEffect.DISABLE: _ef_032,
-    MoveEffect.MIST: _ef_033,
-    MoveEffect.HYPER_BEAM: _ef_034,
-    MoveEffect.LOW_KICK: _ef_035,
-    MoveEffect.COUNTER: _ef_036,
-    MoveEffect.SEISMIC_TOSS: _ef_037,
-    MoveEffect.ABSORB: _ef_038,
-    MoveEffect.LEECH_SEED: _ef_039,
-    MoveEffect.SOLAR_BEAM: _ef_040,
-    MoveEffect.THUNDER: _ef_041,
-    MoveEffect.RAGE: _ef_043,
-    MoveEffect.MIMIC: _ef_044,
-    MoveEffect.RECOVER: _ef_046,
-    MoveEffect.MINIMIZE: _ef_047,
-    MoveEffect.DEFENSE_CURL: _ef_048,
-    MoveEffect.LIGHT_SCREEN: _ef_049,
-    MoveEffect.HAZE: _ef_050,
-    MoveEffect.FOCUS_ENERGY: _ef_051,
-    MoveEffect.BIDE: _ef_052,
-    MoveEffect.METRONOME: _ef_053,
-    MoveEffect.MIRROR_MOVE: _ef_054,
-    MoveEffect.SELF_DESTRUCT: _ef_055,
-    MoveEffect.SKULL_BASH: _ef_056,
-    MoveEffect.DREAM_EATER: _ef_057,
-    MoveEffect.SKY_ATTACK: _ef_058,
-    MoveEffect.TRANSFORM: _ef_059,
-    MoveEffect.PSYWAVE: _ef_060,
-    MoveEffect.SPLASH: _ef_061,
-    MoveEffect.EXPLOSION: _ef_062,
-    MoveEffect.REST: _ef_063,
-    MoveEffect.CONVERSION: _ef_064,
-    MoveEffect.TRI_ATTACK: _ef_065,
-    MoveEffect.SUPER_FANG: _ef_066,
-    MoveEffect.SUBSTITUTE: _ef_067,
-    MoveEffect.STRUGGLE: _ef_068,
-    MoveEffect.SKETCH: _ef_069,
-    MoveEffect.TRIPLE_KICK: _ef_070,
-    MoveEffect.THIEF: _ef_071,
-    MoveEffect.SPIDER_WEB: _ef_072,
-    MoveEffect.MIND_READER: _ef_073,
-    MoveEffect.NIGHTMARE: _ef_074,
-    MoveEffect.FLAME_WHEEL: _ef_075,
-    MoveEffect.SNORE: _ef_076,
-    MoveEffect.CURSE: _ef_077,
-    MoveEffect.FLAIL: _ef_078,
-    MoveEffect.CONVERSION_2: _ef_079,
-    MoveEffect.SPITE: _ef_080,
-    MoveEffect.PROTECT: _ef_081,
-    MoveEffect.BELLY_DRUM: _ef_082,
-    MoveEffect.SPIKES: _ef_083,
-    MoveEffect.FORESIGHT: _ef_084,
-    MoveEffect.DESTINY_BOND: _ef_085,
-    MoveEffect.PERISH_SONG: _ef_086,
-    MoveEffect.SANDSTORM: _ef_087,
-    MoveEffect.ENDURE: _ef_088,
-    MoveEffect.ROLLOUT: _ef_089,
-    MoveEffect.FALSE_SWIPE: _ef_090,
-    MoveEffect.SWAGGER: _ef_091,
-    MoveEffect.FURY_CUTTER: _ef_092,
-    MoveEffect.ATTRACT: _ef_093,
-    MoveEffect.SLEEP_TALK: _ef_094,
-    MoveEffect.HEAL_BELL: _ef_095,
-    MoveEffect.RETURN: _ef_096,
-    MoveEffect.PRESENT: _ef_097,
-    MoveEffect.FRUSTRATION: _ef_098,
-    MoveEffect.SAFEGUARD: _ef_099,
-    MoveEffect.PAIN_SPLIT: _ef_100,
-    MoveEffect.MAGNITUDE: _ef_101,
-    MoveEffect.BATON_PASS: _ef_102,
-    MoveEffect.ENCORE: _ef_103,
-    MoveEffect.RAPID_SPIN: _ef_104,
-    MoveEffect.MORNING_SUN: _ef_105,
-    MoveEffect.HIDDEN_POWER: _ef_106,
-    MoveEffect.TWISTER: _ef_107,
-    MoveEffect.RAIN_DANCE: _ef_108,
-    MoveEffect.SUNNY_DAY: _ef_109,
-    MoveEffect.MIRROR_COAT: _ef_110,
-    MoveEffect.PSYCH_UP: _ef_111,
-    MoveEffect.ANCIENT_POWER: _ef_112,
-    MoveEffect.FUTURE_SIGHT: _ef_113,
-    MoveEffect.BEAT_UP: _ef_114,
-    MoveEffect.UPROAR: _ef_115,
-    MoveEffect.STOCKPILE: _ef_116,
-    MoveEffect.SPIT_UP: _ef_117,
-    MoveEffect.SWALLOW: _ef_118,
-    MoveEffect.HAIL: _ef_119,
-    MoveEffect.TORMENT: _ef_120,
-    MoveEffect.FLATTER: _ef_121,
-    MoveEffect.MEMENTO: _ef_122,
-    MoveEffect.FACADE: _ef_123,
-    MoveEffect.FOCUS_PUNCH: _ef_124,
-    MoveEffect.SMELLING_SALTS: _ef_125,
-    MoveEffect.NATURE_POWER: _ef_126,
-    MoveEffect.CHARGE: _ef_127,
-    MoveEffect.TAUNT: _ef_128,
-    MoveEffect.HELPING_HAND: _ef_129,
-    MoveEffect.TRICK: _ef_130,
-    MoveEffect.ROLE_PLAY: _ef_131,
-    MoveEffect.WISH: _ef_132,
-    MoveEffect.ASSIST: _ef_133,
-    MoveEffect.INGRAIN: _ef_134,
-    MoveEffect.SUPERPOWER: _ef_135,
-    MoveEffect.MAGIC_COAT: _ef_136,
-    MoveEffect.RECYCLE: _ef_137,
-    MoveEffect.REVENGE: _ef_138,
-    MoveEffect.BRICK_BREAK: _ef_139,
-    MoveEffect.YAWN: _ef_140,
-    MoveEffect.KNOCK_OFF: _ef_141,
-    MoveEffect.ENDEAVOR: _ef_142,
-    MoveEffect.ERUPTION: _ef_143,
-    MoveEffect.SKILL_SWAP: _ef_144,
-    MoveEffect.IMPRISON: _ef_145,
-    MoveEffect.REFRESH: _ef_146,
-    MoveEffect.GRUDGE: _ef_147,
-    MoveEffect.SNATCH: _ef_148,
-    MoveEffect.SECRET_POWER: _ef_149,
-    MoveEffect.DIVE: _ef_150,
-    MoveEffect.CAMOUFLAGE: _ef_151,
-    MoveEffect.BLAZE_KICK: _ef_152,
-    MoveEffect.MUD_SPORT: _ef_153,
-    MoveEffect.WEATHER_BALL: _ef_154,
-    MoveEffect.GRASS_WHISTLE: _ef_156,
-    MoveEffect.TICKLE: _ef_157,
-    MoveEffect.COSMIC_POWER: _ef_158,
-    MoveEffect.SKY_UPPERCUT: _ef_159,
-    MoveEffect.BULK_UP: _ef_160,
-    MoveEffect.BOUNCE: _ef_161,
-    MoveEffect.POISON_TAIL: _ef_162,
-    MoveEffect.VOLT_TACKLE: _ef_163,
-    MoveEffect.WATER_SPORT: _ef_164,
-    MoveEffect.CALM_MIND: _ef_165,
-    MoveEffect.DRAGON_DANCE: _ef_166,
-    MoveEffect.DOOM_DESIRE: _ef_167,
-    MoveEffect.ROOST: _ef_168,
-    MoveEffect.GRAVITY: _ef_169,
-    MoveEffect.MIRACLE_EYE: _ef_170,
-    MoveEffect.WAKE_UP_SLAP: _ef_171,
-    MoveEffect.GYRO_BALL: _ef_172,
-    MoveEffect.HEALING_WISH: _ef_173,
-    MoveEffect.BRINE: _ef_174,
-    MoveEffect.NATURAL_GIFT: _ef_175,
-    MoveEffect.FEINT: _ef_176,
-    MoveEffect.PLUCK: _ef_177,
-    MoveEffect.TAILWIND: _ef_178,
-    MoveEffect.ACUPRESSURE: _ef_179,
-    MoveEffect.METAL_BURST: _ef_180,
-    MoveEffect.U_TURN: _ef_181,
-    MoveEffect.CLOSE_COMBAT: _ef_182,
-    MoveEffect.PAYBACK: _ef_183,
-    MoveEffect.ASSURANCE: _ef_184,
-    MoveEffect.EMBARGO: _ef_185,
-    MoveEffect.FLING: _ef_186,
-    MoveEffect.PSYCHO_SHIFT: _ef_187,
-    MoveEffect.TRUMP_CARD: _ef_188,
-    MoveEffect.HEAL_BLOCK: _ef_189,
-    MoveEffect.WRING_OUT: _ef_190,
-    MoveEffect.POWER_TRICK: _ef_191,
-    MoveEffect.GASTRO_ACID: _ef_192,
-    MoveEffect.LUCKY_CHANT: _ef_193,
-    MoveEffect.ME_FIRST: _ef_194,
-    MoveEffect.COPYCAT: _ef_195,
-    MoveEffect.POWER_SWAP: _ef_196,
-    MoveEffect.GUARD_SWAP: _ef_197,
-    MoveEffect.PUNISHMENT: _ef_198,
-    MoveEffect.LAST_RESORT: _ef_199,
-    MoveEffect.WORRY_SEED: _ef_200,
-    MoveEffect.SUCKER_PUNCH: _ef_201,
-    MoveEffect.TOXIC_SPIKES: _ef_202,
-    MoveEffect.HEART_SWAP: _ef_203,
-    MoveEffect.AQUA_RING: _ef_204,
-    MoveEffect.MAGNET_RISE: _ef_205,
-    MoveEffect.FLARE_BLITZ: _ef_206,
-    MoveEffect.BRAVE_BIRD: _ef_207,
-    MoveEffect.THUNDER_FANG: _ef_208,
-    MoveEffect.ICE_FANG: _ef_209,
-    MoveEffect.FIRE_FANG: _ef_210,
-    MoveEffect.DEFOG: _ef_211,
-    MoveEffect.TRICK_ROOM: _ef_212,
-    MoveEffect.CAPTIVATE: _ef_213,
-    MoveEffect.STEALTH_ROCK: _ef_214,
-    MoveEffect.CHATTER: _ef_215,
-    MoveEffect.JUDGMENT: _ef_216,
-    MoveEffect.HEAD_SMASH: _ef_217,
-    MoveEffect.LUNAR_DANCE: _ef_218,
-    MoveEffect.SHADOW_FORCE: _ef_219,
+    MoveEffect.NO_EFFECT: _effect_no_effect,
+    MoveEffect.NO_SECONDARY_EFFECT: _effect_no_secondary_effect,
+    MoveEffect.ATTACKER_STAT_STAGE_CHANGE_CHANCE: _effect_attacker_stat_stage_change_chance,
+    MoveEffect.DEFENDER_STAT_STAGE_CHANGE_CHANCE: _effect_defender_stat_stage_change_chance,
+    MoveEffect.ATTACKER_NON_VOLATILE_STATUS_CHANCE: _effect_attacker_non_volatile_status_chance,
+    MoveEffect.DEFENDER_NON_VOLATILE_STATUS_CHANCE: _effect_defender_non_volatile_status_chance,
+    MoveEffect.DEFENDER_CONFUSE_CHANCE: _effect_defender_confuse_chance,
+    MoveEffect.DEFENDER_FLINCH_CHANCE: _effect_defender_flinch_chance,
+    MoveEffect.HIGH_CRIT_RATE: _effect_high_crit_rate,
+    MoveEffect.GUARANTEED_FLINCH: _effect_guaranteed_flinch,
+    MoveEffect.MULTI_HIT_2_5: _effect_multi_hit_2_5,
+    MoveEffect.MULTI_HIT_2: _effect_multi_hit_2,
+    MoveEffect.DEFENDER_NON_VOLATILE_STATUS: _effect_defender_non_volatile_status,
+    MoveEffect.DEFENDER_CONFUSE: _effect_defender_confuse,
+    MoveEffect.ATTACKER_STAT_STAGE_CHANGE: _effect_attacker_stat_stage_change,
+    MoveEffect.DEFENDER_STAT_STAGE_CHANGE: _effect_defender_stat_stage_change,
+    MoveEffect.SURF: _effect_surf,
+    MoveEffect.STOMP: _effect_stomp,
+    MoveEffect.OHKO: _effect_ohko,
+    MoveEffect.RAZOR_WIND: _effect_razor_wind,
+    MoveEffect.GUST: _effect_gust,
+    MoveEffect.FLY: _effect_fly,
+    MoveEffect.BIND: _effect_bind,
+    MoveEffect.JUMP_KICK: _effect_jump_kick,
+    MoveEffect.EARTHQUAKE: _effect_earthquake,
+    MoveEffect.TAKE_DOWN: _effect_take_down,
+    MoveEffect.THRASH: _effect_thrash,
+    MoveEffect.DOUBLE_EDGE: _effect_double_edge,
+    MoveEffect.TWINEEDLE: _effect_twineedle,
+    MoveEffect.SONIC_BOOM: _effect_sonic_boom,
+    MoveEffect.DISABLE: _effect_disable,
+    MoveEffect.MIST: _effect_mist,
+    MoveEffect.HYPER_BEAM: _effect_hyper_beam,
+    MoveEffect.LOW_KICK: _effect_low_kick,
+    MoveEffect.COUNTER: _effect_counter,
+    MoveEffect.SEISMIC_TOSS: _effect_seismic_toss,
+    MoveEffect.ABSORB: _effect_absorb,
+    MoveEffect.LEECH_SEED: _effect_leech_seed,
+    MoveEffect.SOLAR_BEAM: _effect_solar_beam,
+    MoveEffect.THUNDER: _effect_thunder,
+    MoveEffect.RAGE: _effect_rage,
+    MoveEffect.MIMIC: _effect_mimic,
+    MoveEffect.RECOVER: _effect_recover,
+    MoveEffect.MINIMIZE: _effect_minimize,
+    MoveEffect.DEFENSE_CURL: _effect_defense_curl,
+    MoveEffect.LIGHT_SCREEN: _effect_light_screen,
+    MoveEffect.HAZE: _effect_haze,
+    MoveEffect.FOCUS_ENERGY: _effect_focus_energy,
+    MoveEffect.BIDE: _effect_bide,
+    MoveEffect.METRONOME: _effect_metronome,
+    MoveEffect.MIRROR_MOVE: _effect_mirror_move,
+    MoveEffect.SELF_DESTRUCT: _effect_self_destruct,
+    MoveEffect.SKULL_BASH: _effect_skull_bash,
+    MoveEffect.DREAM_EATER: _effect_dream_eater,
+    MoveEffect.SKY_ATTACK: _effect_sky_attack,
+    MoveEffect.TRANSFORM: _effect_transform,
+    MoveEffect.PSYWAVE: _effect_psywave,
+    MoveEffect.SPLASH: _effect_splash,
+    MoveEffect.EXPLOSION: _effect_explosion,
+    MoveEffect.REST: _effect_rest,
+    MoveEffect.CONVERSION: _effect_conversion,
+    MoveEffect.TRI_ATTACK: _effect_tri_attack,
+    MoveEffect.SUPER_FANG: _effect_super_fang,
+    MoveEffect.SUBSTITUTE: _effect_substitute,
+    MoveEffect.STRUGGLE: _effect_struggle,
+    MoveEffect.SKETCH: _effect_sketch,
+    MoveEffect.TRIPLE_KICK: _effect_triple_kick,
+    MoveEffect.THIEF: _effect_thief,
+    MoveEffect.SPIDER_WEB: _effect_spider_web,
+    MoveEffect.MIND_READER: _effect_mind_reader,
+    MoveEffect.NIGHTMARE: _effect_nightmare,
+    MoveEffect.FLAME_WHEEL: _effect_flame_wheel,
+    MoveEffect.SNORE: _effect_snore,
+    MoveEffect.CURSE: _effect_curse,
+    MoveEffect.FLAIL: _effect_flail,
+    MoveEffect.CONVERSION_2: _effect_conversion_2,
+    MoveEffect.SPITE: _effect_spite,
+    MoveEffect.PROTECT: _effect_protect,
+    MoveEffect.BELLY_DRUM: _effect_belly_drum,
+    MoveEffect.SPIKES: _effect_spikes,
+    MoveEffect.FORESIGHT: _effect_foresight,
+    MoveEffect.DESTINY_BOND: _effect_destiny_bond,
+    MoveEffect.PERISH_SONG: _effect_perish_song,
+    MoveEffect.SANDSTORM: _effect_sandstorm,
+    MoveEffect.ENDURE: _effect_endure,
+    MoveEffect.ROLLOUT: _effect_rollout,
+    MoveEffect.FALSE_SWIPE: _effect_false_swipe,
+    MoveEffect.SWAGGER: _effect_swagger,
+    MoveEffect.FURY_CUTTER: _effect_fury_cutter,
+    MoveEffect.ATTRACT: _effect_attract,
+    MoveEffect.SLEEP_TALK: _effect_sleep_talk,
+    MoveEffect.HEAL_BELL: _effect_heal_bell,
+    MoveEffect.RETURN: _effect_return,
+    MoveEffect.PRESENT: _effect_present,
+    MoveEffect.FRUSTRATION: _effect_frustration,
+    MoveEffect.SAFEGUARD: _effect_safeguard,
+    MoveEffect.PAIN_SPLIT: _effect_pain_split,
+    MoveEffect.MAGNITUDE: _effect_magnitude,
+    MoveEffect.BATON_PASS: _effect_baton_pass,
+    MoveEffect.ENCORE: _effect_encore,
+    MoveEffect.RAPID_SPIN: _effect_rapid_spin,
+    MoveEffect.MORNING_SUN: _effect_morning_sun,
+    MoveEffect.HIDDEN_POWER: _effect_hidden_power,
+    MoveEffect.TWISTER: _effect_twister,
+    MoveEffect.RAIN_DANCE: _effect_rain_dance,
+    MoveEffect.SUNNY_DAY: _effect_sunny_day,
+    MoveEffect.MIRROR_COAT: _effect_mirror_coat,
+    MoveEffect.PSYCH_UP: _effect_psych_up,
+    MoveEffect.ANCIENT_POWER: _effect_ancient_power,
+    MoveEffect.FUTURE_SIGHT: _effect_future_sight,
+    MoveEffect.BEAT_UP: _effect_beat_up,
+    MoveEffect.UPROAR: _effect_uproar,
+    MoveEffect.STOCKPILE: _effect_stockpile,
+    MoveEffect.SPIT_UP: _effect_spit_up,
+    MoveEffect.SWALLOW: _effect_swallow,
+    MoveEffect.HAIL: _effect_hail,
+    MoveEffect.TORMENT: _effect_torment,
+    MoveEffect.FLATTER: _effect_flatter,
+    MoveEffect.MEMENTO: _effect_memento,
+    MoveEffect.FACADE: _effect_facade,
+    MoveEffect.FOCUS_PUNCH: _effect_focus_punch,
+    MoveEffect.SMELLING_SALTS: _effect_smelling_salts,
+    MoveEffect.NATURE_POWER: _effect_nature_power,
+    MoveEffect.CHARGE: _effect_charge,
+    MoveEffect.TAUNT: _effect_taunt,
+    MoveEffect.HELPING_HAND: _effect_helping_hand,
+    MoveEffect.TRICK: _effect_trick,
+    MoveEffect.ROLE_PLAY: _effect_role_play,
+    MoveEffect.WISH: _effect_wish,
+    MoveEffect.ASSIST: _effect_assist,
+    MoveEffect.INGRAIN: _effect_ingrain,
+    MoveEffect.SUPERPOWER: _effect_superpower,
+    MoveEffect.MAGIC_COAT: _effect_magic_coat,
+    MoveEffect.RECYCLE: _effect_recycle,
+    MoveEffect.REVENGE: _effect_revenge,
+    MoveEffect.BRICK_BREAK: _effect_brick_break,
+    MoveEffect.YAWN: _effect_yawn,
+    MoveEffect.KNOCK_OFF: _effect_knock_off,
+    MoveEffect.ENDEAVOR: _effect_endeavor,
+    MoveEffect.ERUPTION: _effect_eruption,
+    MoveEffect.SKILL_SWAP: _effect_skill_swap,
+    MoveEffect.IMPRISON: _effect_imprison,
+    MoveEffect.REFRESH: _effect_refresh,
+    MoveEffect.GRUDGE: _effect_grudge,
+    MoveEffect.SNATCH: _effect_snatch,
+    MoveEffect.SECRET_POWER: _effect_secret_power,
+    MoveEffect.DIVE: _effect_dive,
+    MoveEffect.CAMOUFLAGE: _effect_camouflage,
+    MoveEffect.BLAZE_KICK: _effect_blaze_kick,
+    MoveEffect.MUD_SPORT: _effect_mud_sport,
+    MoveEffect.WEATHER_BALL: _effect_weather_ball,
+    MoveEffect.GRASS_WHISTLE: _effect_grass_whistle,
+    MoveEffect.TICKLE: _effect_tickle,
+    MoveEffect.COSMIC_POWER: _effect_cosmic_power,
+    MoveEffect.SKY_UPPERCUT: _effect_sky_uppercut,
+    MoveEffect.BULK_UP: _effect_bulk_up,
+    MoveEffect.BOUNCE: _effect_bounce,
+    MoveEffect.POISON_TAIL: _effect_poison_tail,
+    MoveEffect.VOLT_TACKLE: _effect_volt_tackle,
+    MoveEffect.WATER_SPORT: _effect_water_sport,
+    MoveEffect.CALM_MIND: _effect_calm_mind,
+    MoveEffect.DRAGON_DANCE: _effect_dragon_dance,
+    MoveEffect.DOOM_DESIRE: _effect_doom_desire,
+    MoveEffect.ROOST: _effect_roost,
+    MoveEffect.GRAVITY: _effect_gravity,
+    MoveEffect.MIRACLE_EYE: _effect_miracle_eye,
+    MoveEffect.WAKE_UP_SLAP: _effect_wake_up_slap,
+    MoveEffect.GYRO_BALL: _effect_gyro_ball,
+    MoveEffect.HEALING_WISH: _effect_healing_wish,
+    MoveEffect.BRINE: _effect_brine,
+    MoveEffect.NATURAL_GIFT: _effect_natural_gift,
+    MoveEffect.FEINT: _effect_feint,
+    MoveEffect.PLUCK: _effect_pluck,
+    MoveEffect.TAILWIND: _effect_tailwind,
+    MoveEffect.ACUPRESSURE: _effect_acupressure,
+    MoveEffect.METAL_BURST: _effect_metal_burst,
+    MoveEffect.U_TURN: _effect_u_turn,
+    MoveEffect.CLOSE_COMBAT: _effect_close_combat,
+    MoveEffect.PAYBACK: _effect_payback,
+    MoveEffect.ASSURANCE: _effect_assurance,
+    MoveEffect.EMBARGO: _effect_embargo,
+    MoveEffect.FLING: _effect_fling,
+    MoveEffect.PSYCHO_SHIFT: _effect_psycho_shift,
+    MoveEffect.TRUMP_CARD: _effect_trump_card,
+    MoveEffect.HEAL_BLOCK: _effect_heal_block,
+    MoveEffect.WRING_OUT: _effect_wring_out,
+    MoveEffect.POWER_TRICK: _effect_power_trick,
+    MoveEffect.GASTRO_ACID: _effect_gastro_acid,
+    MoveEffect.LUCKY_CHANT: _effect_lucky_chant,
+    MoveEffect.ME_FIRST: _effect_me_first,
+    MoveEffect.COPYCAT: _effect_copycat,
+    MoveEffect.POWER_SWAP: _effect_power_swap,
+    MoveEffect.GUARD_SWAP: _effect_guard_swap,
+    MoveEffect.PUNISHMENT: _effect_punishment,
+    MoveEffect.LAST_RESORT: _effect_last_resort,
+    MoveEffect.WORRY_SEED: _effect_worry_seed,
+    MoveEffect.SUCKER_PUNCH: _effect_sucker_punch,
+    MoveEffect.TOXIC_SPIKES: _effect_toxic_spikes,
+    MoveEffect.HEART_SWAP: _effect_heart_swap,
+    MoveEffect.AQUA_RING: _effect_aqua_ring,
+    MoveEffect.MAGNET_RISE: _effect_magnet_rise,
+    MoveEffect.FLARE_BLITZ: _effect_flare_blitz,
+    MoveEffect.BRAVE_BIRD: _effect_brave_bird,
+    MoveEffect.THUNDER_FANG: _effect_thunder_fang,
+    MoveEffect.ICE_FANG: _effect_ice_fang,
+    MoveEffect.FIRE_FANG: _effect_fire_fang,
+    MoveEffect.DEFOG: _effect_defog,
+    MoveEffect.TRICK_ROOM: _effect_trick_room,
+    MoveEffect.CAPTIVATE: _effect_captivate,
+    MoveEffect.STEALTH_ROCK: _effect_stealth_rock,
+    MoveEffect.CHATTER: _effect_chatter,
+    MoveEffect.JUDGMENT: _effect_judgment,
+    MoveEffect.HEAD_SMASH: _effect_head_smash,
+    MoveEffect.LUNAR_DANCE: _effect_lunar_dance,
+    MoveEffect.SHADOW_FORCE: _effect_shadow_force,
 }
