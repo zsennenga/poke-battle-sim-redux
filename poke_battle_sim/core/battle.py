@@ -4,6 +4,7 @@ from random import randrange
 from poke_battle_sim.core.move import Move
 from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.const.ability_enum import Ability
+from poke_battle_sim.const.type_enum import PokemonType
 
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.trainer as tr
@@ -579,7 +580,7 @@ class Battle:
         if selector.spikes and (
             selector.current_poke.grounded
             or (
-                "flying" not in selector.current_poke.types
+                PokemonType.FLYING not in selector.current_poke.types
                 and not selector.current_poke.magnet_rise
                 and not selector.current_poke.has_ability(Ability.LEVITATE)
                 and not selector.current_poke.has_ability(Ability.MAGIC_GUARD)
@@ -593,7 +594,7 @@ class Battle:
                 mult = 4
             selector.current_poke.take_damage(selector.current_poke.max_hp // mult)
             self.add_text(f"{selector.current_poke.nickname} was hurt by the spikes!")
-        if selector.toxic_spikes and "poison" in selector.current_poke.types:
+        if selector.toxic_spikes and PokemonType.POISON in selector.current_poke.types:
             selector.toxic_spikes = 0
             self.add_text(
                 f"The poison spikes disappeared from the ground around {selector.name}."
@@ -604,8 +605,8 @@ class Battle:
             and (
                 selector.current_poke.grounded
                 or (
-                    not "flying" in selector.current_poke.types
-                    and not "steel" in selector.current_poke.types
+                    not PokemonType.FLYING in selector.current_poke.types
+                    and not PokemonType.STEEL in selector.current_poke.types
                     and not selector.current_poke.magnet_rise
                     and not selector.current_poke.has_ability(Ability.IMMUNITY)
                     and not selector.current_poke.has_ability(Ability.LEVITATE)

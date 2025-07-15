@@ -3,6 +3,7 @@ from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
+from poke_battle_sim.const.type_enum import PokemonType
 
 
 def _effect_roost(
@@ -15,11 +16,11 @@ def _effect_roost(
     cc_ib: list,
 ) -> bool:
     attacker.heal(max(1, attacker.max_hp // 2))
-    if not is_first or not "flying" in attacker.types:
+    if not is_first or not PokemonType.FLYING in attacker.types:
         return True
     attacker.r_types = attacker.types
-    other_type = [type for type in attacker.types if type != "flying"]
+    other_type = [type for type in attacker.types if type != PokemonType.FLYING]
     if len(other_type) > 0:
         attacker.types = other_type[0], None
     else:
-        attacker.types = "normal", None
+        attacker.types = PokemonType.NORMAL, None

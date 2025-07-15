@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from poke_battle_sim.const.ability_enum import Ability
+from poke_battle_sim.const.type_enum import PokemonType
 import poke_battle_sim.core.battle as bt
 
 import poke_battle_sim.util.process_ability as pa
@@ -64,7 +65,7 @@ class Battlefield:
             and not poke.has_ability(Ability.SAND_VEIL)
             and not poke.in_ground
             and not poke.in_water
-            and not any(type in poke.types for type in ["ground", "steel", "rock"])
+            and not any(type in poke.types for type in [PokemonType.GROUND, PokemonType.STEEL, PokemonType.ROCK])
         ):
             self.cur_battle.add_text(f"{poke.nickname} is buffeted by the Sandstorm!")
             poke.take_damage(max(1, poke.max_hp // 16))
@@ -73,7 +74,7 @@ class Battlefield:
             and not poke.has_ability(Ability.ICE_BODY)
             and not poke.in_ground
             and not poke.in_water
-            and not any(type in poke.types for type in ["ice"])
+            and not any(type in poke.types for type in [PokemonType.ICE])
         ):
             self.cur_battle.add_text(f"{poke.nickname} is buffeted by the Hail!")
             poke.take_damage(max(1, poke.max_hp // 16))

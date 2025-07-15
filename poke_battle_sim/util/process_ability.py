@@ -4,6 +4,7 @@ from random import randrange
 from poke_battle_sim.poke_sim import PokeSim
 from poke_battle_sim.core.move import Move
 from poke_battle_sim.const.ability_enum import Ability
+from poke_battle_sim.const.type_enum import PokemonType
 
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
@@ -179,21 +180,21 @@ def end_turn_abilities(poke: pk.Pokemon, battle: bt.Battle):
 def type_protection_abilities(
     defender: pk.Pokemon, move_data: Move, battle: bt.Battle
 ) -> bool:
-    if defender.has_ability(Ability.VOLT_ABSORB) and move_data.type == "electric":
+    if defender.has_ability(Ability.VOLT_ABSORB) and move_data.type == PokemonType.ELECTRIC:
         battle.add_text(
             f"{defender.nickname} absorbed {move_data.name} with Volt Absorb!"
         )
         if not defender.cur_hp == defender.max_hp:
             defender.heal(defender.max_hp // 4)
         return True
-    elif defender.has_ability(Ability.WATER_ABSORB) and move_data.type == "water":
+    elif defender.has_ability(Ability.WATER_ABSORB) and move_data.type == PokemonType.WATER:
         battle.add_text(
             f"{defender.nickname} absorbed {move_data.name} with Water Absorb!"
         )
         if not defender.cur_hp == defender.max_hp:
             defender.heal(defender.max_hp // 4)
         return True
-    elif defender.has_ability(Ability.FLASH_FIRE) and move_data.type == "fire":
+    elif defender.has_ability(Ability.FLASH_FIRE) and move_data.type == PokemonType.FIRE:
         battle.add_text(f"It doesn't affect {defender.nickname}")
         defender.ability_activated = True
         return True
@@ -240,8 +241,8 @@ def on_hit_abilities(
     elif (
         defender.has_ability(Ability.POISON_POINT)
         and made_contact
-        and not "steel" in attacker.types
-        and not "poison" in attacker.types
+        and not PokemonType.STEEL in attacker.types
+        and not PokemonType.POISON in attacker.types
         and randrange(10) < 3
     ):
         poison(attacker, battle)
@@ -249,7 +250,7 @@ def on_hit_abilities(
         defender.has_ability(Ability.CUTE_CHARM) and made_contact and randrange(10) < 3
     ):
         infatuate(defender, attacker, battle)
-    elif defender.has_ability(Ability.MOTOR_DRIVE) and move_data.type == "electric":
+    elif defender.has_ability(Ability.MOTOR_DRIVE) and move_data.type == PokemonType.ELECTRIC:
         give_stat_change(defender, battle, gs.SPD, 1)
         return True
     return False
@@ -304,30 +305,30 @@ def damage_calc_abilities(
     if (
         attacker.has_ability(Ability.FLASH_FIRE)
         and attacker.ability_activated
-        and move_data.type == "fire"
+        and move_data.type == PokemonType.FIRE
     ):
         move_data.power = int(move_data.power * 1.5)
     elif (
         attacker.has_ability(Ability.OVERGROW)
-        and move_data.type == "grass"
+        and move_data.type == PokemonType.GRASS
         and attacker.cur_hp <= attacker.max_hp // 3
     ):
         move_data.power = int(move_data.power * 1.5)
     elif (
         attacker.has_ability(Ability.BLAZE)
-        and move_data.type == "fire"
+        and move_data.type == PokemonType.FIRE
         and attacker.cur_hp <= attacker.max_hp // 3
     ):
         move_data.power = int(move_data.power * 1.5)
     elif (
         attacker.has_ability(Ability.TORRENT)
-        and move_data.type == "water"
+        and move_data.type == PokemonType.WATER
         and attacker.cur_hp <= attacker.max_hp // 3
     ):
         move_data.power = int(move_data.power * 1.5)
     elif (
         attacker.has_ability(Ability.SWARM)
-        and move_data.type == "bug"
+        and move_data.type == PokemonType.BUG
         and attacker.cur_hp <= attacker.max_hp // 3
     ):
         move_data.power = int(move_data.power * 1.5)
@@ -343,7 +344,7 @@ def damage_calc_abilities(
     elif attacker.has_ability(Ability.IRON_FIST) and move_data.name in gd.PUNCH_CHECK:
         move_data.power *= int(move_data.power * 1.2)
     elif attacker.has_ability(Ability.NORMALIZE):
-        move_data.type = "normal"
+        move_data.type = PokemonType.NORMAL
     elif attacker.has_ability(Ability.TECHNICIAN) and move_data.power <= 60:
         move_data.power = int(move_data.power * 1.5)
     elif attacker.has_ability(Ability.TINTED_LENS) and t_mult < 1:
@@ -351,7 +352,7 @@ def damage_calc_abilities(
     elif attacker.has_ability(Ability.RECKLESS) and move_data.name in gd.RECOIL_CHECK:
         move_data.power = int(move_data.power * 1.2)
 
-    if defender.has_ability(Ability.HEATPROOF) and move_data.type == "fire":
+    if defender.has_ability(Ability.HEATPROOF) and move_data.type == PokemonType.FIRE:
         move_data.power //= 2
     elif (
         defender.has_ability(Ability.FILTER) or defender.has_ability(Ability.SOLID_ROCK)
@@ -378,7 +379,7 @@ def homc_abilities(
     elif defender.has_ability(Ability.TANGLED_FEET) and defender.v_status[gs.CONFUSED]:
         ability_mult *= 0.5
     elif defender.has_ability(Ability.THICK_FAT) and (
-        move_data.type == "fire" or move_data.type == "ice"
+        move_data.type == PokemonType.FIRE or move_data.type == PokemonType.ICE
     ):
         ability_mult *= 0.5
     return ability_mult
@@ -399,13 +400,13 @@ def weather_change_abilities(battle: bt.Battle, battlefield: bf.Battlefield):
 def _forecast_check(poke: pk.Pokemon, battle: bt.Battle, battlefield: bf.Battlefield):
     if poke.is_alive and poke.has_ability(Ability.FORECAST):
         if battlefield.weather == gs.HARSH_SUNLIGHT:
-            poke.types = ("fire", None)
+            poke.types = (PokemonType.FIRE, None)
         elif battlefield.weather == gs.RAIN:
-            poke.types = ("water", None)
+            poke.types = (PokemonType.WATER, None)
         elif battlefield.weather == gs.HAIL:
-            poke.types = ("ice", None)
+            poke.types = (PokemonType.ICE, None)
         else:
-            poke.types = ("normal", None)
+            poke.types = (PokemonType.NORMAL, None)
         battle.add_text(
             f"{poke.nickname} transformed into the {poke.types[0].value.upper()} type!"
         )

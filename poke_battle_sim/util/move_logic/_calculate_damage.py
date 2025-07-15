@@ -14,6 +14,7 @@ from poke_battle_sim.util.move_logic._invulnerability_check import (
     _invulnerability_check,
 )
 from poke_battle_sim.util.move_logic._missed import _missed
+from poke_battle_sim.const.type_enum import PokemonType
 
 
 def _calculate_damage(
@@ -95,11 +96,11 @@ def _calculate_damage(
         burn = 0.5
     else:
         burn = 1
-    if attacker.charged and move_data.type == "electric":
+    if attacker.charged and move_data.type == PokemonType.ELECTRIC:
         move_data.power *= 2
-    if move_data.type == "electric" and (attacker.mud_sport or defender.mud_sport):
+    if move_data.type == PokemonType.ELECTRIC and (attacker.mud_sport or defender.mud_sport):
         move_data.power //= 2
-    if move_data.type == "fire" and (attacker.water_sport or defender.water_sport):
+    if move_data.type == PokemonType.FIRE and (attacker.water_sport or defender.water_sport):
         move_data.power //= 2
     pa.damage_calc_abilities(attacker, defender, battle, move_data, t_mult)
     pi.damage_calc_items(attacker, defender, battle, move_data)
@@ -114,14 +115,14 @@ def _calculate_damage(
         screen = 1
     weather_mult = 1
     if battlefield.weather == gs.HARSH_SUNLIGHT:
-        if move_data.type == "fire":
+        if move_data.type == PokemonType.FIRE:
             weather_mult = 1.5
-        elif move_data.type == "water":
+        elif move_data.type == PokemonType.WATER:
             weather_mult = 0.5
     elif battlefield.weather == gs.RAIN:
-        if move_data.type == "fire":
+        if move_data.type == PokemonType.FIRE:
             weather_mult = 0.5
-        elif move_data.type == "water":
+        elif move_data.type == PokemonType.WATER:
             weather_mult = 1.5
 
     if move_data.type == attacker.types[0] or move_data.type == attacker.types[1]:

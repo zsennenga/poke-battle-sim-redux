@@ -6,6 +6,7 @@ from poke_battle_sim.const.ability_enum import Ability
 import poke_battle_sim.conf.global_settings as gs
 from poke_battle_sim.util.move_logic._failed import _failed
 from poke_battle_sim.util.move_logic._safeguard_check import _safeguard_check
+from poke_battle_sim.const.type_enum import PokemonType
 
 
 def burn(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
@@ -23,7 +24,7 @@ def burn(recipient: pk.Pokemon, battle: bt.Battle, forced: bool = False):
         return
     if _safeguard_check(recipient, battle):
         return
-    if "fire" in recipient.types:
+    if PokemonType.FIRE in recipient.types:
         if forced:
             _failed(battle)
         return

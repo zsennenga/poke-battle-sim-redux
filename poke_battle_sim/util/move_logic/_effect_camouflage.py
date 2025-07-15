@@ -3,6 +3,7 @@ from poke_battle_sim.core.move import Move
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
+from poke_battle_sim.const.type_enum import PokemonType
 
 
 def _effect_camouflage(
@@ -14,10 +15,7 @@ def _effect_camouflage(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    attacker.type = "normal", None
+    attacker.types = PokemonType.NORMAL, None
     battle.add_text(
-        attacker.nickname
-        + " transformed into the "
-        + attacker.types[0].value.upper()
-        + " type!"
+        f"{attacker.nickname} transformed into the Normal type!"
     )

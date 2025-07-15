@@ -3,6 +3,7 @@ from random import randrange
 
 from poke_battle_sim.core.move import Move
 from poke_battle_sim.const.ability_enum import Ability
+from poke_battle_sim.const.type_enum import PokemonType
 
 import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.trainer as tr
@@ -212,47 +213,47 @@ def damage_calc_items(
 
     if item == "griseous-orb":
         if attacker.name == "giratina" and (
-            move_data.type == "dragon" or move_data.type == "ghost"
+            move_data.type == PokemonType.DRAGON or move_data.type == PokemonType.GHOST
         ):
             move_data.power = int(move_data.power * 1.2)
     elif item == "adamant-orb":
         if attacker.name == "dialga" and (
-            move_data.type == "dragon" or move_data.type == "steel"
+            move_data.type == PokemonType.DRAGON or move_data.type == PokemonType.STEEL
         ):
             move_data.power = int(move_data.power * 1.2)
     elif item == "lustrous-orb":
         if attacker.name == "palkia" and (
-            move_data.type == "dragon" or move_data.type == "water"
+            move_data.type == PokemonType.DRAGON or move_data.type == PokemonType.WATER
         ):
             move_data.power = int(move_data.power * 1.2)
     elif item == "silver-powder" or item == "insect-plate":
-        if move_data.type == "bug":
+        if move_data.type == PokemonType.BUG:
             move_data.power = int(move_data.power * 1.2)
     elif item == "soul-dew":
         if (attacker.name == "latios" or attacker.name == "latias") and (
-            move_data.type == "dragon" or move_data.type == "psychic"
+            move_data.type == PokemonType.DRAGON or move_data.type == PokemonType.PSYCHIC
         ):
             move_data.power = int(move_data.power * 1.5)
     elif item == "metal-coat" or item == "iron-plate":
-        if move_data.type == "steel":
+        if move_data.type == PokemonType.STEEL:
             move_data.power = int(move_data.power * 1.2)
     elif item == "soft-sand" or item == "earth-plate":
-        if move_data.type == "ground":
+        if move_data.type == PokemonType.GROUND:
             move_data.power = int(move_data.power * 1.2)
     elif item == "hard-stone" or item == "stone-plate" or item == "rock-incense":
-        if move_data.type == "rock":
+        if move_data.type == PokemonType.ROCK:
             move_data.power = int(move_data.power * 1.2)
     elif item == "miracle-seed" or item == "meadow-plate" or item == "rose-incense":
-        if move_data.type == "grass":
+        if move_data.type == PokemonType.GRASS:
             move_data.power = int(move_data.power * 1.2)
     elif item == "blackglasses" or item == "dread-plate":
-        if move_data.type == "dark":
+        if move_data.type == PokemonType.DARK:
             move_data.power = int(move_data.power * 1.2)
     elif item == "black-belt" or item == "fist-plate":
-        if move_data.type == "fighting":
+        if move_data.type == PokemonType.FIGHTING:
             move_data.power = int(move_data.power * 1.2)
     elif item == "magnet" or item == "zap-plate":
-        if move_data.type == "electric":
+        if move_data.type == PokemonType.ELECTRIC:
             move_data.power = int(move_data.power * 1.2)
     elif (
         item == "mystic-water"
@@ -260,31 +261,31 @@ def damage_calc_items(
         or item == "wave-incense"
         or item == "splash-plate"
     ):
-        if move_data.type == "water":
+        if move_data.type == PokemonType.WATER:
             move_data.power = int(move_data.power * 1.2)
     elif item == "sharp-beak" or item == "sky-plate":
-        if move_data.type == "flying":
+        if move_data.type == PokemonType.FLYING:
             move_data.power = int(move_data.power * 1.2)
     elif item == "poison-barb" or item == "toxic-plate":
-        if move_data.type == "poison":
+        if move_data.type == PokemonType.POISON:
             move_data.power = int(move_data.power * 1.2)
     elif item == "nevermeltice" or item == "icicle-plate":
-        if move_data.type == "ice":
+        if move_data.type == PokemonType.ICE:
             move_data.power = int(move_data.power * 1.2)
     elif item == "spell-tag" or item == "spooky-plate":
-        if move_data.type == "ghost":
+        if move_data.type == PokemonType.GHOST:
             move_data.power = int(move_data.power * 1.2)
     elif item == "twistedspoon" or item == "mind-plate" or item == "odd-incense":
-        if move_data.type == "psychic":
+        if move_data.type == PokemonType.PSYCHIC:
             move_data.power = int(move_data.power * 1.2)
     elif item == "charcoal" or item == "flame-plate":
-        if move_data.type == "fire":
+        if move_data.type == PokemonType.FIRE:
             move_data.power = int(move_data.power * 1.2)
     elif item == "dragon-fang" or item == "draco-plate":
-        if move_data.type == "dragon":
+        if move_data.type == PokemonType.DRAGON:
             move_data.power = int(move_data.power * 1.2)
     elif item == "silk-scarf":
-        if move_data.type == "normal":
+        if move_data.type == PokemonType.NORMAL:
             move_data.power = int(move_data.power * 1.2)
     elif item == "muscle-band":
         if move_data.category == gs.PHYSICAL:
@@ -641,7 +642,7 @@ def end_turn_items(poke: pk.Pokemon, battle: bt.Battle):
             )
             poke.heal(max(1, poke.max_hp // 16), text_skip=True)
     elif item == "black-sludge":
-        if "poison" in poke.types:
+        if PokemonType.POISON in poke.types:
             battle.add_text(
                 f"{poke.nickname} restored a little HP using its Black Sludge!"
             )

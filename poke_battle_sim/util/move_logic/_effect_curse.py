@@ -6,6 +6,7 @@ import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.conf.global_settings as gs
 from poke_battle_sim.util.move_logic._failed import _failed
 from poke_battle_sim.util.move_logic.give_stat_change import give_stat_change
+from poke_battle_sim.const.type_enum import PokemonType
 
 
 def _effect_curse(
@@ -17,7 +18,7 @@ def _effect_curse(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    if "ghost" not in attacker.types:
+    if PokemonType.GHOST not in attacker.types:
         if (
             attacker.stat_stages[gs.ATK] == 6
             and attacker.stat_stages[gs.DEF] == 6
@@ -38,8 +39,5 @@ def _effect_curse(
         attacker.take_damage(attacker.max_hp // 2)
         defender.v_status[gs.CURSE] = 1
         battle.add_text(
-            attacker.nickname
-            + " cut its own HP and laid a curse on "
-            + defender.nickname
-            + "!"
+            f"{attacker.nickname} cut its own HP and laid a curse on {defender.nickname}!"
         )

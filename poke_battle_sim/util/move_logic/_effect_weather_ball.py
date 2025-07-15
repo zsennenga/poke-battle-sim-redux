@@ -4,6 +4,7 @@ import poke_battle_sim.core.pokemon as pk
 import poke_battle_sim.core.battle as bt
 import poke_battle_sim.core.battlefield as bf
 import poke_battle_sim.conf.global_settings as gs
+from poke_battle_sim.const.type_enum import PokemonType
 
 
 def _effect_weather_ball(
@@ -16,14 +17,14 @@ def _effect_weather_ball(
     cc_ib: list,
 ) -> bool:
     if battlefield.weather == gs.HARSH_SUNLIGHT:
-        move_data.type = "fire"
+        move_data.type = PokemonType.FIRE
     elif battlefield.weather == gs.RAIN:
-        move_data.type = "water"
+        move_data.type = PokemonType.WATER
     elif battlefield.weather == gs.HAIL:
-        move_data.type = "ice"
+        move_data.type = PokemonType.ICE
     elif battlefield.weather == gs.SANDSTORM:
-        move_data.type = "rock"
+        move_data.type = PokemonType.ROCK
     else:
-        move_data.type = "normal"
+        move_data.type = PokemonType.NORMAL
     if battlefield.weather != gs.CLEAR:
         move_data.power *= 2

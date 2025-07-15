@@ -424,7 +424,7 @@ class Pokemon(BaseModel):
         if enemy_poke.is_alive and enemy_poke.has_ability(Ability.SHADOW_TAG):
             return False
         if (
-            "steel" in self.types
+            PokemonType.STEEL in self.types
             and enemy_poke.is_alive
             and enemy_poke.has_ability(Ability.MAGNET_PULL)
         ):
@@ -433,7 +433,7 @@ class Pokemon(BaseModel):
             (
                 self.grounded
                 or (
-                    not "flying" in self.types
+                    not PokemonType.FLYING in self.types
                     and not self.has_ability(Ability.LEVITATE)
                 )
             )
