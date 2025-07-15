@@ -32,6 +32,6 @@ def _effect_encore(
                 move.encore_blocked = True
             else:
                 defender.encore_move = move
-        battle.add_text(defender.nickname + " received an encore!")
+        battle.add_text(f"{defender.nickname} received an encore!")
     else:
         _failed(battle)

@@ -21,7 +21,7 @@ def _effect_psych_up(
         attacker.evasion_stage = defender.evasion_stage
         attacker.crit_stage = defender.crit_stage
         battle.add_text(
-            attacker.nickname + " copied " + defender.nickname + "'s stat changes!"
+            f"{attacker.nickname} copied {defender.nickname}'s stat changes!"
         )
     else:
         _failed(battle)

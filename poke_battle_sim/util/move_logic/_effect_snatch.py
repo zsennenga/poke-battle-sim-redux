@@ -17,6 +17,6 @@ def _effect_snatch(
 ) -> bool:
     if is_first:
         attacker.snatch = True
-        battle.add_text(attacker.nickname + " waits for a target to make a move!")
+        battle.add_text(f"{attacker.nickname} waits for a target to make a move!")
     else:
         _failed(battle)

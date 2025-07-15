@@ -43,5 +43,5 @@ def _effect_multi_hit_2_5(
             skip_txt=True,
         )
         nh -= 1
-    battle.add_text("Hit " + str(num_hits) + " time(s)!")
+    battle.add_text(f"Hit {str(num_hits)} time(s)!")
     return True

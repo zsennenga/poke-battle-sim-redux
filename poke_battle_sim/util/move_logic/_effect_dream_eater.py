@@ -27,7 +27,7 @@ def _effect_dream_eater(
             if attacker.item == "big-root":
                 heal_amt = int(heal_amt * 1.3)
             attacker.heal(heal_amt)
-        battle.add_text(defender.nickname + "'s dream was eaten!")
+        battle.add_text(f"{defender.nickname}'s dream was eaten!")
     else:
         _failed(battle)
     return True

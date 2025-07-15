@@ -17,6 +17,6 @@ def _effect_foresight(
 ) -> bool:
     if defender.is_alive and not defender.foresight_target:
         defender.foresight_target = True
-        battle.add_text(attacker.nickname + " identified " + defender.nickname + "!")
+        battle.add_text(f"{attacker.nickname} identified {defender.nickname}!")
     else:
         _failed(battle)

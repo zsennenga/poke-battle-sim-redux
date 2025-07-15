@@ -14,5 +14,5 @@ def _effect_destiny_bond(
     is_first: bool,
     cc_ib: list,
 ) -> bool:
-    battle.add_text(attacker.nickname + " is trying to take its foe with it!")
+    battle.add_text(f"{attacker.nickname} is trying to take its foe with it!")
     attacker.db_count = 1 if is_first else 2

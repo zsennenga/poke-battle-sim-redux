@@ -22,4 +22,4 @@ def _effect_substitute(
         battle.add_text("But it does not have enough HP left to make a substitute!")
         return True
     attacker.substitute = attacker.take_damage(attacker.max_hp // 4) + 1
-    battle.add_text(attacker.nickname + " made a substitute!")
+    battle.add_text(f"{attacker.nickname} made a substitute!")

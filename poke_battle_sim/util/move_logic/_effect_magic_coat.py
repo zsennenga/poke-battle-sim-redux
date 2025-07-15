@@ -17,6 +17,6 @@ def _effect_magic_coat(
 ) -> bool:
     if is_first:
         attacker.magic_coat = True
-        battle.add_text(attacker.nickname + " shrouded itself with Magic Coat!")
+        battle.add_text(f"{attacker.nickname} shrouded itself with Magic Coat!")
     else:
         _failed(battle)

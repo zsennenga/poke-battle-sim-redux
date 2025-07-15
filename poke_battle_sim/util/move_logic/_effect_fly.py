@@ -22,5 +22,5 @@ def _effect_fly(
         attacker.invulnerable = True
         attacker.inv_count = 1
         battle._pop_text()
-        battle.add_text(attacker.nickname + " flew up high!")
+        battle.add_text(f"{attacker.nickname} flew up high!")
         return True

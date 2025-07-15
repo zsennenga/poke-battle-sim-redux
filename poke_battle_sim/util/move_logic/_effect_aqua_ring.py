@@ -17,7 +17,7 @@ def _effect_aqua_ring(
     cc_ib: list,
 ) -> bool:
     if not attacker.v_status[gs.AQUA_RING]:
-        battle.add_text(attacker.nickname + " surrounded itself with a veil of water!")
+        battle.add_text(f"{attacker.nickname} surrounded itself with a veil of water!")
         attacker.v_status[gs.AQUA_RING] = 1
     else:
         _failed(battle)

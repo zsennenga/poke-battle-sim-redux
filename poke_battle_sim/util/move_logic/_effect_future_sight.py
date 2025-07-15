@@ -29,7 +29,7 @@ def _effect_future_sight(
             skip_dmg=True,
         )
         t.fs_count = 3
-        battle.add_text(attacker.nickname + " foresaw an attack!")
+        battle.add_text(f"{attacker.nickname} foresaw an attack!")
     else:
         _failed(battle)
     return True

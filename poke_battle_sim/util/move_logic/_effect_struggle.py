@@ -17,8 +17,8 @@ def _effect_struggle(
     cc_ib: list,
 ) -> bool:
     battle._pop_text()
-    battle.add_text(attacker.nickname + " has no moves left!")
-    battle.add_text(attacker.nickname + " used Struggle!")
+    battle.add_text(f"{attacker.nickname} has no moves left!")
+    battle.add_text(f"{attacker.nickname} used Struggle!")
     _calculate_damage(attacker, defender, battlefield, battle, move_data)
     struggle_dmg = max(1, attacker.max_hp // 4)
     _recoil(attacker, battle, struggle_dmg, move_data)

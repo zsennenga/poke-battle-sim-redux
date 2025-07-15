@@ -20,5 +20,5 @@ def _effect_focus_punch(
         return True
     if attacker.turn_damage:
         battle._pop_text()
-        battle.add_text(attacker.nickname + " lost its focus and couldn't move!")
+        battle.add_text(f"{attacker.nickname} lost its focus and couldn't move!")
         return True

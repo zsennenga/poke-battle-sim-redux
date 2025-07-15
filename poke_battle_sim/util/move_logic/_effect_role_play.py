@@ -25,12 +25,7 @@ def _effect_role_play(
     ):
         attacker.give_ability(defender.ability)
         battle.add_text(
-            attacker.nickname
-            + " copied "
-            + defender.nickname
-            + "'s "
-            + defender.ability
-            + "'!"
+            f"{attacker.nickname} copied {defender.nickname}'s {defender.ability}'!"
         )
     else:
         _failed(battle)

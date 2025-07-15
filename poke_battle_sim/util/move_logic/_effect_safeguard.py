@@ -18,6 +18,6 @@ def _effect_safeguard(
     t = attacker.trainer
     if not t.safeguard:
         t.safeguard = 5
-        battle.add_text(t.name + "'s team became cloaked in a mystical veil!")
+        battle.add_text(f"{t.name}'s team became cloaked in a mystical veil!")
     else:
         _failed(battle)

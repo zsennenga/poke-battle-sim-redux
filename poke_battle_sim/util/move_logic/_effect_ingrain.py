@@ -17,7 +17,7 @@ def _effect_ingrain(
     cc_ib: list,
 ) -> bool:
     if not attacker.v_status[gs.INGRAIN]:
-        battle.add_text(attacker.nickname + " planted its roots!")
+        battle.add_text(f"{attacker.nickname} planted its roots!")
         attacker.v_status[gs.INGRAIN] = 1
         attacker.trapped = True
         attacker.grounded = True

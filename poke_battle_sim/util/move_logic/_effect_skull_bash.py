@@ -19,7 +19,7 @@ def _effect_skull_bash(
 ) -> bool:
     if not move_data.ef_stat and not _power_herb_check(attacker, battle):
         battle._pop_text()
-        battle.add_text(attacker.nickname + " tucked in its head!")
+        battle.add_text(f"{attacker.nickname} tucked in its head!")
         give_stat_change(attacker, battle, gs.DEF, 1)
         move_data.ef_stat = 1
         attacker.next_moves.put(move_data)

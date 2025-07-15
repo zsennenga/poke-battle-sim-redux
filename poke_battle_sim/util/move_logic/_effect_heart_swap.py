@@ -21,7 +21,7 @@ def _effect_heart_swap(
             attacker.stat_stages,
         )
         battle.add_text(
-            attacker.nickname + " switched stat changes with " + defender.nickname + "!"
+            f"{attacker.nickname} switched stat changes with {defender.nickname}!"
         )
     else:
         _failed(battle)

@@ -34,7 +34,7 @@ def _effect_conversion_2(
         new_type = poss_types[randrange(len(poss_types))]
         attacker.types = new_type, None
         battle.add_text(
-            attacker.nickname + " transformed into the " + new_type.upper() + " type!"
+            f"{attacker.nickname} transformed into the {new_type.upper()} type!"
         )
     else:
         _failed(battle)

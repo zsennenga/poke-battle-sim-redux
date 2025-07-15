@@ -19,5 +19,5 @@ def _effect_uproar(
     dmg = _calculate_damage(attacker, defender, battlefield, battle, move_data)
     if dmg and not attacker.uproar:
         attacker.uproar = randrange(1, 5)
-        battle.add_text(attacker.nickname + " caused an uproar!")
+        battle.add_text(f"{attacker.nickname} caused an uproar!")
     return True

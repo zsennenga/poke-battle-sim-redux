@@ -16,7 +16,7 @@ def _effect_mist(
     cc_ib: list,
 ) -> bool:
     if not attacker.trainer.mist:
-        battle.add_text(attacker.trainer.name + "'s team became shrouded in mist!")
+        battle.add_text(f"{attacker.trainer.name}'s team became shrouded in mist!")
         attacker.trainer.mist = 5
     else:
         _failed(battle)

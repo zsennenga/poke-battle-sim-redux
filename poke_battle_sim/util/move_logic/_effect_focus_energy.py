@@ -17,4 +17,4 @@ def _effect_focus_energy(
     attacker.crit_stage += 2
     if attacker.crit_stage > 4:
         attacker.crit_stage = 4
-    battle.add_text(attacker.nickname + " is getting pumped!")
+    battle.add_text(f"{attacker.nickname} is getting pumped!")

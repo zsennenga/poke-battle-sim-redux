@@ -17,7 +17,7 @@ def _effect_feint(
     cc_ib: list,
 ) -> bool:
     if not is_first and defender.is_alive and defender.protect:
-        battle.add_text(defender.nickname + " fell for the feint!")
+        battle.add_text(f"{defender.nickname} fell for the feint!")
         _calculate_damage(attacker, defender, battlefield, battle, move_data)
     else:
         _failed(battle)

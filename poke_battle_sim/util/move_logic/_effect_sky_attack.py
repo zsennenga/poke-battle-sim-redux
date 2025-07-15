@@ -22,7 +22,7 @@ def _effect_sky_attack(
         move_data.ef_stat = 1
         defender.next_moves.put(move_data)
         battle._pop_text()
-        battle.add_text(attacker.nickname + " became clocked in a harsh light!")
+        battle.add_text(f"{attacker.nickname} became clocked in a harsh light!")
     else:
         dmg = _calculate_damage(
             attacker, defender, battlefield, battle, move_data, crit_chance=1

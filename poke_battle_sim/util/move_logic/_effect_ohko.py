@@ -20,12 +20,12 @@ def _effect_ohko(
     if not defender.is_alive:
         _missed(attacker, battle)
     if defender.has_ability(Ability.STURDY):
-        battle.add_text(defender.nickname + " endured the hit!")
+        battle.add_text(f"{defender.nickname} endured the hit!")
         return True
     if _calculate_type_ef(defender, move_data) != 0:
         defender.take_damage(65535, move_data)
         if not defender.is_alive:
             battle.add_text("It's a one-hit KO!")
     else:
-        battle.add_text("It doesn't affect " + defender.nickname)
+        battle.add_text(f"It doesn't affect {defender.nickname}")
     return True

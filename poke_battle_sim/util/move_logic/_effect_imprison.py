@@ -20,7 +20,7 @@ def _effect_imprison(
     if not t.imprisoned_poke and any(
         [(move.name in a_moves) for poke in t.poke_list for move in poke.moves]
     ):
-        battle.add_text(attacker.nickname + " sealed the opponent's move(s)!")
+        battle.add_text(f"{attacker.nickname} sealed the opponent's move(s)!")
         t.imprisoned_poke = attacker
     else:
         _failed(battle)

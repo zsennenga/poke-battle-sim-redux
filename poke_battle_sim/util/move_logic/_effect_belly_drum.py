@@ -19,5 +19,5 @@ def _effect_belly_drum(
     if attacker.max_hp // 2 > attacker.cur_hp or attacker.stat_stages[gs.ATK] == 6:
         _failed(battle)
         return True
-    battle.add_text(attacker.nickname + " cut its own HP and maximized its Attack!")
+    battle.add_text(f"{attacker.nickname} cut its own HP and maximized its Attack!")
     attacker.stat_stages[gs.ATK] = 6

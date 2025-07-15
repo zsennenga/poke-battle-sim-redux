@@ -35,7 +35,7 @@ def _pre_process_status(
         if move_data.name in gd.FREEZE_CHECK or randrange(5) < 1:
             cure_nv_status(gs.FROZEN, attacker, battle)
         else:
-            battle.add_text(attacker.nickname + " is frozen solid!")
+            battle.add_text(f"{attacker.nickname} is frozen solid!")
             return True
     if attacker.nv_status == gs.ASLEEP:
         if not attacker.nv_counter:
@@ -45,31 +45,31 @@ def _pre_process_status(
         if attacker.nv_counter and attacker.has_ability(Ability.EARLY_BIRD):
             attacker.nv_counter -= 1
         if attacker.nv_counter > 0:
-            battle.add_text(attacker.nickname + " is fast asleep!")
+            battle.add_text(f"{attacker.nickname} is fast asleep!")
             if move_data.name != "snore" and move_data.name != "sleep-talk":
                 return True
-        battle.add_text(attacker.nickname + " woke up!")
+        battle.add_text(f"{attacker.nickname} woke up!")
     if attacker.v_status[gs.FLINCHED]:
         attacker.v_status[gs.FLINCHED] = 0
-        battle.add_text(attacker.nickname + " flinched and couldn't move")
+        battle.add_text(f"{attacker.nickname} flinched and couldn't move")
         if attacker.has_ability(Ability.STEADFAST):
             give_stat_change(attacker, battle, gs.ATK, 1)
         return True
     if attacker.nv_status == gs.PARALYZED:
         if randrange(4) < 1:
-            battle.add_text(attacker.nickname + " is paralyzed! It can't move!")
+            battle.add_text(f"{attacker.nickname} is paralyzed! It can't move!")
             return True
     if attacker.infatuation:
         if not attacker.infatuation is defender:
             attacker.infatuation = None
-            battle.add_text(attacker.nickname + " got over its infatuation!")
+            battle.add_text(f"{attacker.nickname} got over its infatuation!")
         elif randrange(2) < 1:
-            battle.add_text(attacker.nickname + " is immobilized by love!")
+            battle.add_text(f"{attacker.nickname} is immobilized by love!")
             return True
     if attacker.v_status[gs.CONFUSED]:
         attacker.v_status[gs.CONFUSED] -= 1
         if attacker.v_status[gs.CONFUSED]:
-            battle.add_text(attacker.nickname + " is confused!")
+            battle.add_text(f"{attacker.nickname} is confused!")
             if randrange(2) < 1:
                 battle.add_text("It hurt itself in its confusion!")
                 self_attack = Move(
@@ -95,5 +95,5 @@ def _pre_process_status(
                 )
                 return True
         else:
-            battle.add_text(attacker.nickname + " snapped out of its confusion!")
+            battle.add_text(f"{attacker.nickname} snapped out of its confusion!")
     return False

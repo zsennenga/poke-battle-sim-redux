@@ -31,12 +31,7 @@ def _effect_pluck(
         and not defender.substitute
     ):
         battle.add_text(
-            attacker.nickname
-            + " stole and ate "
-            + defender.nickname
-            + "'s "
-            + defender.item
-            + "!"
+            f"{attacker.nickname} stole and ate {defender.nickname}'s {defender.item}!"
         )
         if not attacker.has_ability(Ability.KLUTZ) and not attacker.embargo_count:
             pi.use_item(

@@ -22,7 +22,7 @@ def _effect_worry_seed(
         and not defender.has_ability(Ability.MULTITYPE)
         and not defender.has_ability(Ability.TRUANT)
     ):
-        battle.add_text(defender.nickname + " acquired insomnia!")
+        battle.add_text(f"{defender.nickname} acquired insomnia!")
         defender.give_ability(Ability.INSOMNIA)
     else:
         _failed(battle)

@@ -20,7 +20,7 @@ def _effect_stockpile(
     if attacker.stockpile < 3:
         attacker.stockpile += 1
         battle.add_text(
-            attacker.nickname + " stockpiled " + str(attacker.stockpile) + "!"
+            f"{attacker.nickname} stockpiled {str(attacker.stockpile)}!"
         )
         give_stat_change(attacker, battle, gs.DEF, 1)
         give_stat_change(attacker, battle, gs.SP_DEF, 1)

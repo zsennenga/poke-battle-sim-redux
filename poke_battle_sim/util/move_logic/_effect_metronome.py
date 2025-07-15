@@ -29,6 +29,6 @@ def _effect_metronome(
         rand_move = PokeSim.get_rand_move()
         attempts += 1
     rand_move = Move(rand_move)
-    battle.add_text(attacker.nickname + " used " + cap_name(rand_move.name) + "!")
+    battle.add_text(f"{attacker.nickname} used {cap_name(rand_move.name)}!")
     _process_effect(attacker, defender, battlefield, battle, rand_move, is_first)
     return True

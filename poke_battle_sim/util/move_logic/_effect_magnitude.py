@@ -40,4 +40,4 @@ def _effect_magnitude(
     if defender.in_ground:
         cc_ib[1] = True
         move_data.power *= 2
-    battle.add_text("Magnitude " + str(mag) + "!")
+    battle.add_text(f"Magnitude {str(mag)}!")

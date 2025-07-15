@@ -25,5 +25,5 @@ def _effect_triple_kick(
         )
         move_data.power += 10
         num_hits += 1
-    battle.add_text("Hit" + str(num_hits) + "time(s)!")
+    battle.add_text(f"Hit{str(num_hits)}time(s)!")
     return True

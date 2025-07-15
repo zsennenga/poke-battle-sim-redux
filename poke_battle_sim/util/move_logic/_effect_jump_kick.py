@@ -25,6 +25,6 @@ def _effect_jump_kick(
         dmg = defender.max_hp // 2
     if not dmg:
         return True
-    battle.add_text(attacker.nickname + " kept going and crashed!")
+    battle.add_text(f"{attacker.nickname} kept going and crashed!")
     attacker.take_damage(dmg)
     return True

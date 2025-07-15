@@ -22,6 +22,6 @@ def _effect_nightmare(
         and not defender.substitute
     ):
         defender.v_status[gs.NIGHTMARE] = 1
-        battle.add_text(defender.nickname + " began having a nightmare!")
+        battle.add_text(f"{defender.nickname} began having a nightmare!")
     else:
         _failed(battle)

@@ -18,6 +18,6 @@ def _effect_mind_reader(
     if defender.is_alive:
         attacker.mr_count = 2
         attacker.mr_target = defender
-        battle.add_text(attacker.nickname + " took aim at " + defender.nickname + "!")
+        battle.add_text(f"{attacker.nickname} took aim at {defender.nickname}!")
     else:
         _failed(battle)

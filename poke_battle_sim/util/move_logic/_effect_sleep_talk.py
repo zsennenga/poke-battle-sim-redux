@@ -24,6 +24,6 @@ def _effect_sleep_talk(
         return True
     pos_moves = [move for move in attacker.moves if move.name != "sleep-talk"]
     sel_move = Move(pos_moves[randrange(len(pos_moves))].md)
-    battle.add_text(attacker.nickname + " used " + cap_name(sel_move.name) + "!")
+    battle.add_text(f"{attacker.nickname} used {cap_name(sel_move.name)}!")
     _process_effect(attacker, defender, battlefield, battle, sel_move, is_first)
     return True

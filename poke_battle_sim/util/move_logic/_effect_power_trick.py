@@ -19,5 +19,5 @@ def _effect_power_trick(
         attacker.stats_actual[gs.DEF],
         attacker.stats_actual[gs.ATK],
     )
-    battle.add_text(attacker.nickname + " switched its Attack and Defense!")
+    battle.add_text(f"{attacker.nickname} switched its Attack and Defense!")
     attacker.power_trick = True

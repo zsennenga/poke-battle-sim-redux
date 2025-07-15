@@ -19,7 +19,7 @@ def _effect_spikes(
     if enemy.spikes < 3:
         enemy.spikes += 1
         battle.add_text(
-            "Spikes were scattered all around the feet of " + enemy.name + "'s team!"
+            f"Spikes were scattered all around the feet of {enemy.name}'s team!"
         )
     else:
         _failed(battle)

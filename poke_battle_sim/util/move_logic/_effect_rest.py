@@ -22,7 +22,7 @@ def _effect_rest(
     ):
         attacker.nv_status = gs.ASLEEP
         attacker.nv_counter = 3
-        battle.add_text(attacker.nickname + " went to sleep!")
+        battle.add_text(f"{attacker.nickname} went to sleep!")
         attacker.heal(attacker.max_hp)
     else:
         _failed(battle)

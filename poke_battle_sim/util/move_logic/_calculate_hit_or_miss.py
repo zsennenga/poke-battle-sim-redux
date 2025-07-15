@@ -58,7 +58,7 @@ def _calculate_hit_or_miss(
         res = randrange(1, 101) <= hit_threshold
     if not res:
         if defender.evasion_stage > 0:
-            battle.add_text(defender.nickname + " avoided the attack!")
+            battle.add_text(f"{defender.nickname} avoided the attack!")
         else:
             _missed(attacker, battle)
     return res

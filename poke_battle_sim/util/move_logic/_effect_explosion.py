@@ -23,7 +23,7 @@ def _effect_explosion(
         _failed(battle)
         return True
     if attacker.has_ability(Ability.DAMP) or defender.has_ability(Ability.DAMP):
-        battle.add_text(attacker.nickname + " cannot use Explosion!")
+        battle.add_text(f"{attacker.nickname} cannot use Explosion!")
         return True
     attacker.faint()
     old_def = defender.stats_actual[gs.DEF]

@@ -21,4 +21,4 @@ def _effect_leech_seed(
         and not defender.v_status[gs.LEECH_SEED]
     ):
         defender.v_status[gs.LEECH_SEED] = 1
-        battle.add_text(defender.nickname + " was seeded!")
+        battle.add_text(f"{defender.nickname} was seeded!")

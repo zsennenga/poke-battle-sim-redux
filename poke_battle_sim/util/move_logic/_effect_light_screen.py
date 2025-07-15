@@ -22,10 +22,10 @@ def _effect_light_screen(
             _failed(battle)
             return True
         t.light_screen = num_turns
-        battle.add_text("Light Screen raised " + t.name + "'s team's Special Defense!")
+        battle.add_text(f"Light Screen raised {t.name}'s team's Special Defense!")
     elif move_data.ef_stat == 2:
         if t.reflect:
             _failed(battle)
             return True
         t.reflect = num_turns
-        battle.add_text("Light Screen raised " + t.name + "'s team's Defense!")
+        battle.add_text(f"Light Screen raised {t.name}'s team's Defense!")

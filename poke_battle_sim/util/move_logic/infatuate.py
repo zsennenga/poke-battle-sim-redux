@@ -26,6 +26,6 @@ def infatuate(
     ):
         defender.infatuation = attacker
         battle.add_text(
-            defender.nickname + " fell in love with " + attacker.nickname + "!"
+            f"{defender.nickname} fell in love with {attacker.nickname}!"
         )
         pi.status_items(defender, battle)

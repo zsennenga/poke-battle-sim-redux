@@ -16,7 +16,7 @@ def _effect_trick_room(
 ) -> bool:
     if not battlefield.trick_room_count:
         battlefield.trick_room_count = 5
-        battle.add_text(attacker.nickname + " twisted the dimensions!")
+        battle.add_text(f"{attacker.nickname} twisted the dimensions!")
     else:
         battlefield.trick_room_count = 0
         battle.add_text("The twisted dimensions return Trueed to normal!")

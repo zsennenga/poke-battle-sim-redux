@@ -16,6 +16,6 @@ def _effect_defender_stat_stage_change(
     cc_ib: list,
 ) -> bool:
     if defender.is_alive and defender.trainer.mist:
-        battle.add_text(defender.nickname + "'s protected by mist.")
+        battle.add_text(f"{defender.nickname}'s protected by mist.")
         return True
     give_stat_change(defender, battle, move_data.ef_stat, move_data.ef_amount)

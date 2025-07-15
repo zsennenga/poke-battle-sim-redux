@@ -21,10 +21,7 @@ def _magic_coat_check(
         and move_data.name in gd.MAGIC_COAT_CHECK
     ):
         battle.add_text(
-            attacker.nickname
-            + "'s "
-            + move_data.name
-            + " was bounced back by Magic Coat!"
+            f"{attacker.nickname}'s {move_data.name} was bounced back by Magic Coat!"
         )
         _process_effect(defender, attacker, battlefield, battle, move_data, is_first)
         return True

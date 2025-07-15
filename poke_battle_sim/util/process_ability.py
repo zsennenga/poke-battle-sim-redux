@@ -51,7 +51,7 @@ def selection_abilities(
         battle.add_text("The effects of weather disappeared.")
         battlefield.change_weather(gs.CLEAR)
     elif poke.has_ability(Ability.OWN_TEMPO) and poke.v_status[gs.CONFUSED]:
-        battle.add_text(poke.nickname + " snapped out of its confusion!")
+        battle.add_text(f"{poke.nickname} snapped out of its confusion!")
         poke.v_status[gs.CONFUSED] = 0
     elif (
         poke.has_ability(Ability.TRACE)
@@ -91,10 +91,10 @@ def selection_abilities(
                 for move in poke.enemy.current_poke.moves
             ]
         ):
-            battle.add_text(poke.nickname + " shuddered!")
+            battle.add_text(f"{poke.nickname} shuddered!")
     elif poke.has_ability(Ability.FOREWARN) and poke.enemy.current_poke.is_alive:
         alert = _rand_max_power(poke.enemy.current_poke)
-        battle.add_text(poke.nickname + "'s Forewarn alerted it to " + alert.name)
+        battle.add_text(f"{poke.nickname}'s Forewarn alerted it to {alert.name}")
     elif (
         poke.has_ability(Ability.FRISK)
         and poke.enemy.current_poke.ability
@@ -111,10 +111,7 @@ def selection_abilities(
     elif poke.has_ability(Ability.MULTITYPE) and poke.item in gd.PLATE_DATA:
         poke.types = (gd.PLATE_DATA[poke.item], None)
         battle.add_text(
-            poke.nickname
-            + " transformed into the "
-            + poke.types[0].value.upper()
-            + " type!"
+            f"{poke.nickname} transformed into the {poke.types[0].value.upper()} type!"
         )
 
 
@@ -128,12 +125,7 @@ def enemy_selection_abilities(
         pm.give_stat_change(enemy_poke, battle, gs.ATK, -1, forced=True)
     elif poke.has_ability(Ability.TRACE) and enemy_poke.ability:
         battle.add_text(
-            poke.nickname
-            + " copied "
-            + enemy_poke.nickname
-            + "'s "
-            + str(enemy_poke.ability)
-            + "!"
+            f"{poke.nickname} copied {enemy_poke.nickname}'s {str(enemy_poke.ability)}!"
         )
         poke.give_ability(enemy_poke.ability)
     elif poke.has_ability(Ability.DOWNLOAD) and not poke.ability_activated:
@@ -150,10 +142,10 @@ def enemy_selection_abilities(
                 for move in poke.enemy.current_poke.moves
             ]
         ):
-            battle.add_text(poke.nickname + " shuddered!")
+            battle.add_text(f"{poke.nickname} shuddered!")
     elif poke.has_ability(Ability.FOREWARN):
         alert = _rand_max_power(enemy_poke)
-        battle.add_text(poke.nickname + "'s Forewarn alerted it to " + alert.name)
+        battle.add_text(f"{poke.nickname}'s Forewarn alerted it to {alert.name}")
     elif (
         poke.has_ability(Ability.FRISK)
         and poke.enemy.current_poke.ability
@@ -179,7 +171,7 @@ def end_turn_abilities(poke: pk.Pokemon, battle: bt.Battle):
         and poke.enemy.current_poke.is_alive
         and poke.enemy.current_poke.nv_status == gs.ASLEEP
     ):
-        battle.add_text(poke.enemy.current_poke.nickname + " is tormented!")
+        battle.add_text(f"{poke.enemy.current_poke.nickname} is tormented!")
         poke.enemy.current_poke.take_damage(max(1, poke.enemy.current_poke.max_hp // 8))
 
 
@@ -188,20 +180,20 @@ def type_protection_abilities(
 ) -> bool:
     if defender.has_ability(Ability.VOLT_ABSORB) and move_data.type == "electric":
         battle.add_text(
-            defender.nickname + " absorbed " + move_data.name + " with Volt Absorb!"
+            f"{defender.nickname} absorbed {move_data.name} with Volt Absorb!"
         )
         if not defender.cur_hp == defender.max_hp:
             defender.heal(defender.max_hp // 4)
         return True
     elif defender.has_ability(Ability.WATER_ABSORB) and move_data.type == "water":
         battle.add_text(
-            defender.nickname + " absorbed " + move_data.name + " with Water Absorb!"
+            f"{defender.nickname} absorbed {move_data.name} with Water Absorb!"
         )
         if not defender.cur_hp == defender.max_hp:
             defender.heal(defender.max_hp // 4)
         return True
     elif defender.has_ability(Ability.FLASH_FIRE) and move_data.type == "fire":
-        battle.add_text("It doesn't affect " + defender.nickname)
+        battle.add_text(f"It doesn't affect {defender.nickname}")
         defender.ability_activated = True
         return True
     return False
@@ -215,7 +207,7 @@ def on_hit_abilities(
         pm.paralyze(attacker, battle)
     elif defender.has_ability(Ability.ROUGH_SKIN) and made_contact:
         attacker.take_damage(max(1, attacker.max_hp // 16))
-        battle.add_text(attacker.nickname + " was hurt!")
+        battle.add_text(f"{attacker.nickname} was hurt!")
     elif (
         defender.has_ability(Ability.EFFECT_SPORE)
         and made_contact
@@ -238,7 +230,7 @@ def on_hit_abilities(
         defender.has_ability(Ability.WONDER_GUARD)
         and pm._calculate_type_ef(defender, move_data) < 2
     ):
-        battle.add_text("It doesn't affect " + defender.nickname)
+        battle.add_text(f"It doesn't affect {defender.nickname}")
         return True
     elif (
         defender.has_ability(Ability.FLAME_BODY) and made_contact and randrange(10) < 3
@@ -414,10 +406,7 @@ def _forecast_check(poke: pk.Pokemon, battle: bt.Battle, battlefield: bf.Battlef
         else:
             poke.types = ("normal", None)
         battle.add_text(
-            poke.nickname
-            + " transformed into the "
-            + poke.types[0].value.upper()
-            + " type!"
+            f"{poke.nickname} transformed into the {poke.types[0].value.upper()} type!"
         )
 
 

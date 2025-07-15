@@ -17,6 +17,6 @@ def _effect_miracle_eye(
 ) -> bool:
     if defender.is_alive and not defender.me_target:
         defender.me_target = True
-        battle.add_text(attacker.nickname + " identified " + defender.nickname + "!")
+        battle.add_text(f"{attacker.nickname} identified {defender.nickname}!")
     else:
         _failed(battle)

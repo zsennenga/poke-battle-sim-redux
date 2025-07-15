@@ -17,7 +17,7 @@ def _effect_transform(
 ) -> bool:
     if defender.is_alive and not defender.transformed and not attacker.transformed:
         attacker.transform(defender)
-        battle.add_text(attacker.nickname + " transformed into " + defender.name + "!")
+        battle.add_text(f"{attacker.nickname} transformed into {defender.name}!")
     else:
         _failed(battle)
     return True

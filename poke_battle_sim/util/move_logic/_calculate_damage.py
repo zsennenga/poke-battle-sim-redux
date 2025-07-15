@@ -45,7 +45,7 @@ def _calculate_damage(
         and not t_mult
         or (t_mult < 2 and defender.has_ability(Ability.WONDER_GUARD))
     ):
-        battle.add_text("It doesn't affect " + defender.nickname)
+        battle.add_text(f"It doesn't affect {defender.nickname}")
         return
     if pa.type_protection_abilities(defender, move_data, battle):
         return
@@ -149,7 +149,7 @@ def _calculate_damage(
         and defender.has_ability(Ability.ANGER_POINT)
         and defender.stat_stages[gs.ATK] < 6
     ):
-        battle.add_text(defender.nickname + " maxed it's Attack!")
+        battle.add_text(f"{defender.nickname} maxed it's Attack!")
         defender.stat_stages[gs.ATK] = 6
     pi.post_damage_items(attacker, battle, damage_done)
     return damage_done

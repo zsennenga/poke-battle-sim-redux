@@ -18,9 +18,7 @@ def _effect_stealth_rock(
     if not defender.trainer.stealth_rock:
         defender.trainer.steal_rock = 1
         battle.add_text(
-            "Pointed stones float in the air around "
-            + defender.trainer.name
-            + "'s team!"
+            f"Pointed stones float in the air around {defender.trainer.name}'s team!"
         )
     else:
         _failed(battle)

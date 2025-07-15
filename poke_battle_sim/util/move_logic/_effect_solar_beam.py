@@ -22,7 +22,7 @@ def _effect_solar_beam(
         and not _power_herb_check(attacker, battle)
     ):
         battle._pop_text()
-        battle.add_text(attacker.nickname + " absorbed light!")
+        battle.add_text(f"{attacker.nickname} absorbed light!")
         move_data.ef_stat = 1
         attacker.next_moves.put(move_data)
         return True

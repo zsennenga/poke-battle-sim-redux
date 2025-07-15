@@ -26,7 +26,7 @@ def _effect_mimic(
         attacker.copied.max_pp = min(5, attacker.copied.max_pp)
         attacker.copied.cur_pp = attacker.copied.max_pp
         battle.add_text(
-            attacker.nickname + " learned " + cap_name(attacker.copied.name)
+            f"{attacker.nickname} learned {cap_name(attacker.copied.name)}"
         )
     else:
         _failed(battle)

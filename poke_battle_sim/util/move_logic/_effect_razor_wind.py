@@ -18,6 +18,6 @@ def _effect_razor_wind(
     if not move_data.ef_stat and not _power_herb_check(attacker, battle):
         move_data.ef_stat = 1
         attacker.next_moves.put(move_data)
-        battle.add_text(attacker.nickname + " whipped up a whirlwind!")
+        battle.add_text(f"{attacker.nickname} whipped up a whirlwind!")
         return True
     cc_ib[0] = 1

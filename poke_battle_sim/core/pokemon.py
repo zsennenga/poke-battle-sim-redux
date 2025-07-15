@@ -182,11 +182,11 @@ class Pokemon(BaseModel):
             return 0
         if self.substitute:
             self.cur_battle.add_text(
-                "The substitute took damage for " + self.nickname + "!"
+                f"The substitute took damage for {self.nickname}!"
             )
             if self.substitute - damage <= 0:
                 self.substitute = 0
-                self.cur_battle.add_text(self.nickname + "'s substitute faded!")
+                self.cur_battle.add_text(f"{self.nickname}'s substitute faded!")
             else:
                 self.substitute -= damage
             return 0
@@ -233,7 +233,7 @@ class Pokemon(BaseModel):
             return self.last_damage_taken
         if self.rage and self.stat_stages[gs.ATK] < 6:
             self.stat_stages[gs.ATK] += 1
-            self.cur_battle.add_text(self.nickname + "'s rage is building!")
+            self.cur_battle.add_text(f"{self.nickname}'s rage is building!")
         self.turn_damage = True
         self.cur_hp -= damage
         self.last_damage_taken = damage
@@ -260,7 +260,7 @@ class Pokemon(BaseModel):
             self.cur_hp += heal_amount
             r_amt = heal_amount
         if not text_skip:
-            self.cur_battle.add_text(self.nickname + " regained health!")
+            self.cur_battle.add_text(f"{self.nickname} regained health!")
         return r_amt
 
     def get_move_data(self, move_name: str) -> Optional[Move]:
@@ -459,14 +459,14 @@ class Pokemon(BaseModel):
 
     def _endure_check(self) -> bool:
         if self.endure:
-            self.cur_battle.add_text(self.nickname + " endured the hit!")
+            self.cur_battle.add_text(f"{self.nickname} endured the hit!")
             self.cur_hp = 1
             return True
         return False
 
     def _fband_check(self) -> bool:
         if self.item == "focus-band" and randrange(10) < 1:
-            self.cur_battle.add_text(self.nickname + " hung on using its Focus Band!")
+            self.cur_battle.add_text(f"{self.nickname} hung on using its Focus Band!")
             return True
         return False
 
@@ -476,7 +476,7 @@ class Pokemon(BaseModel):
             and self.cur_hp == self.max_hp
             and not self.item_activated
         ):
-            self.cur_battle.add_text(self.nickname + " hung on using its Focus Sash!")
+            self.cur_battle.add_text(f"{self.nickname} hung on using its Focus Sash!")
             self.item_activated = True
             return True
         return False
@@ -486,7 +486,7 @@ class Pokemon(BaseModel):
             return False
         enemy_poke = self.enemy.current_poke
         self.cur_battle.add_text(
-            self.nickname + " took down " + enemy_poke.nickname + " down with it!"
+            f"{self.nickname} took down {enemy_poke.nickname} down with it!"
         )
         enemy_poke.faint()
         return True
@@ -533,10 +533,10 @@ class Pokemon(BaseModel):
             if move.name == move_name:
                 move.cur_pp = min(move.cur_pp + amount, move.max_pp)
         self.cur_battle.add_text(
-            self.nickname + "'s " + pm.cap_name(move_name) + "'s pp was restored!"
+            f"{self.nickname}'s {pm.cap_name(move_name)}'s pp was restored!"
         )
 
     def restore_all_pp(self, amount: int):
         for move in self.moves:
             move.cur_pp = min(move.cur_pp + amount, move.max_pp)
-        self.cur_battle.add_text(self.nickname + "'s move's pp were restored!")
+        self.cur_battle.add_text(f"{self.nickname}'s move's pp were restored!")

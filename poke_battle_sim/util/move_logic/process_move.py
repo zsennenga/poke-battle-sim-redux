@@ -23,7 +23,7 @@ def process_move(
 ):
     if _pre_process_status(attacker, defender, battlefield, battle, move_data):
         return
-    battle.add_text(attacker.nickname + " used " + cap_name(move_data.name) + "!")
+    battle.add_text(f"{attacker.nickname} used {cap_name(move_data.name)}!")
     battle.last_move_next = attacker.last_move_next = move_data
     if not _calculate_hit_or_miss(
         attacker, defender, battlefield, battle, move_data, is_first

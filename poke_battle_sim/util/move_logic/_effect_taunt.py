@@ -22,6 +22,6 @@ def _effect_taunt(
         and not defender.has_ability("oblivious")
     ):
         defender.taunt = randrange(3, 6)
-        battle.add_text(defender.nickname + " fell for the taunt!")
+        battle.add_text(f"{defender.nickname} fell for the taunt!")
     else:
         _failed(battle)

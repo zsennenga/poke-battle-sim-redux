@@ -22,6 +22,6 @@ def _effect_refresh(
         or attacker.nv_status == gs.POISONED
     ):
         attacker.nv_status = 0
-        battle.add_text(attacker.nickname + "'s status return Trueed to normal!")
+        battle.add_text(f"{attacker.nickname}'s status return Trueed to normal!")
     else:
         _failed(battle)

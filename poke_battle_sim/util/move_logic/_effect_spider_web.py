@@ -17,6 +17,6 @@ def _effect_spider_web(
 ) -> bool:
     if defender.is_alive and not defender.invulnerable:
         defender.perma_trapped = True
-        battle.add_text(defender.nickname + " can no longer escape!")
+        battle.add_text(f"{defender.nickname} can no longer escape!")
     else:
         _failed(battle)

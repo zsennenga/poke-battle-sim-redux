@@ -23,6 +23,6 @@ def _effect_gastro_acid(
         and not defender.ability_suppressed
     ):
         defender.ability_suppressed = True
-        battle.add_text(defender.nickname + "'s ability was suppressed!")
+        battle.add_text(f"{defender.nickname}'s ability was suppressed!")
     else:
         _failed(battle)

@@ -17,6 +17,6 @@ def _effect_embargo(
 ) -> bool:
     if defender.is_alive and not defender.embargo_count:
         defender.embargo_count = 5
-        battle.add_text(defender.nickname + " can't use items anymore!")
+        battle.add_text(f"{defender.nickname} can't use items anymore!")
     else:
         _failed(battle)

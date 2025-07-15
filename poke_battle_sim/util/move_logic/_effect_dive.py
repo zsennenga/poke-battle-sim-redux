@@ -22,5 +22,5 @@ def _effect_dive(
         attacker.invulnerable = True
         attacker.inv_count = 1
         battle._pop_text()
-        battle.add_text(attacker.nickname + " hid underwater!")
+        battle.add_text(f"{attacker.nickname} hid underwater!")
         return True

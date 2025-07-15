@@ -29,7 +29,7 @@ def _effect_doom_desire(
             skip_dmg=True,
         )
         t.dd_count = 3
-        battle.add_text(attacker.nickname + " chose Doom Desire as its destiny!")
+        battle.add_text(f"{attacker.nickname} chose Doom Desire as its destiny!")
     else:
         _failed(battle)
     return True

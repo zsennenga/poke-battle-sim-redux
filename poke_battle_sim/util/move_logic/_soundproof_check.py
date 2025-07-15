@@ -19,6 +19,6 @@ def _soundproof_check(
         and defender.has_ability(Ability.SOUNDPROOF)
         and not attacker.has_ability(Ability.MOLD_BREAKER)
     ):
-        battle.add_text("It doesn't affect " + defender.nickname)
+        battle.add_text(f"It doesn't affect {defender.nickname}")
         return True
     return False

@@ -12,6 +12,6 @@ def _protect_check(defender: pk.Pokemon, battle: bt.Battle, move_data: Move) -> 
         and not move_data.name in ["feint", "shadow-force"]
         and move_data.target in gd.PROTECT_TARGETS
     ):
-        battle.add_text(defender.nickname + " protected itself!")
+        battle.add_text(f"{defender.nickname} protected itself!")
         return True
     return False

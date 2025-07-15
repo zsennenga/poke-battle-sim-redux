@@ -17,6 +17,6 @@ def _effect_magnet_rise(
 ) -> bool:
     if not attacker.magnet_rise:
         attacker.magnet_rise = True
-        battle.add_text(attacker.nickname + " levitated on electromagnetism!")
+        battle.add_text(f"{attacker.nickname} levitated on electromagnetism!")
     else:
         _failed(battle)

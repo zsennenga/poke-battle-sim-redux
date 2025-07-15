@@ -15,5 +15,5 @@ def _effect_grudge(
     cc_ib: list,
 ) -> bool:
     battle.add_text(
-        attacker.nickname + " wants " + attacker.enemy.name + " to bear a grudge!"
+        f"{attacker.nickname} wants {attacker.enemy.name} to bear a grudge!"
     )

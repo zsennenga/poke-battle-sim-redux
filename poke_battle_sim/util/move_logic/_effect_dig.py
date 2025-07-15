@@ -22,5 +22,5 @@ def _effect_dig(
         attacker.invulnerable = True
         attacker.inv_count = 1
         battle._pop_text()
-        battle.add_text(attacker.nickname + " burrowed its way under the ground!")
+        battle.add_text(f"{attacker.nickname} burrowed its way under the ground!")
         return True

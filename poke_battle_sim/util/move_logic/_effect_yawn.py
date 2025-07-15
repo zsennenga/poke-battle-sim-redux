@@ -33,6 +33,6 @@ def _effect_yawn(
         and not (defender.uproar and not defender.has_ability(Ability.SOUNDPROOF))
     ):
         defender.v_status[gs.DROWSY] = 2
-        battle.add_text(attacker.nickname + " made " + defender.nickname + " drowsy!")
+        battle.add_text(f"{attacker.nickname} made {defender.nickname} drowsy!")
     else:
         _failed(battle)

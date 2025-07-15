@@ -25,7 +25,7 @@ def _effect_bounce(
         attacker.invulnerable = True
         attacker.inv_count = 1
         battle._pop_text()
-        battle.add_text(attacker.nickname + " sprang up!")
+        battle.add_text(f"{attacker.nickname} sprang up!")
         return True
     dmg = _calculate_damage(attacker, defender, battlefield, battle, move_data)
     if dmg and randrange(10) < 3:

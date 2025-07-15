@@ -20,7 +20,7 @@ def _effect_lunar_dance(
         _failed(battle)
     attacker.faint()
     battle._process_selection(t)
-    battle.add_text(t.current_poke.nickname + "became cloaked in mystical moonlight!")
+    battle.add_text(f"{t.current_poke.nickname}became cloaked in mystical moonlight!")
     t.current_poke.heal(t.current_poke.max_hp)
     t.current_poke.nv_status = 0
     for move in t.current_poke.moves:

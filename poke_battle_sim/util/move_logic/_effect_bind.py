@@ -31,26 +31,26 @@ def _effect_bind(
         if move_data.ef_stat == gs.BIND:
             defender.binding_type = "Bind"
             battle.add_text(
-                defender.nickname + " was squeezed by " + attacker.nickname + "!"
+                f"{defender.nickname} was squeezed by {attacker.nickname}!"
             )
         elif move_data.ef_stat == gs.WRAP:
             defender.binding_type = "Wrap"
             battle.add_text(
-                defender.nickname + " was wrapped by " + attacker.nickname + "!"
+                f"{defender.nickname} was wrapped by {attacker.nickname}!"
             )
         elif move_data.ef_stat == gs.FIRE_SPIN:
             defender.binding_type = "Fire Spin"
-            battle.add_text(defender.nickname + " was trapped in the vortex!")
+            battle.add_text(f"{defender.nickname} was trapped in the vortex!")
         elif move_data.ef_stat == gs.CLAMP:
             defender.binding_type = "Clamp"
-            battle.add_text(attacker.nickname + " clamped " + defender.nickname + "!")
+            battle.add_text(f"{attacker.nickname} clamped {defender.nickname}!")
         elif move_data.ef_stat == gs.WHIRLPOOL:
             defender.binding_type = "Whirlpool"
-            battle.add_text(defender.nickname + " was trapped in the vortex!")
+            battle.add_text(f"{defender.nickname} was trapped in the vortex!")
         elif move_data.ef_stat == gs.SAND_TOMB:
             defender.binding_type = "Sand Tomb"
-            battle.add_text(defender.nickname + " was trapped by Sand Tomb!")
+            battle.add_text(f"{defender.nickname} was trapped by Sand Tomb!")
         elif move_data.ef_stat == gs.MAGMA_STORM:
             defender.binding_type = "Magma Storm"
-            battle.add_text(defender.nickname + " became trapped by swirling magma!")
+            battle.add_text(f"{defender.nickname} became trapped by swirling magma!")
     return True

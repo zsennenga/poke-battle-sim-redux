@@ -52,7 +52,7 @@ def use_item(
 
     if not text_skip:
         battle.add_text(
-            trainer.name + " used one " + cap_name(item) + " on " + poke.nickname + "!"
+            f"{trainer.name} used one {cap_name(item)} on {poke.nickname}!"
         )
 
     if poke.embargo_count:
@@ -108,13 +108,13 @@ def use_item(
         poke.restore_all_pp(999)
     elif item == "guard-spec.":
         if not trainer.mist:
-            battle.add_text(trainer.name + "'s team became shrouded in mist!")
+            battle.add_text(f"{trainer.name}'s team became shrouded in mist!")
             trainer.mist = 5
     elif item == "dire-hit":
         poke.crit_stage += 2
         if poke.crit_stage > 4:
             poke.crit_stage = 4
-        battle.add_text(poke.nickname + " is getting pumped!")
+        battle.add_text(f"{poke.nickname} is getting pumped!")
     elif item == "x-attack":
         give_stat_change(poke, battle, gs.ATK, 1, forced=True)
     elif item == "x-defense":
@@ -387,7 +387,7 @@ def on_damage_items(poke: pk.Pokemon, battle: bt.Battle, move_data: Move):
         give_stat_change(poke, battle, gs.SP_DEF, 1)
     elif item == "lansat-berry":
         poke.crit_stage = min(4, poke.crit_stage + 1)
-        battle.add_text(poke.nickname + " is getting pumped!")
+        battle.add_text(f"{poke.nickname} is getting pumped!")
     elif item == "starf-berry":
         give_stat_change(poke, battle, randrange(1, 6), 2)
     elif item == "micle-berry":
@@ -545,7 +545,7 @@ def on_hit_items(
             and not attacker.item
         ):
             battle.add_text(
-                attacker.nickname + " received " + defender.nickname + "'s Sticky Barb!"
+                f"{attacker.nickname} received {defender.nickname}'s Sticky Barb!"
             )
             attacker.give_item("sticky-barb")
 
@@ -639,17 +639,17 @@ def end_turn_items(poke: pk.Pokemon, battle: bt.Battle):
     elif item == "leftovers":
         if not poke.cur_hp == poke.max_hp:
             battle.add_text(
-                poke.nickname + " restored a little HP using its Leftovers!"
+                f"{poke.nickname} restored a little HP using its Leftovers!"
             )
             poke.heal(max(1, poke.max_hp // 16), text_skip=True)
     elif item == "black-sludge":
         if "poison" in poke.types:
             battle.add_text(
-                poke.nickname + " restored a little HP using its Black Sludge!"
+                f"{poke.nickname} restored a little HP using its Black Sludge!"
             )
             poke.heal(max(1, poke.max_hp // 16), text_skip=True)
         elif not poke.has_ability(Ability.MAGIC_GUARD):
-            battle.add_text(poke.nickname + " was hurt by its Black Sludge!")
+            battle.add_text(f"{poke.nickname} was hurt by its Black Sludge!")
             poke.take_damage(max(1, poke.max_hp // 8))
     elif item == "toxic-orb":
         if not poke.nv_status:
@@ -658,7 +658,7 @@ def end_turn_items(poke: pk.Pokemon, battle: bt.Battle):
         if not poke.nv_status:
             give_nv_status(gs.BURNED, poke, battle)
     elif item == "sticky-barb":
-        battle.add_text(poke.nickname + " was hurt by its Sticky Barb!")
+        battle.add_text(f"{poke.nickname} was hurt by its Sticky Barb!")
         poke.take_damage(max(1, poke.max_hp // 8))
 
 
@@ -673,19 +673,19 @@ def post_damage_items(attacker: pk.Pokemon, battle: bt.Battle, dmg: int):
     if attacker.item == "shell-bell":
         if attacker.is_alive and dmg:
             battle.add_text(
-                attacker.nickname + " restored a little HP using its Shell Bell!"
+                f"{attacker.nickname} restored a little HP using its Shell Bell!"
             )
             attacker.heal(max(1, dmg // 8), text_skip=True)
     if attacker.item == "life-orb":
         if attacker.is_alive and dmg:
-            battle.add_text(attacker.nickname + " lost some of its HP!")
+            battle.add_text(f"{attacker.nickname} lost some of its HP!")
             attacker.take_damage(max(1, attacker.max_hp // 10))
 
 
 def _consume_item(poke: pk.Pokemon, battle: bt.Battle):
-    battle.add_text(poke.nickname + " used its " + cap_name(poke.item) + "!")
+    battle.add_text(f"{poke.nickname} used its {cap_name(poke.item)}!")
 
 
 def _eat_item(poke: pk.Pokemon, battle: bt.Battle):
-    battle.add_text(poke.nickname + " ate its " + cap_name(poke.item) + "!")
+    battle.add_text(f"{poke.nickname} ate its {cap_name(poke.item)}!")
     poke.give_item("")

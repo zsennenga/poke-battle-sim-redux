@@ -21,7 +21,7 @@ def _effect_self_destruct(
         _failed(battle)
         return True
     if attacker.has_ability(Ability.DAMP) or defender.has_ability(Ability.DAMP):
-        battle.add_text(attacker.nickname + " cannot use Self Destruct!")
+        battle.add_text(f"{attacker.nickname} cannot use Self Destruct!")
         return True
     attacker.faint()
     _calculate_damage(attacker, defender, battlefield, battle, move_data)

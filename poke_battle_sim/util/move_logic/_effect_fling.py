@@ -17,7 +17,7 @@ def _effect_fling(
     cc_ib: list,
 ) -> bool:
     if attacker.item:
-        battle.add_text(attacker.nickname + " flung its " + attacker.item + "!")
+        battle.add_text(f"{attacker.nickname} flung its {attacker.item}!")
         move_data.power = 20
         _calculate_damage(attacker, defender, battlefield, battle, move_data)
         if attacker.is_alive:

@@ -26,6 +26,6 @@ def _effect_skill_swap(
         a_ability = attacker.ability
         attacker.give_ability(defender.ability)
         defender.give_ability(a_ability)
-        battle.add_text(attacker.nickname + " swapped abilities with its target!")
+        battle.add_text(f"{attacker.nickname} swapped abilities with its target!")
     else:
         _failed(battle)

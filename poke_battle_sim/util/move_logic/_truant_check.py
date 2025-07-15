@@ -18,6 +18,6 @@ def _truant_check(
         and attacker.last_move
         and attacker.last_move.name not in ["bide", "struggle"]
     ):
-        battle.add_text(attacker.nickname + " is loafing around!")
+        battle.add_text(f"{attacker.nickname} is loafing around!")
         return True
     return False

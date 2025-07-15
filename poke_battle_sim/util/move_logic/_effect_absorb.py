@@ -24,8 +24,8 @@ def _effect_absorb(
             heal_amt = int(heal_amt * 1.3)
         if not defender.has_ability(Ability.LIQUID_OOZE):
             attacker.heal(heal_amt, text_skip=True)
-            battle.add_text(defender.nickname + " had it's energy drained!")
+            battle.add_text(f"{defender.nickname} had it's energy drained!")
         else:
             attacker.take_damage(heal_amt)
-            battle.add_text(attacker.nickname + " sucked up the liquid ooze!")
+            battle.add_text(f"{attacker.nickname} sucked up the liquid ooze!")
     return True

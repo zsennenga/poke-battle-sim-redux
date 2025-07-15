@@ -18,7 +18,7 @@ def _effect_tailwind(
 ) -> bool:
     if not attacker.trainer.tailwind_count:
         battle.add_text(
-            "The tailwind blew from being " + attacker.trainer.name + "'s team!"
+            f"The tailwind blew from being {attacker.trainer.name}'s team!"
         )
         attacker.trainer.tailwind_count = 3
         for poke in attacker.trainer.poke_list:

@@ -21,10 +21,10 @@ def _effect_bide(
         attacker.bide_count = 2 if is_first else 3
         attacker.next_moves.put(move_data)
         attacker.bide_dmg = 0
-        battle.add_text(attacker.nickname + " is storing energy!")
+        battle.add_text(f"{attacker.nickname} is storing energy!")
     else:
         battle._pop_text()
-        battle.add_text(attacker.nickname + " unleashed energy!")
+        battle.add_text(f"{attacker.nickname} unleashed energy!")
         if defender.is_alive:
             defender.take_damage(2 * attacker.bide_dmg, move_data)
         else:

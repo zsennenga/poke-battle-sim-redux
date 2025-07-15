@@ -17,6 +17,6 @@ def _effect_torment(
 ) -> bool:
     if defender.is_alive and not defender.tormented:
         defender.tormented = True
-        battle.add_text(defender.nickname + " was subjected to Torment!")
+        battle.add_text(f"{defender.nickname} was subjected to Torment!")
     else:
         _failed(battle)

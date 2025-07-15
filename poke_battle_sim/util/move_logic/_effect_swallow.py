@@ -21,6 +21,6 @@ def _effect_swallow(
         attacker.stockpile = 0
         attacker.stat_stages[gs.DEF] -= attacker.stockpile
         attacker.stat_stages[gs.SP_DEF] -= attacker.stockpile
-        battle.add_text(attacker.nickname + "'s stockpile effect wore off!")
+        battle.add_text(f"{attacker.nickname}'s stockpile effect wore off!")
     else:
         _failed(battle)

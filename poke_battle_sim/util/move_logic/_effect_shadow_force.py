@@ -20,5 +20,5 @@ def _effect_shadow_force(
         attacker.next_moves.put(move_data)
         attacker.invulnerable = True
         attacker.inv_count = 1
-        battle.add_text(attacker.nickname + " vanished instantly!")
+        battle.add_text(f"{attacker.nickname} vanished instantly!")
     attacker.invulnerable = False

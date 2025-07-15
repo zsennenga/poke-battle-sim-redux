@@ -17,6 +17,6 @@ def _effect_heal_block(
 ) -> bool:
     if defender.is_alive and not defender.hb_count:
         defender.hb_count = 5
-        battle.add_text(defender.nickname + " was prevented from healing!")
+        battle.add_text(f"{defender.nickname} was prevented from healing!")
     else:
         _failed(battle)

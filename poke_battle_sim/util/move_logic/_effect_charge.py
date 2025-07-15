@@ -18,5 +18,5 @@ def _effect_charge(
     cc_ib: list,
 ) -> bool:
     attacker.charged = 2
-    battle.add_text(attacker.nickname + " began charging power!")
+    battle.add_text(f"{attacker.nickname} began charging power!")
     give_stat_change(attacker, battle, gs.SP_DEF, 1)

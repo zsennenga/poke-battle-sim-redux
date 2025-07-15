@@ -24,6 +24,6 @@ def _effect_beat_up(
     move_data.power = 10
     while defender.is_alive and num_hits < len(poke_hits):
         _calculate_damage(attacker, defender, battlefield, battle, move_data)
-        battle.add_text(poke_hits[num_hits].nickname + "'s attack!")
+        battle.add_text(f"{poke_hits[num_hits].nickname}'s attack!")
         num_hits += 1
     return True

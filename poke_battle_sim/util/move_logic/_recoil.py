@@ -12,4 +12,4 @@ def _recoil(attacker: pk.Pokemon, battle: bt.Battle, damage: int, move_data: Mov
     if attacker.has_ability(Ability.ROCK_HEAD) and move_data.name in gd.RECOIL_CHECK:
         return
     attacker.take_damage(damage)
-    battle.add_text(attacker.nickname + " is hit with recoil!")
+    battle.add_text(f"{attacker.nickname} is hit with recoil!")

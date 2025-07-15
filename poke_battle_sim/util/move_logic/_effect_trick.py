@@ -30,14 +30,14 @@ def _effect_trick(
         a_item = attacker.item
         attacker.give_item(defender.item)
         defender.give_item(a_item)
-        battle.add_text(attacker.nickname + " switched items with its target!")
+        battle.add_text(f"{attacker.nickname} switched items with its target!")
         if attacker.item:
             battle.add_text(
-                attacker.nickname + " obtained one " + cap_name(attacker.item) + "."
+                f"{attacker.nickname} obtained one {cap_name(attacker.item)}."
             )
         if defender.item:
             battle.add_text(
-                defender.nickname + " obtained one " + cap_name(defender.item) + "."
+                f"{defender.nickname} obtained one {cap_name(defender.item)}."
             )
     else:
         _failed(battle)

@@ -22,7 +22,7 @@ def _effect_present(
             _missed(attacker, battle)
             return True
         if defender.cur_hp == defender.max_hp:
-            battle.add_text(defender.nickname + " can't receive the gift!")
+            battle.add_text(f"{defender.nickname} can't receive the gift!")
             return True
         defender.heal(defender.max_hp // 4)
         return True

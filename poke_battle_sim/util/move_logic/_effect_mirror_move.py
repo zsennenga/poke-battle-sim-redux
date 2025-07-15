@@ -19,7 +19,7 @@ def _effect_mirror_move(
 ) -> bool:
     if defender.is_alive and defender.last_move:
         battle.add_text(
-            attacker.nickname + " used " + cap_name(defender.last_move.name) + "!"
+            f"{attacker.nickname} used {cap_name(defender.last_move.name)}!"
         )
         _process_effect(
             attacker, defender, battlefield, battle, defender.last_move, is_first
